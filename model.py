@@ -27,12 +27,12 @@ class User(db.Model):
     created_at = db.Column(db.Date)
 
 
- class Follower(db.Model):
+class Follower(db.Model):
     """Stores information regarding which users follow other users."""
 
     __tablename__ = "followers"
 
-    follower_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True,)
     followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     users = db.relationship('User')
@@ -48,8 +48,8 @@ class Entry(db.Model):
                                 autoincrement=True
                                 )
     journal_entry_text = db.Column(db.String(10000), nullable=True)
-    user_id = db.Column(db.Integer, nullable=False, db.ForeignKey('users.user_id'))
-    user_houseplant_id = db.Column(db.Integer, nullable=False, db.ForeignKey('houseplants.user_houseplant_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    user_houseplant_id = db.Column(db.Integer, db.ForeignKey('houseplants.user_houseplant_id'), nullable=False)
     date_time = db.Column(db.DateTime)
     water_update = db.Column(db.String(100), nullable=True)
     fertilizer_update = db.Column(db.String(100), nullable=True)
@@ -85,8 +85,8 @@ class Houseplant(db.Model):
                                   primary_key=True,
                                   autoincrement=True
                                   )
-    common_houseplant_id = db.Column(db.Integer,nullable=False, db.ForeignKey('common_houseplants.common_houseplant_id'))
-    user_id = db.Column(db.Integer, nullable=False, db.ForeignKey('users.user_id'))
+    common_houseplant_id = db.Column(db.Integer, db.ForeignKey('common_houseplants.common_houseplant_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
     common_houseplants = db.relationship('CommonHouseplant')
     users = db.relationship('User')
