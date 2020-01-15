@@ -27,6 +27,10 @@ class User(db.Model):
     reminders_enabled = db.Column(db.Boolean, default = False)
     created_at = db.Column(db.Date)
 
+    followers = db.relationship('Follower')
+    entries = db.relationship('Entry')
+    houseplants = db.relationship('Houseplant')
+
 
 class Follower(db.Model):
     """Stores information regarding which users follow other users."""
@@ -64,6 +68,7 @@ class Entry(db.Model):
 
     users = db.relationship('User')
     houseplants = db.relationship('Houseplant')
+    photos = db.relationship('Photo')
 
 
 class Photo(db.Model):
@@ -98,6 +103,7 @@ class Houseplant(db.Model):
 
     common_houseplants = db.relationship('CommonHouseplant')
     users = db.relationship('User')
+    entries = db.relationship('Entry')
 
 
 class CommonHouseplant(db.Model):
@@ -114,6 +120,8 @@ class CommonHouseplant(db.Model):
     common_houseplant_photo_url = db.Column(db.String(500), nullable=False)
     light_requirements = db.Column(db.String(500),nullable=True)
     general_description = db.Column(db.String(500), nullable=False)
+
+    houseplants = db.relationship('Houseplant')
 
 
 ##############################################################################
