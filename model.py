@@ -14,15 +14,16 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer,
                         primary_key=True,
-                        autoincrement=True
-                        )
+                        unique=True,
+                        autoincrement=True)
     first_name = db.Column(db.String(100), nullable = False)
     last_name = db.Column(db.String(100), nullable = False)
-    email = db.Column(db.String(100), nullable = False)
-    password = db.Column(db.String(100), nullable = False)
-    profile_photo_url = db.Column(db.String(500), nullable = True, 
-                                default = '/static/img/default-profile-photo.png')
-    phone_number = db.Column(db.Integer, nullable = True)
+    email = db.Column(db.String(100), unique=True, nullable = False)
+    password = db.Column(db.String(100), unique=True, nullable = False)
+    profile_photo_url = db.Column(db.String(500),
+                                  nullable = True, 
+                                  default = '/static/img/default-profile-photo.png')
+    phone_number = db.Column(db.Integer, unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
     created_at = db.Column(db.Date)
 
@@ -32,7 +33,10 @@ class Follower(db.Model):
 
     __tablename__ = "followers"
 
-    follower_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True,)
+    follower_id = db.Column(db.Integer, 
+                            db.ForeignKey('users.user_id'), 
+                            unique=True,
+                            primary_key=True,)
     followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     users = db.relationship('User')
@@ -45,11 +49,13 @@ class Entry(db.Model):
 
     journal_entry_id = db.Column(db.Integer, 
                                 primary_key=True,
-                                autoincrement=True
-                                )
+                                unique=True,
+                                autoincrement=True)
     journal_entry_text = db.Column(db.String(10000), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
-    user_houseplant_id = db.Column(db.Integer, db.ForeignKey('houseplants.user_houseplant_id'), nullable=False)
+    user_houseplant_id = db.Column(db.Integer, 
+                                   db.ForeignKey('houseplants.user_houseplant_id'), 
+                                   nullable=False)
     date_time = db.Column(db.DateTime)
     water_update = db.Column(db.String(100), nullable=True)
     fertilizer_update = db.Column(db.String(100), nullable=True)
@@ -67,8 +73,8 @@ class Photo(db.Model):
 
     photo_id = db.Column(db.Integer, 
                         primary_key=True,
-                        autoincrement=True
-                        )
+                        unique=True,
+                        autoincrement=True)
     journal_entry_id = db.Column(db.Integer, db.ForeignKey('entries.journal_entry_id'))
     photo_url = db.Column(db.String(500), nullable=False)
     photo_update = db.Column(db.DateTime, nullable=False)
@@ -83,9 +89,11 @@ class Houseplant(db.Model):
 
     user_houseplant_id = db.Column(db.Integer,
                                   primary_key=True,
-                                  autoincrement=True
-                                  )
-    common_houseplant_id = db.Column(db.Integer, db.ForeignKey('common_houseplants.common_houseplant_id'), nullable=False)
+                                  unique=True,
+                                  autoincrement=True)
+    common_houseplant_id = db.Column(db.Integer, 
+                                     db.ForeignKey('common_houseplants.common_houseplant_id'), 
+                                     nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
     common_houseplants = db.relationship('CommonHouseplant')
@@ -99,8 +107,8 @@ class CommonHouseplant(db.Model):
 
     common_houseplant_id = db.Column(db.Integer,
                                     primary_key=True,
-                                    autoincrement=True
-                                    )
+                                    unique=True,
+                                    autoincrement=True)
     latin_name = db.Column(db.String(500), nullable=False)
     common_name = db.Column(db.String(500), nullable=True)
     common_houseplant_photo_url = db.Column(db.String(500), nullable=False)
@@ -125,5 +133,5 @@ if __name__ == "__main__":
     you are able to work with the database directly."""
 
     from server import app
-    connect_to_db(app)
+    connect_to_db(app,app.secret_key)
     print("Connected to database")
