@@ -4,9 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-app = Flask(__name__)
-app.secret_key = "SECRET"
-
 class User(db.Model):
     """Stores information about each user on the iSpeakPlantish website."""
 
@@ -23,27 +20,30 @@ class User(db.Model):
     profile_photo_url = db.Column(db.String(500),
                                   nullable = True, 
                                   default = '/static/img/default-profile-photo.png')
-    phone_number = db.Column(db.Integer, unique=True, nullable = True)
+    phone_number = db.Column(db.String(10), unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
     created_at = db.Column(db.Date)
 
-    followers = db.relationship('Follower')
+    # followers = db.relationship('Follower')
     entries = db.relationship('Entry')
     houseplants = db.relationship('Houseplant')
 
+    def __repr__(self):
+        return f"User('{self.first_name}', '{self.last_name}', '{self.email}')"
 
-class Follower(db.Model):
-    """Stores information regarding which users follow other users."""
 
-    __tablename__ = "followers"
+# class Follower(db.Model):
+#     """Stores information regarding which users follow other users."""
 
-    follower_id = db.Column(db.Integer, 
-                            db.ForeignKey('users.user_id'), 
-                            unique=True,
-                            primary_key=True,)
-    followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+#     __tablename__ = "followers"
 
-    users = db.relationship('User')
+#     follower_id = db.Column(db.Integer, 
+#                             db.ForeignKey('users.user_id'), 
+#                             unique=True,
+#                             primary_key=True,)
+#     followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+#     users = db.relationship('User')
 
 
 class Entry(db.Model):
@@ -126,11 +126,11 @@ class CommonHouseplant(db.Model):
 
 ##############################################################################
 # Helper functions
-def connect_to_db(app, ispeakplantish_db):
+def connect_to_db(app):
     """Connect the database to the Flask app."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///ispeakplantish_db"
-    app.config["SQLALCHEMY_ECHO"] = True
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///ispeakplantish_db'
+    app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = app
@@ -141,5 +141,6 @@ if __name__ == "__main__":
     you are able to work with the database directly."""
 
     from server import app
-    connect_to_db(app,app.secret_key)
+    connect_to_db(app)
     print("Connected to database")
+    db.create_all()

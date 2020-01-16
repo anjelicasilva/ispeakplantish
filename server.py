@@ -1,5 +1,6 @@
-from flask import Flask, render_template, redirect, request, session, jsonify
+from flask import Flask, render_template, redirect, request
 from flask_debugtoolbar import DebugToolbarExtension
+from jinja2 import StrictUndefined
 
 from model import db, connect_to_db
 
@@ -7,6 +8,9 @@ app = Flask(__name__)
 
 # Key required to run Flask sessions and for the debug toolbar
 app.secret_key = 'ispeakplantish'
+
+# Rather than failing silently, undefined variables in Jinja2 raise an error.
+app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def show_homepage():
@@ -34,7 +38,9 @@ def add_houseplant():
 #############################################
 
 if __name__ == '__main__':
-    connect_to_db(app, 'ispeakplantish')
+    connect_to_db(app, app.secret_key)
+    # We have to set debug=True here, since it has to be True at the point
+    # that we invoke the DebugToolbarExtension
     app.run(debug=True, host='0.0.0.0')
     
     #Use the DebugToolbar
