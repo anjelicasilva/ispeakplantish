@@ -1,11 +1,16 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+# from pytz import timezone
 
 
 db = SQLAlchemy()
 
 class User(db.Model):
     """Stores information about each user on the iSpeakPlantish website."""
+
+    # date = datetime.utcnow
+    # date = date.astimezone(timezone('US/Pacific'))
 
     __tablename__ = "users"
 
@@ -16,15 +21,16 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable = False)
     last_name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), unique=True, nullable = False)
-    password = db.Column(db.String(100), unique=True, nullable = False)
+    password = db.Column(db.String(100), nullable = False)
     profile_photo_url = db.Column(db.String(500),
                                   nullable = True, 
                                   default = '/static/img/default-profile-photo.png')
     phone_number = db.Column(db.String(10), unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
-    created_at = db.Column(db.Date)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    # followers = db.relationship('Follower')
+    followers = db.relationship('Follower',
+                                primaryjoin="User.user_id==Follower.followed_id")
     entries = db.relationship('Entry')
     houseplants = db.relationship('Houseplant')
 
@@ -32,18 +38,20 @@ class User(db.Model):
         return f"User('{self.first_name}', '{self.last_name}', '{self.email}')"
 
 
-# class Follower(db.Model):
-#     """Stores information regarding which users follow other users."""
+class Follower(db.Model):
+    """Stores information regarding which users follow other users."""
 
-#     __tablename__ = "followers"
+    __tablename__ = "followers"
 
-#     follower_id = db.Column(db.Integer, 
-#                             db.ForeignKey('users.user_id'), 
-#                             unique=True,
-#                             primary_key=True,)
-#     followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   unique=True,
+                   autoincrement=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    followed_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
-#     users = db.relationship('User')
+    users = db.relationship('User',
+                            foreign_keys=[follower_id])
 
 
 class Entry(db.Model):
