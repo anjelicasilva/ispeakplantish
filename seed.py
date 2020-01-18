@@ -6,7 +6,7 @@ from model import db, connect_to_db, CommonHouseplant
 def load_common_houseplants():
     """Seed common houseplants data from common-houseplants.csv."""
     
-    with open('common-houseplants.csv', newline='') as csvfile:
+    with open('seed_data/common-houseplants.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 common_houseplant = CommonHouseplant(latin_name = row['Latin Name'].strip(), 
