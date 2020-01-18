@@ -21,11 +21,11 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable = False)
     last_name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), unique=True, nullable = False)
-    password = db.Column(db.String(100), nullable = False)
+    password = db.Column(db.String(10), nullable = False)
     profile_photo_url = db.Column(db.String(500),
                                   nullable = True, 
                                   default = '/static/img/default-profile-photo.png')
-    phone_number = db.Column(db.String(10), unique=True, nullable = True)
+    phone_number = db.Column(db.String(11), unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
@@ -126,8 +126,8 @@ class CommonHouseplant(db.Model):
     latin_name = db.Column(db.String(500), nullable=False)
     common_name = db.Column(db.String(500), nullable=True)
     common_houseplant_photo_url = db.Column(db.String(500), nullable=False)
-    light_requirements = db.Column(db.String(500),nullable=True)
-    general_description = db.Column(db.String(10000), nullable=False)
+    light_requirements = db.Column(db.String(10),nullable=True)
+    general_description = db.Column(db.Text(), nullable=False)
 
     houseplants = db.relationship('Houseplant')
 
