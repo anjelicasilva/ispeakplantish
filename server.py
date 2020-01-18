@@ -38,7 +38,7 @@ def add_houseplant():
 #############################################
 
 if __name__ == '__main__':
-    connect_to_db(app, app.secret_key)
+    connect_to_db(app)
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
     app.run(debug=True, host='0.0.0.0')

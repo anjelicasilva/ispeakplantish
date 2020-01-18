@@ -127,7 +127,7 @@ class CommonHouseplant(db.Model):
     common_name = db.Column(db.String(500), nullable=True)
     common_houseplant_photo_url = db.Column(db.String(500), nullable=False)
     light_requirements = db.Column(db.String(500),nullable=True)
-    general_description = db.Column(db.String(500), nullable=False)
+    general_description = db.Column(db.String(10000), nullable=False)
 
     houseplants = db.relationship('Houseplant')
 
