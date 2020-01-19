@@ -68,11 +68,11 @@ class Entry(db.Model):
     user_houseplant_id = db.Column(db.Integer, 
                                    db.ForeignKey('houseplants.user_houseplant_id'), 
                                    nullable=False)
-    date_time = db.Column(db.DateTime)
-    water_update = db.Column(db.String(100), nullable=True)
-    fertilizer_update = db.Column(db.String(100), nullable=True)
-    rotation_update = db.Column(db.String(100), nullable=True)
-    light_update = db.Column(db.String(100), nullable=True)
+    date_time = db.Column(db.DateTime, default=datetime.utcnow)
+    water_update = db.Column(db.Boolean, nullable=True, default=False)
+    fertilizer_update = db.Column(db.Boolean, nullable=True, default=False)
+    rotation_update = db.Column(db.Boolean, nullable=True, default=False)
+    light_update = db.Column(db.String(100), nullable=True, default='Medium')
 
     users = db.relationship('User')
     houseplants = db.relationship('Houseplant')
@@ -90,7 +90,7 @@ class Photo(db.Model):
                         autoincrement=True)
     journal_entry_id = db.Column(db.Integer, db.ForeignKey('entries.journal_entry_id'))
     photo_url = db.Column(db.String(500), nullable=False)
-    photo_update = db.Column(db.DateTime, nullable=False)
+    photo_update = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     entries = db.relationship('Entry')
 

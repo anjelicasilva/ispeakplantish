@@ -2,7 +2,72 @@ import csv
 import psycopg2
 from faker import Faker
 from server import app
-from model import db, connect_to_db, CommonHouseplant, User
+from model import db, connect_to_db, CommonHouseplant, User, Follower, Entry, Houseplant
+from random import randint
+
+
+def load_users():
+    """Seed fake users using Faker library."""
+
+    faker = Faker()
+    for i in range(10):
+        first_name = str(faker.first_name())
+        last_name = str(faker.last_name())
+        fake_user = User(
+            first_name = first_name,
+            last_name = last_name,
+            email = first_name + last_name + "@gmail.com",
+            password = faker.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True),
+            phone_number = faker.numerify(text = '#########')
+        )
+        db.session.add(fake_user)
+    db.session.commit()
+
+
+def load_followers():
+    """Seed followers from random generator."""
+
+    for i, row in enumerate(open("seed_data/followers-seed.txt")):
+        row = row.rstrip()
+        follower_id, followed_id = row.split("|")
+        new_follower = Follower(
+                            follower_id = follower_id,
+                            followed_id = followed_id
+        )
+        db.session.add(new_follower)
+    db.session.commit()
+
+
+def load_houseplants():
+    """Seed houseplants for each user."""
+
+    for i, row in enumerate(open("seed_data/houseplants-seed.txt")):
+        row = row.rstrip()
+        common_houseplant_id, user = row.split("|")
+        new_houseplant = Houseplant(
+                            common_houseplant_id = common_houseplant_id,
+                            user_id = user
+        )
+        db.session.add(new_houseplant)
+    db.session.commit()
+
+def load_entries():
+    """Seed entries for all users."""
+
+    for i, row in enumerate(open("seed_data/entries-seed.txt")):
+        row = row.rstrip()
+        entry, user, plant = row.split("|")
+        new_entry = Entry(
+                            journal_entry_text = entry,
+                            user_id = user,
+                            user_houseplant_id = plant
+        )
+        db.session.add(new_entry)
+    db.session.commit()
+
+
+def load_photos():
+    """Seed photos of all users' houseplants."""
 
 
 def load_common_houseplants():
@@ -20,24 +85,6 @@ def load_common_houseplants():
             db.session.commit()
 
 
-def load_users():
-    """Seed fake users using Faker library."""
-
-    faker = Faker()
-    for num in range(11):
-        first_name = str(faker.first_name())
-        last_name = str(faker.last_name())
-        fake_user = User(
-            first_name = first_name,
-            last_name = last_name,
-            email = first_name + last_name + "@gmail.com",
-            password = faker.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True),
-            phone_number = faker.numerify(text = '#########')
-        )
-        db.session.add(fake_user)
-    db.session.commit()
-
-
 if __name__ == "__main__":
     connect_to_db(app)
 
@@ -45,5 +92,10 @@ if __name__ == "__main__":
     db.create_all()
 
     # Run functions in the file to seed all the different databases.
-    load_common_houseplants()
     load_users()
+    load_followers()
+    load_common_houseplants()
+    load_houseplants()
+    load_entries()
+    
+   
