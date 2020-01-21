@@ -56,11 +56,22 @@ def load_entries():
 
     for i, row in enumerate(open("seed_data/entries-seed.txt")):
         row = row.rstrip()
-        entry, user, plant = row.split("|")
+        for item in row.split("|"):
+            if item == "True":
+                item = True
+            elif item == "False":
+                item = False
+
+        entry, user, plant, water, fertilizer, rotation, light = row
+
         new_entry = Entry(
                             journal_entry_text = entry,
                             user_id = user,
-                            user_houseplant_id = plant
+                            user_houseplant_id = plant,
+                            water_update = water,
+                            fertilizer_update = fertilizer,
+                            rotation_update = rotation,
+                            light_update = light
         )
         db.session.add(new_entry)
     db.session.commit()
