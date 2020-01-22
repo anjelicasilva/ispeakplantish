@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
+import csv
 
 from model import db, connect_to_db
 
@@ -24,8 +25,15 @@ def show_homepage():
 @app.route("/add-houseplant-form")
 def add_new_houseplant_form():
     """Show form to add a new houseplant."""
+    common_houseplants_lst = []
+    with open('seed_data/common-houseplants-data.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                common_houseplant_latin_name = row['Latin Name'].strip()
+                common_houseplants_lst = common_houseplants_lst.append(common_houseplant_latin_name)
 
-    return render_template("add_new_houseplant_form.html")
+
+    return render_template(common_houseplants_lst, "add_new_houseplant_form.html")
 
 
 @app.route("/add-houseplant", methods=["POST"])
@@ -47,7 +55,7 @@ if __name__ == '__main__':
     connect_to_db(app)
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.run(debug=True,  host='127.0.0.1')
+    app.run(debug=True,  host='0.0.0.0')
 
     #Use the DebugToolbar
     DebugToolbarExtension(app)

@@ -17,7 +17,11 @@ def load_users():
             first_name = first_name,
             last_name = last_name,
             email = first_name + last_name + "@gmail.com",
-            password = faker.password(length=10, special_chars=False, digits=True, upper_case=True, lower_case=True),
+            password = faker.password(length=10, 
+                                      special_chars=False, 
+                                      digits=True, 
+                                      upper_case=True, 
+                                      lower_case=True),
             phone_number = faker.numerify(text = '#########')
         )
         db.session.add(fake_user)
