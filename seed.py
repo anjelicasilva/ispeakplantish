@@ -2,7 +2,7 @@ import csv
 import psycopg2
 from faker import Faker
 from server import app
-from model import db, connect_to_db, CommonHouseplant, User, Follower, Entry, Houseplant
+from model import db, connect_to_db, CommonHouseplant, User, Follower, Entry, Houseplant, Photo
 from random import randint
 
 
@@ -51,27 +51,28 @@ def load_houseplants():
         db.session.add(new_houseplant)
     db.session.commit()
 
+
 def load_entries():
     """Seed entries for all users."""
 
-    for i, row in enumerate(open("seed_data/entries-seed.txt")):
+    for i,row in enumerate(open("seed_data/entries-seed.txt")):
         row = row.rstrip()
-        for item in row.split("|"):
+        row = row.split("|")
+        for index, item  in enumerate(row):
             if item == "True":
-                item = True
+                row[index] = True
             elif item == "False":
-                item = False
-
+                row[index] = False
         entry, user, plant, water, fertilizer, rotation, light = row
-
+        
         new_entry = Entry(
-                            journal_entry_text = entry,
-                            user_id = user,
-                            user_houseplant_id = plant,
-                            water_update = water,
-                            fertilizer_update = fertilizer,
-                            rotation_update = rotation,
-                            light_update = light
+                        journal_entry_text = entry,
+                        user_id = user,
+                        user_houseplant_id = plant,
+                        water_update = water,
+                        fertilizer_update = fertilizer,
+                        rotation_update = rotation,
+                        light_update = light
         )
         db.session.add(new_entry)
     db.session.commit()
@@ -79,6 +80,19 @@ def load_entries():
 
 def load_photos():
     """Seed photos of all users' houseplants."""
+
+    for row in open("seed_data/photos-seed.txt"):
+        row = row.rstrip().split("|")
+        
+            
+        journal_entry_id, plant_photo = row
+
+        new_photo_entry = Photo(
+                            journal_entry_id = journal_entry_id,
+                            photo_url = plant_photo
+                            )
+        db.session.add(new_photo_entry)
+    db.session.commit()
 
 
 def load_common_houseplants():
@@ -108,5 +122,6 @@ if __name__ == "__main__":
     load_common_houseplants()
     load_houseplants()
     load_entries()
+    load_photos()
     
    
