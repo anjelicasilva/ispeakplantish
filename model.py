@@ -27,7 +27,7 @@ class User(db.Model):
                                   default = '/static/img/default-profile-photo.png')
     phone_number = db.Column(db.String(11), unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now().date())
 
     followers = db.relationship('Follower',
                                 primaryjoin="User.user_id==Follower.followed_id")

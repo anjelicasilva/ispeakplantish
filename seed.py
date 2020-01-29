@@ -9,7 +9,7 @@ from random import randint
 def load_users():
     """Seed fake users using Faker library."""
 
-    faker = Faker()
+    faker = Faker('en_US')
     for i in range(10):
         first_name = str(faker.first_name())
         last_name = str(faker.last_name())

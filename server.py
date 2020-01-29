@@ -16,37 +16,56 @@ app.jinja_env.undefined = StrictUndefined
 
 
 @app.route("/")
-def show_homepage():
-    """Show the iSpeakPlantish homepage."""
+def show_index():
+    """Show the iSpeakPlantish index."""
     
-    return render_template("homepage.html")
+    return render_template("index.html")
 
 
-@app.route("/add-houseplant-form")
-def add_new_houseplant_form():
-    """Show form to add a new houseplant."""
-    common_houseplants_lst = []
-    with open('seed_data/common-houseplants-data.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                common_houseplant_latin_name = row['Latin Name'].strip()
-                common_houseplants_lst = common_houseplants_lst.append(common_houseplant_latin_name)
 
 
-    return render_template(common_houseplants_lst, "add_new_houseplant_form.html")
 
 
-@app.route("/add-houseplant", methods=["POST"])
-def add_houseplant():
-    """Add new houseplant information to database."""
 
-    latin_name = request.form.get("latinName")
-    common_name = request.form.get("commonName")
-    light_requirements = request.form.get("lightRequirements")
-    notes = request.form.get("notes")
 
-    print(latin_name, common_name, light_requirements, notes)
-    return redirect("/")
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route("/add-houseplant-form")
+# def add_new_houseplant_form():
+#     """Show form to add a new houseplant."""
+#     common_houseplants_lst = []
+#     with open('seed_data/common-houseplants-data.csv', newline='') as csvfile:
+#             reader = csv.DictReader(csvfile)
+#             for row in reader:
+#                 common_houseplant_latin_name = row['Latin Name'].strip()
+#                 common_houseplants_lst = common_houseplants_lst.append(common_houseplant_latin_name)
+
+
+#     return render_template(common_houseplants_lst, "add_new_houseplant_form.html")
+
+
+# @app.route("/add-houseplant", methods=["POST"])
+# def add_houseplant():
+#     """Add new houseplant information to database."""
+
+#     latin_name = request.form.get("latinName")
+#     common_name = request.form.get("commonName")
+#     light_requirements = request.form.get("lightRequirements")
+#     notes = request.form.get("notes")
+
+#     print(latin_name, common_name, light_requirements, notes)
+#     return redirect("/")
 
 
 #############################################
