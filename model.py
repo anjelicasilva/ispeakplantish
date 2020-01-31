@@ -37,6 +37,17 @@ class User(db.Model):
     def __repr__(self):
         return f"User('{self.first_name}', '{self.last_name}', '{self.email}')"
 
+    def to_dict(self):
+        return {'user_id': self.user_id,
+                'first_name': self.first_name,
+                'last_name': self.last_name,
+                'email': self.email,
+                'password': self.password,
+                'profile_photo_url': self.profile_photo_url,
+                'phone_number': self.phone_number,
+                'reminders_enabled': self.reminders_enabled,
+                'created_at': self.created_at}
+
 
 class Follower(db.Model):
     """Stores information regarding which users follow other users."""
@@ -52,6 +63,11 @@ class Follower(db.Model):
 
     users = db.relationship('User',
                             foreign_keys=[follower_id])
+
+    def to_dict(self):
+        return {'id': self.id,
+                'follower_id': self.follower_id,
+                'followed_id': self.followed_id}
 
 
 class Entry(db.Model):
@@ -78,6 +94,17 @@ class Entry(db.Model):
     houseplants = db.relationship('Houseplant')
     photos = db.relationship('Photo')
 
+    def to_dict(self):
+        return {'journal_entry_id': self.journal_entry_id,
+                'journal_entry_text': self.journal_entry_text,
+                'user_id': self.user_id,
+                'user_houseplant_id': self.user_houseplant_id,
+                'date_time': self.date_time,
+                'water_update': self.water_update,
+                'fertilizer_update': self.fertilizer_update,
+                'rotation_update': self.rotation_update,
+                'light_update': self.light_update}
+
 
 class Photo(db.Model):
     """Stores photo updates for all of user's houseplants."""
@@ -93,6 +120,12 @@ class Photo(db.Model):
     photo_update = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     entries = db.relationship('Entry')
+
+    def to_dict(self):
+        return {'photo_id': self.photo_id,
+                'journal_entry_id': self.journal_entry_id,
+                'photo_url': self.photo_url,
+                'photo_update': self.photo_update}
 
 
 class Houseplant(db.Model):
@@ -113,6 +146,10 @@ class Houseplant(db.Model):
     users = db.relationship('User')
     entries = db.relationship('Entry')
 
+    def to_dict(self):
+        return {'user_houseplant_id': self.user_houseplant_id,
+                'common_houseplant_id': self.common_houseplant_id,
+                'user_id': self.user_id}
 
 class CommonHouseplant(db.Model):
     """Stores information about the most common houseplants."""
@@ -130,6 +167,14 @@ class CommonHouseplant(db.Model):
     general_description = db.Column(db.Text(), nullable=False)
 
     houseplants = db.relationship('Houseplant')
+
+    def to_dict(self):
+        return {'common_houseplant_id': self.common_houseplant_id,
+                'latin_name': self.latin_name,
+                'common_name': self.common_name,
+                'common_houseplant_photo_url': self.common_houseplant_photo_url,
+                'light_requirements': self.light_requirements,
+                'general_description': self.general_description}
 
 
 ##############################################################################

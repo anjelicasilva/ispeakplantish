@@ -1,9 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import csv
 
-from model import db, connect_to_db
+from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
 
 app = Flask(__name__)
@@ -22,7 +22,46 @@ def show_index():
     return render_template("index.html")
 
 
+@app.route('/api/users')
+def get_users():
 
+    users = User.query.all()
+    return jsonify({user.user_id: user.to_dict() for user in users})
+
+
+@app.route('/api/followers')
+def get_followers():
+
+    followers = Follower.query.all()
+    return jsonify({follower.id: follower.to_dict() for follower in followers})
+
+
+@app.route('/api/entries')
+def get_entries():
+
+    entries = Entry.query.all()
+    return jsonify({entry.journal_entry_id: entry.to_dict() for entry in entries})
+
+
+@app.route('/api/photos')
+def get_photos():
+
+    photos = Photo.query.all()
+    return jsonify({photo.photo_id: photo.to_dict() for photo in photos})
+
+
+@app.route('/api/houseplants')
+def get_houseplants():
+
+    houseplants = Houseplant.query.all()
+    return jsonify({houseplant.user_houseplant_id: houseplant.to_dict() for houseplant in houseplants})
+
+
+@app.route('/api/common_houseplants')
+def get_common_houseplants():
+
+    common_houseplants = CommonHouseplant.query.all()
+    return jsonify({common_houseplant.common_houseplant_id: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
 
 

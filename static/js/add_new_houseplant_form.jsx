@@ -5,7 +5,7 @@ class Form extends React.Component {
         super(props);
         this.state =  {
             selectedLight: "low",
-            selectedLatinName: "latin test"
+            selectedLatinName: "noNewHouseplant"
         };
     }
     
@@ -29,9 +29,9 @@ class Form extends React.Component {
     };
     
     render() {
-        return (// 
-
+        return (
         <form onSubmit={this.handleFormSubmit}>  
+            <div>
             <label>
                 Latin Name:
                 <select
@@ -45,17 +45,18 @@ class Form extends React.Component {
                     <option value="aechmeaBlueRain">Aechmea 'Blue Rain'</option>
                     <option value="aeschynanthusJaphrolepis">Aeschynanthus japhrolepis</option>
                 </select>
-            </label>   
+            </label>
+            </div>   
+            <div> 
             <label>
                 Common Name:
                 <input type="text" name="commonName"></input>
             </label>
-            
-            <label>
-                Light Requirement:
-            </label>
-            
+            </div> 
             <div className="light-requirement">
+                <label>
+                    Light Requirement:
+                </label>
                 <label>
                     <input 
                         type="radio" 
@@ -90,6 +91,7 @@ class Form extends React.Component {
                     High
                 </label>
             </div>
+            <div>     
                 <button
                     type="submit"
                     className="btn btn-primary"
@@ -97,13 +99,14 @@ class Form extends React.Component {
                 >
                     Add Houseplant
                 </button>
-                {/* <input type="submit" value="Add Houseplant"></input> */}
+            </div>     
             </form>);
+            
     }
 }
 
 ReactDOM.render(
-    <Form />, 
+    <Form />,
     document.getElementById("root")
 );
 
