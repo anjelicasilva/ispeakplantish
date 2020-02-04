@@ -5,15 +5,51 @@ class Form extends React.Component {
         super(props);
         this.state =  {
             selectedLight: "low",
-            selectedLatinName: "noNewHouseplant"
+            selectedLatinName: "noNewHouseplant",
+            listOfCommonHouseplants: [],
         };
     }
+
+    componentDidMount() {
+        fetch(`/api/common_houseplants`)
+            .then((response) => {
+                return response.json();
+            })
+            .then((myJson) => {
+                // find a range method 
+                for (let i=1; i<=103; i++) {
+                    this.state.listOfCommonHouseplants.push(myJson[i]['latin_name']);
+                    
+                }
+                console.log(this.state.listOfCommonHouseplants);
+
+                
+                    // listOfCommonHouseplants.push(plant);
+                    // console.log(this.state.listOfCommonHouseplants)
+                })
+
+            
+                // this.setState({listOfCommonHouseplants: listOfCommonHouseplants});
+                
+    };
+
+            
+
+
+
+        //     .then(data => data.json()).then(stuff => {
+        //     console.log(stuff)
+        //     this.setState({listOfCommonHouseplants: ['thing']})
+        // })
+    
+
     
     handleLightChange = changeEvent => {
         this.setState({
             selectedLight: changeEvent.target.value
         });
     };
+
 
     handleLatinChange = changeEvent => {
         this.setState({
@@ -27,8 +63,30 @@ class Form extends React.Component {
         console.log("You have submitted: ", this.state.selectedLight);
         console.log("You have submited: ", this.state.selectedLatinName);
     };
+
+    renderPlantOptions() {
+        const plantOptions = [<option value="noNewHouseplant">Select latin name</option>,
+        <option value="adiantumFragrans">Adiantum fragrans</option>,
+        <option value="aechmeaBlueRain">Aechmea 'Blue Rain'</option>,
+        <option value="aeschynanthusJaphrolepis">Aeschynanthus japhrolepis</option>]
+
+        // loop over listOfAllPlants
+        // make a option tag out of each one 
+        // put them all in a list 
+        // return that list
+
+        return plantOptions
+    }
     
     render() {
+        // if (this.state.listOfCommonHouseplants.length === 0) {
+        //     return (
+        //         <div>
+        //             Loading ...
+        //         </div>
+        //     )
+        // }
+
         return (
         <form onSubmit={this.handleFormSubmit}>  
             <div>
@@ -40,10 +98,7 @@ class Form extends React.Component {
                     className="latin-name"
                     id="latinName"
                 >
-                    <option value="noNewHouseplant">Select latin name</option>
-                    <option value="adiantumFragrans">Adiantum fragrans</option>
-                    <option value="aechmeaBlueRain">Aechmea 'Blue Rain'</option>
-                    <option value="aeschynanthusJaphrolepis">Aeschynanthus japhrolepis</option>
+                    {this.renderPlantOptions()}
                 </select>
             </label>
             </div>   

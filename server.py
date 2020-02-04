@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import csv
+import time
 
 from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
@@ -52,6 +53,8 @@ def get_photos():
 
 @app.route('/api/houseplants')
 def get_houseplants():
+    # if request.is_json:
+    #     my_stuff = request.json()
 
     houseplants = Houseplant.query.all()
     return jsonify({houseplant.user_houseplant_id: houseplant.to_dict() for houseplant in houseplants})
@@ -59,7 +62,7 @@ def get_houseplants():
 
 @app.route('/api/common_houseplants')
 def get_common_houseplants():
-
+    # time.sleep(7)
     common_houseplants = CommonHouseplant.query.all()
     return jsonify({common_houseplant.common_houseplant_id: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
