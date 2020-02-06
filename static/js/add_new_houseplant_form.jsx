@@ -7,41 +7,56 @@ class Form extends React.Component {
             selectedLight: "low",
             selectedLatinName: "noNewHouseplant",
             listOfCommonHouseplants: [],
+            listOfPlantOptions: [<option value="noNewHouseplant">Select latin name</option>,]
         };
     }
 
-    componentDidMount() {
-        fetch(`/api/common_houseplants`)
-            .then((response) => {
-                return response.json();
-            })
-            .then((myJson) => {
-                // find a range method 
-                for (let i=1; i<=103; i++) {
-                    this.state.listOfCommonHouseplants.push(myJson[i]['latin_name']);
-                    
-                }
-                console.log(this.state.listOfCommonHouseplants);
+    async componentDidMount() {
+        const response = await fetch(`/api/common_houseplants`);
+        const myJson = await response.json()
 
-                
-                    // listOfCommonHouseplants.push(plant);
-                    // console.log(this.state.listOfCommonHouseplants)
-                })
+        for (const plant of Object.keys(myJson)) {
+            this.state.listOfCommonHouseplants.push(plant); 
+        }
+        console.log('loooooook', this.state.listOfCommonHouseplants)
+    }
 
-            
-                // this.setState({listOfCommonHouseplants: listOfCommonHouseplants});
-                
-    };
+// #############################################################################################################
+    // componentDidMount() {
+    //     fetch(`/api/common_houseplants`)
+    //         .then((response) => {
+    //             return response.json();
+    //         })
+    //         .then((myJson) => {
+    //             for (const plant of Object.keys(myJson)) {
+    //                 this.state.listOfCommonHouseplants.push(plant); 
+    //             }
+    //             // return this.state.listOfCommonHouseplants
+    //         }) 
 
-            
+    //         .then((data) => {
+    //             // console.log('LOOK AT DATA:', data)
+    //             for (const plantLatinName of data) {
+    //                 this.state.listOfPlantOptions.push(`<option value="${plantLatinName.toLowerCase()}">${plantLatinName}</option>,`)
+    //             }
+    //             // console.log('loooooook', this.state.listOfPlantOptions)
+    //             this.setState({
+    //                 listOfPlantOptions : this.state.listOfPlantOptions
+    //             })
+    //         }) 
+    //     }; 
 
-
-
-        //     .then(data => data.json()).then(stuff => {
-        //     console.log(stuff)
-        //     this.setState({listOfCommonHouseplants: ['thing']})
-        // })
     
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevState.listOfPlantOptions !== this.state.listOfPlantOptions) {
+    //         console.log('plant options state has changed.')
+    //     }
+    // }
+    
+    // ############################################################################################################
+
+
+
 
     
     handleLightChange = changeEvent => {
@@ -64,28 +79,22 @@ class Form extends React.Component {
         console.log("You have submited: ", this.state.selectedLatinName);
     };
 
-    renderPlantOptions() {
-        const plantOptions = [<option value="noNewHouseplant">Select latin name</option>,
-        <option value="adiantumFragrans">Adiantum fragrans</option>,
-        <option value="aechmeaBlueRain">Aechmea 'Blue Rain'</option>,
-        <option value="aeschynanthusJaphrolepis">Aeschynanthus japhrolepis</option>]
+        // RESEARCH this.componentDidUpdate
 
         // loop over listOfAllPlants
         // make a option tag out of each one 
         // put them all in a list 
         // return that list
 
-        return plantOptions
-    }
-    
     render() {
-        // if (this.state.listOfCommonHouseplants.length === 0) {
-        //     return (
-        //         <div>
-        //             Loading ...
-        //         </div>
-        //     )
-        // }
+
+        if (this.state.listOfPlantOptions.length === 1) {
+            return (
+                <div>
+                    Loading ...
+                </div>
+            )
+        }
 
         return (
         <form onSubmit={this.handleFormSubmit}>  
@@ -98,14 +107,20 @@ class Form extends React.Component {
                     className="latin-name"
                     id="latinName"
                 >
-                    {this.renderPlantOptions()}
+                    [<option value="test1">test1</option>,
+                    <option value="test2">test2</option>,]
+                    {/* {this.renderPlantOptions()} */}
+                    {/* {console.log(this.state.listOfPlantOptions)} */}
+                    {/* {console.log('loooooook', this.state.listOfPlantOptions)} */}
+                    
+                    
                 </select>
             </label>
             </div>   
             <div> 
             <label>
                 Common Name:
-                <input type="text" name="commonName"></input>
+                <input id="commonName" type="text" name="commonName"></input>
             </label>
             </div> 
             <div className="light-requirement">
@@ -159,7 +174,7 @@ class Form extends React.Component {
             
     }
 }
-
+    
 ReactDOM.render(
     <Form />,
     document.getElementById("root")
