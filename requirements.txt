@@ -30,7 +30,7 @@ ipython==7.11.1
 ipython-genutils==0.2.0
 itsdangerous==1.1.0
 jedi==0.15.2
-Jinja2==2.10.3
+Jinja2==2.11.1
 jsonschema==3.2.0
 jupyter-client==5.3.4
 jupyter-core==4.6.1
@@ -92,6 +92,6 @@ urllib3==1.22
 virtualenv==15.1.0
 wcwidth==0.1.8
 webencodings==0.5.1
-Werkzeug==0.16.0
+Werkzeug==0.16.1
 zipp==0.6.0
 zope.interface==4.3.2
