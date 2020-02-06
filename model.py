@@ -87,7 +87,6 @@ class Entry(db.Model):
     date_time = db.Column(db.DateTime, default=datetime.utcnow)
     water_update = db.Column(db.Boolean, nullable=True, default=False)
     fertilizer_update = db.Column(db.Boolean, nullable=True, default=False)
-    rotation_update = db.Column(db.Boolean, nullable=True, default=False)
     light_update = db.Column(db.String(100), nullable=True, default='Medium')
 
     users = db.relationship('User')
