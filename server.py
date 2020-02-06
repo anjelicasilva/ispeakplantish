@@ -3,6 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import csv
 import time
+import json
 
 from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
@@ -64,9 +65,7 @@ def get_houseplants():
 def get_common_houseplants():
     # time.sleep(7)
     common_houseplants = CommonHouseplant.query.all()
-    return jsonify({common_houseplant.common_houseplant_id: common_houseplant.to_dict() for common_houseplant in common_houseplants})
-
-
+    return jsonify({common_houseplant.latin_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
 
 
