@@ -6,6 +6,7 @@ class Form extends React.Component {
        this.state =  {
            selectedLight: "low",
            selectedLatinName: "noNewHouseplant",
+           selectedCommonName: "noNewHouseplant",
            listOfCommonHouseplants: [],
        };
    }
@@ -13,12 +14,11 @@ class Form extends React.Component {
    async componentDidMount() {
        const response = await fetch(`/api/common_houseplants`);
        const myJson = await response.json();
- 
-       // console.log('common name', myJson.items());
- 
-       // for (const commonname of (myJson.common_name)) {
-       //     console.log('common name', commonname);
-       // };
+
+
+    //    This is how to access common name!
+    //    console.log('LLOOOOOOKKKK')
+    //    console.log('myJson entries:', Object.entries(myJson)["Adiantum fragrans"][1]['common_name']);
  
        for (const plant of Object.keys(myJson)) {
            this.state.listOfCommonHouseplants.push(plant);
@@ -37,11 +37,18 @@ class Form extends React.Component {
    };
  
  
-   handleLatinChange = changeEvent => {
+   handleLatinNameChange = changeEvent => {
        this.setState({
            selectedLatinName: changeEvent.target.value
        });
    };
+
+
+   handleCommonNameChange = changeEvent => {
+    this.setState({
+        selectedCommonName: changeEvent.target.value
+    });
+};
   
  
    handleFormSubmit = formSubmitEvent => {
@@ -49,6 +56,7 @@ class Form extends React.Component {
  
        console.log("You have submitted: ", this.state.selectedLight);
        console.log("You have submited: ", this.state.selectedLatinName);
+       console.log("You have submited: ", this.state.selectedCommonName);
    };
  
   
@@ -57,22 +65,12 @@ class Form extends React.Component {
  
        for (const plant of this.state.listOfCommonHouseplants) {
            plantOptions.push(<option value={plant}>{plant}</option>)
-       }
-       // console.log(plantOptions)
-      
+       };
+
        return plantOptions
    }
  
    render() {
- 
-       // if (this.state.listOfPlantOptions.length === 1) {
-       //     return (
-       //         <div>
-       //             Loading ...
-       //         </div>
-       //     )
-       // }
- 
        return (
        <form onSubmit={this.handleFormSubmit}> 
            <div>
@@ -80,7 +78,7 @@ class Form extends React.Component {
                Latin Name:
                <select
                    value={this.selectedLatinName}
-                   onChange={this.handleLatinChange}
+                   onChange={this.handleLatinNameChange}
                    className="latin-name"
                    id="latinName"
                >
@@ -91,7 +89,14 @@ class Form extends React.Component {
            <div>
            <label>
                Common Name:
-               <input id="commonName" type="text" name="commonName"></input>
+               <input 
+                    id="commonName" 
+                    type="text" 
+                    name="commonName" 
+                    value={this.selectedCommonName} 
+                    onChange={this.handleCommonNameChange}
+                    placeholder="Enter Common Name">    
+                </input>
            </label>
            </div>
            <div className="light-requirement">
