@@ -68,6 +68,26 @@ def get_common_houseplants():
     return jsonify({common_houseplant.latin_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
 
+@app.route('/add_new_houseplant_to_user_profile', methods=['POST'])
+def add_new_houseplant_data():
+    
+    # if request.is_json:
+    #     my_stuff = request.json()
+    common_houseplant_id = request.form.get('addCommonHouseplantId')
+    
+    add_users_new_houseplant = Houseplant(
+        common_houseplant_id = common_houseplant_id,
+        # hardcode user for now until, user signup pages are created
+        user_id = 9
+    )
+
+    db.session.add(add_users_new_houseplant)
+    db.session.commit()
+
+
+    return 'New plant added'
+
+
 
 
 
