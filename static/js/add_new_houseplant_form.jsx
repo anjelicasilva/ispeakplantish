@@ -1,5 +1,22 @@
 "use strict";
- 
+class HomePage extends React.Component {
+    render() {
+    return (
+      <div> Welcome to the ISpeakPlantish homepage </div>
+    );
+    }
+} 
+
+
+class AboutPage extends React.Component {
+    render() {
+    return (
+      <div> About Us </div>
+    );
+    }
+}
+
+
 class Form extends React.Component {
    constructor(props) {
        super(props);
@@ -190,8 +207,43 @@ class Form extends React.Component {
           
    }
 }
-  
+
+
+class App extends React.Component {
+    constructor() {
+        super();
+
+        this.state = { currentPage: 0, pages: [<HomePage />, <AboutPage />, <Form />] }; 
+    }
+    render() {
+        return (
+            <div>
+                <div>
+                    <button onClick={() => 
+                    this.setState({currentPage: 0})}>HomePage
+                    </button> 
+                    <button onClick={() => 
+                    this.setState({currentPage: 1})}>About
+                    </button> 
+                    <button onClick={() => 
+                    this.setState({currentPage: 2})}>Add a plant
+                    </button> 
+                </div>
+                <div>
+                { this.state.pages[this.state.currentPage] }
+                </div>
+            </div>
+            
+        );
+    }
+}
+
 ReactDOM.render(
-   <Form />,
-   document.getElementById("root")
-);
+    <App />,
+    document.getElementById("app")
+ );
+  
+// ReactDOM.render(
+//    <Form />,
+//    document.getElementById("root")
+// );
