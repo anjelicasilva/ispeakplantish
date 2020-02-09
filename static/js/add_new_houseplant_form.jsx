@@ -4,7 +4,7 @@ class Form extends React.Component {
    constructor(props) {
        super(props);
        this.state =  {
-           selectedLight: "low",
+           selectedLight: null,
            selectedCommonName: null,
            selectedLatinName: null,
            selectedCommonHouseplantId: null,
@@ -78,11 +78,12 @@ class Form extends React.Component {
    };
  
  
-   handleCommonNameChange = changeEvent => {
+   handleInput = changeEvent => {
        const latinNameIndex = this.generateLatinName(changeEvent.target.value)
        this.setState({
             selectedCommonName: changeEvent.target.value,
             selectedLatinName: this.state.listOfCommonHouseplants[latinNameIndex]['latinName'],
+            selectedLight: this.state.listOfCommonHouseplants[latinNameIndex]['recommendedLightRequirements'],
             selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId']
        });
        
@@ -143,7 +144,7 @@ class Form extends React.Component {
                Common Name:
                <select
                    value={this.selectedCommonName}
-                   onChange={this.handleCommonNameChange}
+                   onChange={this.handleInput}
                    className="common-name"
                    id="CommonName"
                >
@@ -165,43 +166,17 @@ class Form extends React.Component {
            </label>
            </div>
            <div className="light-requirement">
-               <label>
-                   Light Requirement:
-               </label>
-               <label>
-                   <input
-                       type="radio"
-                       name="lightRequirement"
-                       value="low"
-                       checked={this.state.selectedLight==="low"}
-                       onChange={this.handleLightChange}
-                       className="light-requirement-input"
-                   />
-                   Low
-               </label>
-               <label>
-                   <input
-                       type="radio"
-                       name="lightRequirement"
-                       value="medium"
-                       checked={this.state.selectedLight==="medium"}
-                       onChange={this.handleLightChange}
-                       className="light-requirement-input"
-                   />
-                   Medium
-               </label>
-               <label>
-                   <input
-                       type="radio"
-                       name="lightRequirement"
-                       value="high"
-                       checked={this.state.selectedLight==="high"}
-                       onChange={this.handleLightChange}
-                       className="light-requirement-input"
-                   />
-                   High
-               </label>
-           </div>
+           <label>
+            Light Requirement:
+                <p
+                    id="lightRequirement" 
+                    name="lightRequirement" 
+                    value={this.selectedLight}> 
+                    
+                    { this.state.selectedLight }
+                </p>
+           </label>
+           </div>    
            <div>    
                <button
                    type="submit"
