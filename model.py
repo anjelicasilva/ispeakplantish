@@ -87,7 +87,6 @@ class Entry(db.Model):
     date_time = db.Column(db.DateTime, default=datetime.utcnow)
     water_update = db.Column(db.Boolean, nullable=True, default=False)
     fertilizer_update = db.Column(db.Boolean, nullable=True, default=False)
-    light_update = db.Column(db.String(100), nullable=True, default='Medium')
 
     users = db.relationship('User')
     houseplants = db.relationship('Houseplant')
@@ -100,9 +99,7 @@ class Entry(db.Model):
                 'user_houseplant_id': self.user_houseplant_id,
                 'date_time': self.date_time,
                 'water_update': self.water_update,
-                'fertilizer_update': self.fertilizer_update,
-                'rotation_update': self.rotation_update,
-                'light_update': self.light_update}
+                'fertilizer_update': self.fertilizer_update,}
 
 
 class Photo(db.Model):

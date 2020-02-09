@@ -67,7 +67,7 @@ def load_entries():
                 row[index] = True
             elif item == "False":
                 row[index] = False
-        entry, user, plant, water, fertilizer, light = row
+        entry, user, plant, water, fertilizer = row
         
         new_entry = Entry(
                         journal_entry_text = entry,
@@ -75,7 +75,6 @@ def load_entries():
                         user_houseplant_id = plant,
                         water_update = water,
                         fertilizer_update = fertilizer,
-                        light_update = light
         )
         db.session.add(new_entry)
     db.session.commit()
