@@ -7,37 +7,70 @@ class Form extends React.Component {
            selectedLight: "low",
            selectedCommonName: null,
            selectedLatinName: null,
+           selectedCommonHouseplantId: null,
 
            listOfCommonHouseplants: [],
        };
        this.generateLatinName = this.generateLatinName.bind(this);
+    //    this.getCommonHouseplantsData = this.getCommonHouseplantsData.bind(this);
    }
+// TRY TO FETCH API DATA USING JQUERY!
+//    createCommonHouseplantsList(response) {
+//     //    console.log('my response', response)
+//     // const myJson = response.json();
+//         for (const plantObject of Object.entries(response)) {
+//             let plant = {
+//             commonHouseplantId: plantObject[1]['common_houseplant_id'],
+//             commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
+//             commonName: plantObject[1]['common_name'],
+//             latinName: plantObject[1]['latin_name'],
+//             generalDescription: plantObject[1]['general_description'],
+//             recommendedLightRequirements: plantObject[1]['light_requirements'],
+//         }
+//         //    console.log('commonHouseplantId:', plantObject[1]['common_name'])
+//         //    console.log('state', this.state.listOfCommonHouseplants)
+//         this.state.listOfCommonHouseplants.push(plant);
+//     };
+//         console.log(this.state.listOfCommonHouseplants)
+//         this.setState({
+//             listOfCommonHouseplants: this.state.listOfCommonHouseplants
+//     });
+//         console.log('state', this.state.listOfCommonHouseplants)
+//         }
 
+//     getCommonHouseplantsData() {
+//         $.get('/api/common_houseplants', this.createCommonHouseplantsList);
+//     }
+
+//     componentDidMount() {
+//         this.getCommonHouseplantsData();
+//     }
+
+ 
    async componentDidMount() {
 
-       const response = await fetch(`/api/common_houseplants`);
-       const myJson = await response.json();
- 
-       for (const plantObject of Object.entries(myJson)) {
-   
-            let plant = {
-               commonHouseplantId: plantObject[1]['common_houseplant_id'],
-               commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
-               commonName: plantObject[1]['common_name'],
-               latinName: plantObject[1]['latin_name'],
-               generalDescription: plantObject[1]['general_description'],
-               recommendedLightRequirements: plantObject[1]['light_requirements'],
-           }
+    const response = await fetch(`/api/common_houseplants`);
+    const myJson = await response.json();
 
-           this.state.listOfCommonHouseplants.push(plant);
-       };
+    for (const plantObject of Object.entries(myJson)) {
 
-       this.setState({
-           listOfCommonHouseplants: this.state.listOfCommonHouseplants
-       });
-   }
- 
- 
+         let plant = {
+            commonHouseplantId: plantObject[1]['common_houseplant_id'],
+            commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
+            commonName: plantObject[1]['common_name'],
+            latinName: plantObject[1]['latin_name'],
+            generalDescription: plantObject[1]['general_description'],
+            recommendedLightRequirements: plantObject[1]['light_requirements'],
+        }
+
+        this.state.listOfCommonHouseplants.push(plant);
+    };
+
+    this.setState({
+        listOfCommonHouseplants: this.state.listOfCommonHouseplants
+    });
+}
+
    handleLightChange = changeEvent => {
        this.setState({
            selectedLight: changeEvent.target.value
@@ -49,20 +82,24 @@ class Form extends React.Component {
        const latinNameIndex = this.generateLatinName(changeEvent.target.value)
        this.setState({
             selectedCommonName: changeEvent.target.value,
-            selectedLatinName: this.state.listOfCommonHouseplants[latinNameIndex]['latinName']
+            selectedLatinName: this.state.listOfCommonHouseplants[latinNameIndex]['latinName'],
+            selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId']
        });
        
    };
+   
   
- 
    handleFormSubmit = formSubmitEvent => {
        formSubmitEvent.preventDefault();
-        // pull out all the relevant data from state
-        // make sure it looks gucci 
-        // then make a post request with that data from state to your server
 
-        // let body = { name: this.state.name,
-        //     light: this.state.selectedLight }
+        let data = { 
+            addLatinName: this.state.selectedLatinName,
+            addCommonName: this.state.selectedCommonName,
+            addLightRequirement: this.state.selectedLight,
+            addCommonHouseplantId: this.state.selectedCommonHouseplantId,
+        }
+
+        $.post('/add_new_houseplant_to_user_profile', data, (response) => console.log('Add houseplant information:', response))
 
         // const response = await fetch(`/api/new_plant`, { 
         //     method: 'POST', 
@@ -73,6 +110,7 @@ class Form extends React.Component {
         console.log("You have submited the common name: ", this.state.selectedCommonName);
         console.log("You have submited the latin name: ", this.state.selectedLatinName);
         console.log("You have submitted the general light requirement: ", this.state.selectedLight);
+        console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
    };
  
   
