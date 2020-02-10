@@ -78,56 +78,46 @@ def add_new_houseplant_data():
     add_users_new_houseplant = Houseplant(
         common_houseplant_id = common_houseplant_id,
         # hardcode user for now until, user signup pages are created
-        user_id = 9
+        user_id = 10
     )
 
     db.session.add(add_users_new_houseplant)
     db.session.commit()
 
 
-    return 'New plant added'
+@app.route('/add_new_journal_entry_to_user_profile', methods=['POST'])
+def add_new_journal_entry_data():
+    
+    # if request.is_json:
+    #     my_stuff = request.json()
 
+    journal_entry_text = request.form.get('addJournalEntryText')
 
+    water_update = request.form.get('addWaterUpdate')
+    if water_update == "true":
+        water_update = True
+    else:
+        water_update = False
 
+    fertilizer_update = request.form.get('addFertilizerUpdate')
+    if fertilizer_update == "true":
+        fertilizer_update = True
+    else:
+        fertilizer_update = False
+    
+    add_users_new_journal_entry = Entry(
+        journal_entry_text = journal_entry_text,
+        water_update = water_update,
+        fertilizer_update = fertilizer_update,
+        # hardcode user_id and user_houseplant_id for now until, user signup pages are created
+        user_id = 10,
+        user_houseplant_id = 1
+    )
 
+    db.session.add(add_users_new_journal_entry)
+    db.session.commit()
 
-
-
-
-
-
-
-
-
-
-
-
-# @app.route("/add-houseplant-form")
-# def add_new_houseplant_form():
-#     """Show form to add a new houseplant."""
-#     common_houseplants_lst = []
-#     with open('seed_data/common-houseplants-data.csv', newline='') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             for row in reader:
-#                 common_houseplant_latin_name = row['Latin Name'].strip()
-#                 common_houseplants_lst = common_houseplants_lst.append(common_houseplant_latin_name)
-
-
-#     return render_template(common_houseplants_lst, "add_new_houseplant_form.html")
-
-
-# @app.route("/add-houseplant", methods=["POST"])
-# def add_houseplant():
-#     """Add new houseplant information to database."""
-
-#     latin_name = request.form.get("latinName")
-#     common_name = request.form.get("commonName")
-#     light_requirements = request.form.get("lightRequirements")
-#     notes = request.form.get("notes")
-
-#     print(latin_name, common_name, light_requirements, notes)
-#     return redirect("/")
-
+    return 'New journal entry added!'
 
 #############################################
 
