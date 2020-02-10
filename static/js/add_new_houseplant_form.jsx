@@ -121,7 +121,7 @@ class AddEntries extends React.Component {
             type="submit"
             className="btn btn-primary"
             disabled={this.state.newJournalEntry === null}>
-            Add Journal Entry
+            Add New Entry
             </button>
           </div>     
         </form>);
@@ -312,7 +312,7 @@ class Form extends React.Component {
                    className="btn btn-primary"
                    disabled={this.state.selectedCommonName === null}
                >
-                   Add Houseplant
+                   Add New Houseplant
                </button>
            </div>    
            </form>);
@@ -321,27 +321,90 @@ class Form extends React.Component {
 }
 
 
+class PlantCollection extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          // refactor after creating user sign up page
+          userId: 1,
+          // list of userplant objects
+          usersPlantCollection: []
+      };
+  }
+
+  // fetch list of plants the user owns
+  async componentDidMount() {
+      const response = await fetch('/api/houseplants');
+      const myPlantCollectionJson = await response.json();
+
+      for (const usersPlantObject of Object.entries(myPlantCollectionJson)) {
+          // console.log('usersplantobject', usersPlantObject)
+         
+          if (this.state.userId === usersPlantObject[1]['user_id']) {
+              let usersPlant = {
+                  commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
+                  userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
+                  userId: usersPlantObject[1]['user_id'],
+              }
+
+              this.state.usersPlantCollection.push(usersPlant);
+          }
+      };
+
+      this.setState({
+          usersPlantCollection: this.state.usersPlantCollection
+      });
+      
+      console.log('my plant collection', this.state.usersPlantCollection)
+  }
+
+  renderUsersPlantCollection() {
+      const listOfUsersPlants = [];
+          console.log('plant collection in state', this.state.usersPlantCollection)
+          for (const usersPlant of this.state.usersPlantCollection) {
+          listOfUsersPlants.push(<h3>Common Houseplant Id: { usersPlant['commonHouseplantId'] }</h3>)
+          };
+
+          return listOfUsersPlants
+  }
+
+  render() {
+      return (
+          <div>
+              <h3>My Plant Collection:</h3>
+              <div>
+              { this.renderUsersPlantCollection() }
+              </div>
+          </div>
+      )
+  }
+}
+
+
 class App extends React.Component {
     constructor() {
         super();
 
-        this.state = { currentPage: 0, pages: [<HomePage />, <AboutPage />, <Form />, <AddEntries />] }; 
+        this.state = { currentPage: 0, pages: [<HomePage />, <AboutPage />, <Form />, <AddEntries />, <PlantCollection />,] }; 
     }
     render() {
         return (
             <div>
                 <div>
                     <button onClick={() => 
-                    this.setState({currentPage: 0})}>HomePage
+                    this.setState({currentPage: 0})}>Homepage
                     </button> 
                     <button onClick={() => 
-                    this.setState({currentPage: 1})}>About
+                    this.setState({currentPage: 1})}>ISpeakPlantish
                     </button> 
                     <button onClick={() => 
                     this.setState({currentPage: 2})}>Add a plant
                     </button> 
                     <button onClick={() => 
                     this.setState({currentPage: 3})}>Add a journal entry
+                    </button> 
+                    <button onClick={() => 
+                    this.setState({currentPage: 4})}>View your plant collection
                     </button> 
                 </div>
                 <div>
