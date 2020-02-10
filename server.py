@@ -84,6 +84,8 @@ def add_new_houseplant_data():
     db.session.add(add_users_new_houseplant)
     db.session.commit()
 
+    return 'New houseplant added!'
+
 
 @app.route('/add_new_journal_entry_to_user_profile', methods=['POST'])
 def add_new_journal_entry_data():
