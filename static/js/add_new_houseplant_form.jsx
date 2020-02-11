@@ -1,10 +1,82 @@
 "use strict";
 
 class PlantInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listOfEntries: []
+        };
+        this.renderEntries = this.renderEntries.bind(this)
+        this.checkUpdates = this.checkUpdates.bind(this)
+    }
+    
+    async componentDidMount() {
+        // fetch list of plants the user owns
+        const entriesResponse = await fetch('/api/entries');
+        const entriesJson = await entriesResponse.json();
+    
+        for (const entriesObject of Object.entries(entriesJson)) {
+    
+            let entry = {
+                journalEntryId: entriesObject[1]['journal_entry_id'],
+                journalEntryText: entriesObject[1]['journal_entry_text'],
+                userId: entriesObject[1]['user_id'],
+                userHouseplantId: entriesObject[1]['user_houseplant_id'],
+                dateTime: entriesObject[1]['date_time'],
+                waterUpdate: entriesObject[1]['water_update'],
+                fertilizerUpdate: entriesObject[1]['fertilizer_update'],
+            }
+            this.state.listOfEntries.push(entry);
+        };
+
+        this.setState({
+            listOfEntries: this.state.listOfEntries
+        });
+    };
+
+    checkUpdates(update) {
+        if (update === true) {
+            update = "Yes"
+        } else {
+            update = "No"
+        }
+        return update
+    };
+
+    renderEntries() {
+
+        const listOfRenderedEntires = []
+        
+        for (const entry of this.state.listOfEntries){
+            
+            // hardcode id1 to test for now
+            if (entry['userHouseplantId'] == "1") {
+                console.log(entry)
+                
+                listOfRenderedEntires.push(
+                    <li>
+                        <h3>Date: {entry['dateTime']}</h3>
+                        <h4>Watered: {this.checkUpdates(entry['waterUpdate'])}</h4>
+                        <h4>Fertilized: {this.checkUpdates(entry['fertilizerUpdate'])}</h4>
+                        {entry['journalEntryText']}
+                    </li>
+                )
+            }
+        };
+        return listOfRenderedEntires                              
+        
+    }
+    
     render() {
-    return (
-      <div> Information about your plant </div>
-    );
+        return (
+            <div> 
+                <div>Information about your plant</div>
+                <div>Journal entries for this plant</div>
+                <ul>
+                    { this.renderEntries() }
+                </ul>
+            </div>
+        );
     }
 }
 
@@ -21,10 +93,15 @@ class PlantCollection extends React.Component {
             listOfCommonHouseplants: [],
             // view plant info
             currentPlantPage: null, 
-            pages: [<PlantInfo />,] 
 
+            selectedUserHouseplantId: "noSelection",
+            selectedCommonHouseplantId: "noSelection",
+
+            // refactor so props change as a plant button is selected
+            pages: [<PlantInfo selectedUserHouseplantId="1" selectedCommonHouseplantId="65"/>],
         };
     }
+
 
     async componentDidMount() {
         // fetch list of plants the user owns
@@ -64,22 +141,23 @@ class PlantCollection extends React.Component {
         });
     }
 
-
     renderUsersPlantCollection() {
         const listOfUsersPlants = [];
         for (const usersPlant of this.state.usersPlantCollection) {
-        listOfUsersPlants.push(
-            <li>
-                <button onClick={() => 
-                    this.setState({currentPlantPage: 0})}>
-                {this.state.listOfCommonHouseplants[(usersPlant['commonHouseplantId'])-1]['commonName']}
-                </button>
-            </li>
-        )
-    };
+            listOfUsersPlants.push(
+                <li>
+                    <button onClick={() => 
+                        this.setState({
+                            currentPlantPage: 0,
+                            selectedUserHouseplantId: usersPlant['userHouseplantId'],
+                            selectedCommonHouseplantId: usersPlant['commonHouseplantId']})}>
+                    {this.state.listOfCommonHouseplants[(usersPlant['commonHouseplantId'])-1]['commonName']}
+                    </button>
+                </li>
+            )
+        };
         return listOfUsersPlants
     }
-
 
     render() {
         return (
@@ -91,8 +169,9 @@ class PlantCollection extends React.Component {
                     </ol>
                 </div>
                 <div>
-                    <h5 onClick={() => 
-                        <PlantInfo />}>View your plants log history
+                    <h5>
+                        View your plants log history
+                        
                     </h5> 
                 </div>
                 <div>
