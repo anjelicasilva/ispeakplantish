@@ -67,6 +67,12 @@ def get_common_houseplants():
     common_houseplants = CommonHouseplant.query.all()
     return jsonify({common_houseplant.latin_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
+# Houseplants owned by User 1
+@app.route('/api/houseplants/user1')
+def get_user_specific_houseplants():
+    users_houseplants = Houseplant.query.filter_by(user_id="1").all()
+    return jsonify({users_houseplant.user_houseplant_id: users_houseplant.to_dict() for users_houseplant in users_houseplants})
+
 
 @app.route('/add_new_houseplant_to_user_profile', methods=['POST'])
 def add_new_houseplant_data():
@@ -78,7 +84,7 @@ def add_new_houseplant_data():
     add_users_new_houseplant = Houseplant(
         common_houseplant_id = common_houseplant_id,
         # hardcode user for now until, user signup pages are created
-        user_id = 10
+        user_id = 1
     )
 
     db.session.add(add_users_new_houseplant)
