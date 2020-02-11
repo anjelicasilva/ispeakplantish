@@ -1,4 +1,109 @@
 "use strict";
+
+class PlantInfo extends React.Component {
+    render() {
+    return (
+      <div> Information about your plant </div>
+    );
+    }
+}
+
+
+class PlantCollection extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            // refactor after creating user sign up page
+            userId: 1,
+            // list of userplant objects
+            usersPlantCollection: [],
+            // list of common houseplants objects
+            listOfCommonHouseplants: [],
+            // view plant info
+            currentPlantPage: null, 
+            pages: [<PlantInfo />,] 
+
+        };
+    }
+
+    async componentDidMount() {
+        // fetch list of plants the user owns
+        const usersPlantCollectionResponse = await fetch('/api/houseplants');
+        const usersPlantCollectionJson = await usersPlantCollectionResponse.json();
+
+        for (const usersPlantObject of Object.entries(usersPlantCollectionJson)) {
+            if (this.state.userId === usersPlantObject[1]['user_id']) {
+                let usersPlant = {
+                    commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
+                    userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
+                    userId: usersPlantObject[1]['user_id'],
+                }
+                this.state.usersPlantCollection.push(usersPlant);
+            }
+        };
+        // fetch list of information for all common houseplants
+        const commonHouseplantsResponse = await fetch(`/api/common_houseplants`);
+        const commonHouseplantsJson = await commonHouseplantsResponse.json();
+
+        for (const plantObject of Object.entries(commonHouseplantsJson)) {
+
+            let plant = {
+                commonHouseplantId: plantObject[1]['common_houseplant_id'],
+                commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
+                commonName: plantObject[1]['common_name'],
+                latinName: plantObject[1]['latin_name'],
+                generalDescription: plantObject[1]['general_description'],
+                recommendedLightRequirements: plantObject[1]['light_requirements'],
+            }
+            this.state.listOfCommonHouseplants.push(plant);
+        };
+
+        this.setState({
+            usersPlantCollection: this.state.usersPlantCollection,
+            listOfCommonHouseplants: this.state.listOfCommonHouseplants
+        });
+    }
+
+
+    renderUsersPlantCollection() {
+        const listOfUsersPlants = [];
+        for (const usersPlant of this.state.usersPlantCollection) {
+        listOfUsersPlants.push(
+            <li>
+                <button onClick={() => 
+                    this.setState({currentPlantPage: 0})}>
+                {this.state.listOfCommonHouseplants[(usersPlant['commonHouseplantId'])-1]['commonName']}
+                </button>
+            </li>
+        )
+    };
+        return listOfUsersPlants
+    }
+
+
+    render() {
+        return (
+            <div>
+                <h3>My Plant Collection:</h3>
+                <div>
+                    <ol>
+                        { this.renderUsersPlantCollection() }
+                    </ol>
+                </div>
+                <div>
+                    <h5 onClick={() => 
+                        <PlantInfo />}>View your plants log history
+                    </h5> 
+                </div>
+                <div>
+                { this.state.pages[this.state.currentPlantPage] }
+                </div>
+            </div>
+        )
+    }
+}
+
+
 class HomePage extends React.Component {
     render() {
     return (
@@ -51,7 +156,6 @@ class AddEntries extends React.Component {
         console.log("You have submited the water update of: ", this.state.waterUpdateInput);
         console.log("You have submited the fertilizer update of: ", this.state.fertilizerUpdateInput);
   };
-  
   
     render() {
       return(
@@ -141,64 +245,29 @@ class Form extends React.Component {
            listOfCommonHouseplants: [],
        };
        this.generateLatinName = this.generateLatinName.bind(this);
-    //    this.getCommonHouseplantsData = this.getCommonHouseplantsData.bind(this);
    }
-// TRY TO FETCH API DATA USING JQUERY!
-//    createCommonHouseplantsList(response) {
-//     //    console.log('my response', response)
-//     // const myJson = response.json();
-//         for (const plantObject of Object.entries(response)) {
-//             let plant = {
-//             commonHouseplantId: plantObject[1]['common_houseplant_id'],
-//             commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
-//             commonName: plantObject[1]['common_name'],
-//             latinName: plantObject[1]['latin_name'],
-//             generalDescription: plantObject[1]['general_description'],
-//             recommendedLightRequirements: plantObject[1]['light_requirements'],
-//         }
-//         //    console.log('commonHouseplantId:', plantObject[1]['common_name'])
-//         //    console.log('state', this.state.listOfCommonHouseplants)
-//         this.state.listOfCommonHouseplants.push(plant);
-//     };
-//         console.log(this.state.listOfCommonHouseplants)
-//         this.setState({
-//             listOfCommonHouseplants: this.state.listOfCommonHouseplants
-//     });
-//         console.log('state', this.state.listOfCommonHouseplants)
-//         }
 
-//     getCommonHouseplantsData() {
-//         $.get('/api/common_houseplants', this.createCommonHouseplantsList);
-//     }
-
-//     componentDidMount() {
-//         this.getCommonHouseplantsData();
-//     }
-
- 
    async componentDidMount() {
-
-    const response = await fetch(`/api/common_houseplants`);
-    const myJson = await response.json();
-
-    for (const plantObject of Object.entries(myJson)) {
-
-         let plant = {
-            commonHouseplantId: plantObject[1]['common_houseplant_id'],
-            commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
-            commonName: plantObject[1]['common_name'],
-            latinName: plantObject[1]['latin_name'],
-            generalDescription: plantObject[1]['general_description'],
-            recommendedLightRequirements: plantObject[1]['light_requirements'],
-        }
-
-        this.state.listOfCommonHouseplants.push(plant);
-    };
-
-    this.setState({
-        listOfCommonHouseplants: this.state.listOfCommonHouseplants
-    });
+       const response = await fetch(`/api/common_houseplants`);
+       const myJson = await response.json();
+       
+       for (const plantObject of Object.entries(myJson)) {
+           let plant = {
+               commonHouseplantId: plantObject[1]['common_houseplant_id'],
+               commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
+               commonName: plantObject[1]['common_name'],
+               latinName: plantObject[1]['latin_name'],
+               generalDescription: plantObject[1]['general_description'],
+               recommendedLightRequirements: plantObject[1]['light_requirements'],
+            }
+            this.state.listOfCommonHouseplants.push(plant);
+        };
+        
+        this.setState({
+            listOfCommonHouseplants: this.state.listOfCommonHouseplants
+        });
 }
+
 
    handleLightChange = changeEvent => {
        this.setState({
@@ -231,12 +300,6 @@ class Form extends React.Component {
 
         $.post('/add_new_houseplant_to_user_profile', data, (response) => console.log('Add houseplant information:', response))
 
-        // const response = await fetch(`/api/new_plant`, { 
-        //     method: 'POST', 
-        //     body: JSON.stringify(body), 
-        //     headers: {'Content-Type': 'application/json'}
-        // });
-
         console.log("You have submited the common name: ", this.state.selectedCommonName);
         console.log("You have submited the latin name: ", this.state.selectedLatinName);
         console.log("You have submitted the general light requirement: ", this.state.selectedLight);
@@ -254,6 +317,7 @@ class Form extends React.Component {
        return plantOptions
    }
 
+
    generateLatinName(selectedCommonName) {
         for (const plantObject of this.state.listOfCommonHouseplants) {
             if (plantObject['commonName'] === selectedCommonName) {
@@ -263,7 +327,6 @@ class Form extends React.Component {
         };
         return -1
    }
- 
 
    render() {
        return (
@@ -316,68 +379,7 @@ class Form extends React.Component {
                </button>
            </div>    
            </form>);
-          
    }
-}
-
-
-class PlantCollection extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          // refactor after creating user sign up page
-          userId: 1,
-          // list of userplant objects
-          usersPlantCollection: []
-      };
-  }
-
-  // fetch list of plants the user owns
-  async componentDidMount() {
-      const response = await fetch('/api/houseplants');
-      const myPlantCollectionJson = await response.json();
-
-      for (const usersPlantObject of Object.entries(myPlantCollectionJson)) {
-          // console.log('usersplantobject', usersPlantObject)
-         
-          if (this.state.userId === usersPlantObject[1]['user_id']) {
-              let usersPlant = {
-                  commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
-                  userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
-                  userId: usersPlantObject[1]['user_id'],
-              }
-
-              this.state.usersPlantCollection.push(usersPlant);
-          }
-      };
-
-      this.setState({
-          usersPlantCollection: this.state.usersPlantCollection
-      });
-      
-      console.log('my plant collection', this.state.usersPlantCollection)
-  }
-
-  renderUsersPlantCollection() {
-      const listOfUsersPlants = [];
-          console.log('plant collection in state', this.state.usersPlantCollection)
-          for (const usersPlant of this.state.usersPlantCollection) {
-          listOfUsersPlants.push(<h3>Common Houseplant Id: { usersPlant['commonHouseplantId'] }</h3>)
-          };
-
-          return listOfUsersPlants
-  }
-
-  render() {
-      return (
-          <div>
-              <h3>My Plant Collection:</h3>
-              <div>
-              { this.renderUsersPlantCollection() }
-              </div>
-          </div>
-      )
-  }
 }
 
 
@@ -385,7 +387,10 @@ class App extends React.Component {
     constructor() {
         super();
 
-        this.state = { currentPage: 0, pages: [<HomePage />, <AboutPage />, <Form />, <AddEntries />, <PlantCollection />,] }; 
+        this.state = { 
+            currentPage: 0, 
+            pages: [<HomePage />, <AboutPage />, <Form />, <AddEntries />, <PlantCollection />,] 
+        }; 
     }
     render() {
         return (
@@ -420,8 +425,3 @@ ReactDOM.render(
     <App />,
     document.getElementById("app")
  );
-  
-// ReactDOM.render(
-//    <Form />,
-//    document.getElementById("root")
-// );
