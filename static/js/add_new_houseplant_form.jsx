@@ -12,6 +12,8 @@ class PlantInfo extends React.Component {
     
     async componentDidMount() {
         // fetch list of plants the user owns
+
+        // ** possibly fetch asynchronously and then have a loading animation until it finishes **
         const entriesResponse = await fetch('/api/entries');
         const entriesJson = await entriesResponse.json();
     
@@ -48,12 +50,12 @@ class PlantInfo extends React.Component {
         const listOfRenderedEntires = []
         
         for (const entry of this.state.listOfEntries){
-            
-            // hardcode id1 to test for now
-            if (entry['userHouseplantId'] == "1") {
-                console.log(entry)
+            if (entry['userHouseplantId'] == this.props.selectedUserHouseplantId) {
+                // console.log(entry)
                 
                 listOfRenderedEntires.push(
+                    //** */ possibly make Line 61 -65 a component and then map listOfRenderedEntires to a function that renders that component
+                    // https://stackoverflow.com/questions/41374572/how-to-render-an-array-of-objects-in-react **
                     <li>
                         <h3>Date: {entry['dateTime']}</h3>
                         <h4>Watered: {this.checkUpdates(entry['waterUpdate'])}</h4>
@@ -98,7 +100,7 @@ class PlantCollection extends React.Component {
             selectedCommonHouseplantId: "noSelection",
 
             // refactor so props change as a plant button is selected
-            pages: [<PlantInfo selectedUserHouseplantId="1" selectedCommonHouseplantId="65"/>],
+            // pages: [<PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId} selectedCommonHouseplantId="65"/>],
         };
     }
 
@@ -175,7 +177,13 @@ class PlantCollection extends React.Component {
                     </h5> 
                 </div>
                 <div>
-                { this.state.pages[this.state.currentPlantPage] }
+                    {/* { // ternary statement:
+                    this.state.selectedCommonHouseplantId ? <PlantInfo /> : null
+                    }
+                    { //Short circuiting: 
+                        this.state.selectedCommonHouseplantId && <PlantInfo /> 
+                    } */}
+                    <PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId}/> 
                 </div>
             </div>
         )
@@ -504,3 +512,4 @@ ReactDOM.render(
     <App />,
     document.getElementById("app")
  );
+
