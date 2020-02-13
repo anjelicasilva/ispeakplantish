@@ -99,6 +99,8 @@ def add_new_journal_entry_data():
     # if request.is_json:
     #     my_stuff = request.json()
 
+    user_houseplant_id = request.form.get('addUserHouseplantId')
+
     journal_entry_text = request.form.get('addJournalEntryText')
 
     water_update = request.form.get('addWaterUpdate')
@@ -118,8 +120,9 @@ def add_new_journal_entry_data():
         water_update = water_update,
         fertilizer_update = fertilizer_update,
         # hardcode user_id and user_houseplant_id for now until, user signup pages are created
-        user_id = 10,
-        user_houseplant_id = 1
+        user_id = 1,
+        # access this value from the frontend
+        user_houseplant_id = user_houseplant_id
     )
 
     db.session.add(add_users_new_journal_entry)
