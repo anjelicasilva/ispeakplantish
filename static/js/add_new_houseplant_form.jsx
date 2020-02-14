@@ -51,15 +51,14 @@ class PlantInfo extends React.Component {
         
         for (const entry of this.state.listOfEntries){
             if (entry['userHouseplantId'] == this.props.selectedUserHouseplantId) {
-                // console.log(entry)
                 
                 listOfRenderedEntires.push(
                     //** */ possibly make Line 61 -65 a component and then map listOfRenderedEntires to a function that renders that component
                     // https://stackoverflow.com/questions/41374572/how-to-render-an-array-of-objects-in-react **
                     <li>
-                        <h3>Date: {entry['dateTime']}</h3>
-                        <h4>Watered: {this.checkUpdates(entry['waterUpdate'])}</h4>
-                        <h4>Fertilized: {this.checkUpdates(entry['fertilizerUpdate'])}</h4>
+                        <h4>Date: {entry['dateTime']}</h4>
+                        <h5>Watered:{this.checkUpdates(entry['waterUpdate'])}</h5>
+                        <h5>Fertilized:{this.checkUpdates(entry['fertilizerUpdate'])}</h5>
                         {entry['journalEntryText']}
                     </li>
                 )
@@ -72,8 +71,6 @@ class PlantInfo extends React.Component {
     render() {
         return (
             <div> 
-                <div>Information about your plant</div>
-                <div>Journal entries for this plant</div>
                 <ul>
                     { this.renderEntries() }
                 </ul>
@@ -89,18 +86,13 @@ class PlantCollection extends React.Component {
         this.state = {
             // refactor after creating user sign up page
             userId: 1,
-            // list of userplant objects
             usersPlantCollection: [],
-            // list of common houseplants objects
             listOfCommonHouseplants: [],
             // view plant info
             currentPlantPage: null, 
 
             selectedUserHouseplantId: "noSelection",
             selectedCommonHouseplantId: "noSelection",
-
-            // refactor so props change as a plant button is selected
-            // pages: [<PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId} selectedCommonHouseplantId="65"/>],
         };
     }
 
@@ -172,12 +164,6 @@ class PlantCollection extends React.Component {
                     </ol>
                 </div>
                 <div>
-                    <h5>
-                        View your plants log history
-                        
-                    </h5> 
-                </div>
-                <div>
                     {/* { // ternary statement:
                     this.state.selectedCommonHouseplantId ? <PlantInfo /> : null
                     }
@@ -196,19 +182,10 @@ class PlantCollection extends React.Component {
 class HomePage extends React.Component {
     render() {
     return (
-      <div> Welcome to the ISpeakPlantish homepage </div>
+      <div> Welcome to the homepage</div>
     );
     }
 } 
-
-
-// class AboutPage extends React.Component {
-//     render() {
-//     return (
-//       <div> About Us </div>
-//     );
-//     }
-// }
 
 
 class AboutPage extends React.Component {
@@ -358,7 +335,6 @@ class Form extends React.Component {
            selectedCommonName: null,
            selectedLatinName: null,
            selectedCommonHouseplantId: null,
-
            listOfCommonHouseplants: [],
        };
        this.generateLatinName = this.generateLatinName.bind(this);
@@ -423,10 +399,10 @@ class Form extends React.Component {
         console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
    };
  
-  
+
    renderPlantOptions() {
        const plantOptions = [<option value="noNewHouseplant">Select Common Name</option>];
- 
+
        for (const plantObject of this.state.listOfCommonHouseplants) {
            plantOptions.push(<option value={plantObject['commonName']} key={plantObject['commonHouseplantId']}>{plantObject['commonName']}</option>)
        };
@@ -458,6 +434,7 @@ class Form extends React.Component {
                    id="CommonName"
                >
                    { this.renderPlantOptions() }
+                   
                </select>
            </label>
            </div>  
@@ -542,4 +519,3 @@ ReactDOM.render(
     <App />,
     document.getElementById("app")
  );
-

@@ -65,7 +65,7 @@ def get_houseplants():
 def get_common_houseplants():
     # time.sleep(7)
     common_houseplants = CommonHouseplant.query.all()
-    return jsonify({common_houseplant.latin_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
+    return jsonify({common_houseplant.common_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
 # Houseplants owned by User 1
 @app.route('/api/houseplants/user1')
