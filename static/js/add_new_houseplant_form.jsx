@@ -152,7 +152,8 @@ class PlantCollection extends React.Component {
                         this.setState({
                             currentPlantPage: 0,
                             selectedUserHouseplantId: usersPlant['userHouseplantId'],
-                            selectedCommonHouseplantId: usersPlant['commonHouseplantId']})}>
+                            selectedCommonHouseplantId: usersPlant['commonHouseplantId']})
+                        }>        
                     {this.state.listOfCommonHouseplants[(usersPlant['commonHouseplantId'])-1]['commonName']}
                     </button>
                 </li>
@@ -183,7 +184,8 @@ class PlantCollection extends React.Component {
                     { //Short circuiting: 
                         this.state.selectedCommonHouseplantId && <PlantInfo /> 
                     } */}
-                    <PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId}/> 
+                    <AddEntries selectedUserHouseplantId={this.state.selectedUserHouseplantId} />
+                    <PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId} /> 
                 </div>
             </div>
         )
@@ -213,6 +215,7 @@ class AddEntries extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
+
         newJournalEntry: null,
         waterUpdateInput: false,
         fertilizerUpdateInput: false,
@@ -232,13 +235,15 @@ class AddEntries extends React.Component {
       formSubmitEvent.preventDefault();
   
       let newEntryData = { 
+        addUserHouseplantId: this.props.selectedUserHouseplantId,
         addJournalEntryText: this.state.newJournalEntry,
         addWaterUpdate: this.state.waterUpdateInput,
         addFertilizerUpdate: this.state.fertilizerUpdateInput,
     }
   
       $.post('/add_new_journal_entry_to_user_profile', newEntryData, (response) => console.log('Add journal entry information:', response))
-  
+    
+        console.log("You have submitted for user houseplant id number:", this.props.selectedUserHouseplantId)
         console.log("You have submited the journal entry of: ", this.state.newJournalEntry);
         console.log("You have submited the water update of: ", this.state.waterUpdateInput);
         console.log("You have submited the fertilizer update of: ", this.state.fertilizerUpdateInput);
@@ -476,7 +481,7 @@ class App extends React.Component {
 
         this.state = { 
             currentPage: 0, 
-            pages: [<HomePage />, <AboutPage />, <Form />, <AddEntries />, <PlantCollection />,] 
+            pages: [<HomePage />, <AboutPage />, <Form />, <PlantCollection />,] 
         }; 
     }
     render() {
@@ -492,11 +497,11 @@ class App extends React.Component {
                     <button onClick={() => 
                     this.setState({currentPage: 2})}>Add a plant
                     </button> 
-                    <button onClick={() => 
+                    {/* <button onClick={() => 
                     this.setState({currentPage: 3})}>Add a journal entry
-                    </button> 
+                    </button>  */}
                     <button onClick={() => 
-                    this.setState({currentPage: 4})}>View your plant collection
+                    this.setState({currentPage: 3})}>View your plant collection
                     </button> 
                 </div>
                 <div>
