@@ -58,7 +58,9 @@ class PlantCollection extends React.Component {
         for (const usersPlant of this.state.usersPlantCollection) {
             listOfUsersPlants.push(
                 <li>
-                    <button onClick={() => 
+                    <button 
+                        key={usersPlant['userHouseplantId']}
+                        onClick={() => 
                         this.setState({
                             currentPlantPage: 0,
                             selectedUserHouseplantId: usersPlant['userHouseplantId'],
