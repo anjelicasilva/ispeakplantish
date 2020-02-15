@@ -15,21 +15,31 @@ class PlantCollection extends React.Component {
     }
 
 
-    async componentDidMount() {
-        // fetch list of plants the user owns
-        const usersPlantCollectionResponse = await fetch('/api/houseplants');
-        const usersPlantCollectionJson = await usersPlantCollectionResponse.json();
+    componentDidMount() {
+       this.fetchUsersPlantCollection();
+       this.fetchCommonHouseplants();
+    }
+        
 
-        for (const usersPlantObject of Object.entries(usersPlantCollectionJson)) {
-            if (this.state.userId === usersPlantObject[1]['user_id']) {
-                let usersPlant = {
-                    commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
-                    userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
-                    userId: usersPlantObject[1]['user_id'],
-                }
-                this.state.usersPlantCollection.push(usersPlant);
-            }
-        };
+    async fetchUsersPlantCollection() {
+         // fetch list of plants the user owns
+         const usersPlantCollectionResponse = await fetch('/api/houseplants');
+         const usersPlantCollectionJson = await usersPlantCollectionResponse.json();
+ 
+         for (const usersPlantObject of Object.entries(usersPlantCollectionJson)) {
+             if (this.state.userId === usersPlantObject[1]['user_id']) {
+                 let usersPlant = {
+                     commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
+                     userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
+                     userId: usersPlantObject[1]['user_id'],
+                 }
+                 this.state.usersPlantCollection.push(usersPlant);
+             }
+         };
+    }
+
+
+    async fetchCommonHouseplants() {
         // fetch list of information for all common houseplants
         const commonHouseplantsResponse = await fetch(`/api/common_houseplants`);
         const commonHouseplantsJson = await commonHouseplantsResponse.json();
@@ -52,6 +62,7 @@ class PlantCollection extends React.Component {
             listOfCommonHouseplants: this.state.listOfCommonHouseplants
         });
     }
+
 
     renderUsersPlantCollection() {
         const listOfUsersPlants = [];
