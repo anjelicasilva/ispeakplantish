@@ -397,6 +397,8 @@ class Form extends React.Component {
         console.log("You have submited the latin name: ", this.state.selectedLatinName);
         console.log("You have submitted the general light requirement: ", this.state.selectedLight);
         console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
+
+        this.confirmationBox();
    };
  
 
@@ -419,6 +421,11 @@ class Form extends React.Component {
             };
         };
         return -1
+   }
+
+   confirmationBox() {
+       alert(`You have added ${this.state.selectedCommonName} to your plant collection!`)
+
    }
 
    render() {
