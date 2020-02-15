@@ -140,3 +140,4 @@ if __name__ == '__main__':
 
     #Use the DebugToolbar
     DebugToolbarExtension(app)
+    
