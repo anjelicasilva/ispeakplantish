@@ -9,8 +9,8 @@ class PlantCollection extends React.Component {
             // view plant info
             currentPlantPage: null, 
 
-            selectedUserHouseplantId: "noSelection",
-            selectedCommonHouseplantId: "noSelection",
+            selectedUserHouseplantId: null,
+            selectedCommonHouseplantId: null,
         };
     }
 

@@ -3,7 +3,7 @@ class AddEntries extends React.Component {
     super(props)
     this.state = {
 
-      newJournalEntry: null,
+      newJournalEntry: "",
       waterUpdateInput: false,
       fertilizerUpdateInput: false,
     }
@@ -103,7 +103,7 @@ class AddEntries extends React.Component {
           <button
           type="submit"
           className="btn btn-primary"
-          disabled={this.state.newJournalEntry === null}>
+          disabled={this.props.selectedUserHouseplantId === null}>
           Add New Entry
           </button>
         </div>     
