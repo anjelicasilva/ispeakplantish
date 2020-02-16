@@ -1,6 +1,6 @@
 class App extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = { 
             currentPage: 0, 
