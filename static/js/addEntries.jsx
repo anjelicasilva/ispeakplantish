@@ -6,8 +6,10 @@ class AddEntries extends React.Component {
       newJournalEntry: "",
       waterUpdateInput: false,
       fertilizerUpdateInput: false,
+      listofEntries: [],
     }
-    this.handleEntryInput = this.handleEntryInput.bind(this)
+    this.handleEntryInput = this.handleEntryInput.bind(this);
+    this.handleEntryFormSubmit = this.handleEntryFormSubmit.bind(this);
   }
 
 
@@ -34,6 +36,13 @@ class AddEntries extends React.Component {
       console.log("You have submited the journal entry of: ", this.state.newJournalEntry);
       console.log("You have submited the water update of: ", this.state.waterUpdateInput);
       console.log("You have submited the fertilizer update of: ", this.state.fertilizerUpdateInput);
+
+    alert(`You have added a journal entry for the plant ${this.props.selectedCommonName}`)
+
+    // fetch all entries again to include newly added entry
+    this.props.fetchAllEntries();
+    
+
 };
 
   render() {
