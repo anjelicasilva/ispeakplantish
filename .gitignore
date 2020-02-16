@@ -2,5 +2,6 @@ env/
 *.pyc
 .DS_Store
 __pycache__
+secrets.py
 secrets.sh*
 *secret.*
