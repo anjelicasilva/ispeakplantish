@@ -4,9 +4,10 @@ Automat==0.6.0
 backcall==0.1.0
 bleach==3.1.0
 blinker==1.4
-certifi==2018.1.18
+certifi==2019.11.28
 chardet==3.0.4
 Click==7.0
+cloudinary==1.20.0
 colorama==0.3.7
 configobj==5.0.6
 constantly==15.1.0
@@ -88,7 +89,7 @@ tornado==6.0.3
 traitlets==4.3.3
 Twisted==17.9.0
 ufw==0.36
-urllib3==1.22
+urllib3==1.25.8
 virtualenv==15.1.0
 wcwidth==0.1.8
 webencodings==0.5.1
