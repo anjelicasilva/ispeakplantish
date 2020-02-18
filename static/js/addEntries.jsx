@@ -30,14 +30,14 @@ class AddEntries extends React.Component {
       addFertilizerUpdate: this.state.fertilizerUpdateInput,
   }
 
-    $.post('/add_new_journal_entry_to_user_profile', newEntryData, (response) => console.log('Add journal entry information:', response))
+    $.post('/add_new_journal_entry_to_user_profile', newEntryData, (response) => console.log(response))
   
       console.log("You have submitted for user houseplant id number:", this.props.selectedUserHouseplantId)
       console.log("You have submited the journal entry of: ", this.state.newJournalEntry);
       console.log("You have submited the water update of: ", this.state.waterUpdateInput);
       console.log("You have submited the fertilizer update of: ", this.state.fertilizerUpdateInput);
 
-    alert(`You have added a journal entry for the plant ${this.props.selectedCommonName}`)
+    alert(`You have added a journal entry for your ${this.props.selectedCommonName}`)
 
     // fetch all entries again to include newly added entry
     this.props.fetchAllEntries();
@@ -106,7 +106,10 @@ class AddEntries extends React.Component {
                 className="fertilizerUpdateInput"
             />
             No
-          </label>           
+          </label>
+          <label>
+            <ImageUpload />
+          </label>          
         </div>
         <div>     
           <button
