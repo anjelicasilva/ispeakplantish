@@ -11,11 +11,19 @@ class Form extends React.Component {
         this.generateLatinName = this.generateLatinName.bind(this);
     }
  
-    async componentDidMount() {
-        const response = await fetch(`/api/common_houseplants`);
-        const myJson = await response.json();
-        
-        for (const plantObject of Object.entries(myJson)) {
+    componentDidMount() {
+        this.fetchCommonHouseplants();
+    }
+
+
+    async fetchCommonHouseplants() {
+        // fetch list of information for all common houseplants
+        const commonHouseplantsResponse = await fetch(`/api/common_houseplants`);
+        const commonHouseplantsJson = await commonHouseplantsResponse.json();
+        const commonHouseplants =[]
+
+        for (const plantObject of Object.entries(commonHouseplantsJson)) {
+
             let plant = {
                 commonHouseplantId: plantObject[1]['common_houseplant_id'],
                 commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
@@ -23,14 +31,14 @@ class Form extends React.Component {
                 latinName: plantObject[1]['latin_name'],
                 generalDescription: plantObject[1]['general_description'],
                 recommendedLightRequirements: plantObject[1]['light_requirements'],
-             }
-             this.state.listOfCommonHouseplants.push(plant);
-         };
-         
-         this.setState({
-             listOfCommonHouseplants: this.state.listOfCommonHouseplants
-         });
- }
+            }
+            commonHouseplants.push(plant);
+        };
+
+        this.setState({
+            listOfCommonHouseplants: commonHouseplants,
+        });
+    }
  
  
     handleLightChange = changeEvent => {
