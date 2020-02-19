@@ -7,10 +7,18 @@ class AddEntries extends React.Component {
       waterUpdateInput: false,
       fertilizerUpdateInput: false,
       listofEntries: [],
+      selectedImgFile: null,
     }
     this.handleEntryInput = this.handleEntryInput.bind(this);
     this.handleEntryFormSubmit = this.handleEntryFormSubmit.bind(this);
   }
+
+
+  imgFileSelectedHandler = event => {
+    this.setState({
+        selectedImgFile: event.target.files[0],
+    })
+  } 
 
 
   handleEntryInput = changeEvent => {
@@ -39,16 +47,31 @@ class AddEntries extends React.Component {
 
     alert(`You have added a journal entry for your ${this.props.selectedCommonName}`)
 
-    // fetch all entries again to include newly added entry
-    this.props.fetchAllEntries();
-    
+    const formData = new FormData();
+    formData.append('file', this.state.selectedImgFile);
 
+    fetch('/add_image', {
+        method: 'POST',
+        body: formData
+    })
+    .then((response)=> JSON.stringify(response))
+    .then((result)=> {
+      this.props.fetchAllEntries();
+      this.props.fetchAllPhotos();
+      console.log('Success', result);
+    })
+    .catch((error)=> {
+        console.error('Error', error);
+    });
 };
 
   render() {
     return(
       <form onSubmit={this.handleEntryFormSubmit}>     
-        <div className="new-journal-entry"> 
+        <div className="new-journal-entry">
+        <div className="Image">
+          <input type="file" onChange={this.imgFileSelectedHandler} />
+        </div> 
           <label>
           Journal Entry:
           <input type="text" name="newJournalEntry" placeholder="Write an entry" onChange={this.handleEntryInput}></input>
@@ -107,9 +130,6 @@ class AddEntries extends React.Component {
             />
             No
           </label>
-          <label>
-            <ImageUpload />
-          </label>          
         </div>
         <div>     
           <button

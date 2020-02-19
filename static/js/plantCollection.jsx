@@ -7,6 +7,7 @@ class PlantCollection extends React.Component {
             usersPlantCollection: [],
             listOfCommonHouseplants: [],
             listOfEntries: [],
+            listOfPhotos: [],
             // view plant info
             currentPlantPage: null, 
 
@@ -16,6 +17,7 @@ class PlantCollection extends React.Component {
         this.fetchUsersPlantCollection = this.fetchUsersPlantCollection.bind(this);
         this.fetchCommonHouseplants = this.fetchCommonHouseplants.bind(this);
         this.fetchAllEntries = this.fetchAllEntries.bind(this);
+        this.fetchAllPhotos = this.fetchAllPhotos.bind(this);
     }
 
 
@@ -23,6 +25,7 @@ class PlantCollection extends React.Component {
        this.fetchUsersPlantCollection();
        this.fetchCommonHouseplants();
        this.fetchAllEntries();
+       this.fetchAllPhotos();
     }
         
 
@@ -97,6 +100,28 @@ class PlantCollection extends React.Component {
         });
     }
 
+    async fetchAllPhotos() {
+
+        // ** possibly fetch asynchronously and then have a loading animation until it finishes **
+        const photosResponse = await fetch('/api/photos');
+        const photosJson = await photosResponse.json();
+        const newListOfPhotos = []
+        for (const photosObject of Object.entries(photosJson)) {
+    
+            let photo = {
+                journalEntryId: photosObject[1]['journal_entry_id'],
+                photoId: photosObject[1]['photo_id'],
+                photoUpdate: photosObject[1]['photo_update'],
+                photoUrl: photosObject[1]['photo_url'],
+            }
+            newListOfPhotos.push(photo);
+        };
+
+        this.setState({
+            listOfPhotos: newListOfPhotos,
+        });
+    }
+
 
     renderUsersPlantCollection() {
         const listOfUsersPlants = [];
@@ -120,27 +145,6 @@ class PlantCollection extends React.Component {
         return listOfUsersPlants
     }
 
-
-    fileUploadHandler = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-        const formData = new FormData();
-        formData.append('file', this.state.selectedImgFile);
-
-        fetch('/add_image', {
-            method: 'POST',
-            body: formData
-        })
-        .then((response)=> response.json())
-
-        // imageUpload.jsx:29 Error SyntaxError: Unexpected token A in JSON at position 0
-        .then((result)=> {
-            console.log('Sucess', result);
-        })
-        .catch((error)=> {
-            console.error('Error', error);
-        });
-    };
-
     render() {
         if (this.state.listOfCommonHouseplants.length === 0) {
             return (
@@ -157,8 +161,16 @@ class PlantCollection extends React.Component {
                     </ol>
                 </div>
                 <div>
-                    <AddEntries selectedUserHouseplantId={this.state.selectedUserHouseplantId} selectedCommonName={this.state.selectedCommonName} fetchAllEntries={this.fetchAllEntries} />
-                    <PlantInfo selectedUserHouseplantId={this.state.selectedUserHouseplantId} listOfEntries={this.state.listOfEntries} fetchAllEntries={this.state.fetchAllEntries}/> 
+                    <AddEntries 
+                        selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
+                        selectedCommonName={this.state.selectedCommonName} 
+                        fetchAllEntries={this.fetchAllEntries} 
+                        fetchAllPhotos={this.fetchAllPhotos} />
+                    <PlantInfo 
+                        selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
+                        listOfEntries={this.state.listOfEntries} 
+                        fetchAllEntries={this.state.fetchAllEntries} 
+                        listOfPhotos={this.state.listOfPhotos} /> 
                 </div>
             </div>
         )

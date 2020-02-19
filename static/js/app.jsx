@@ -20,9 +20,6 @@ class App extends React.Component {
                     <button onClick={() => 
                     this.setState({currentPage: 2})}>Add a plant
                     </button> 
-                    {/* <button onClick={() => 
-                    this.setState({currentPage: 3})}>Add a journal entry
-                    </button>  */}
                     <button onClick={() => 
                     this.setState({currentPage: 3})}>View your plant collection
                     </button> 

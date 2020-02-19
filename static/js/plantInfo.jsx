@@ -1,39 +1,10 @@
 class PlantInfo extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            listOfPhotos: [],
-        };
         
         this.renderEntries = this.renderEntries.bind(this);
         this.checkUpdates = this.checkUpdates.bind(this);
         this.renderPhoto = this.renderPhoto.bind(this);
-    }
-    
-    componentDidMount() {
-        this.fetchAllPhotos();
-     }
-
-    async fetchAllPhotos() {
-
-        // ** possibly fetch asynchronously and then have a loading animation until it finishes **
-        const photosResponse = await fetch('/api/photos');
-        const photosJson = await photosResponse.json();
-        const newListOfPhotos = []
-        for (const photosObject of Object.entries(photosJson)) {
-    
-            let photo = {
-                journalEntryId: photosObject[1]['journal_entry_id'],
-                photoId: photosObject[1]['photo_id'],
-                photoUpdate: photosObject[1]['photo_update'],
-                photoUrl: photosObject[1]['photo_url'],
-            }
-            newListOfPhotos.push(photo);
-        };
-
-        this.setState({
-            listOfPhotos: newListOfPhotos,
-        });
     }
 
     checkUpdates(update) {
@@ -47,7 +18,7 @@ class PlantInfo extends React.Component {
 
     renderPhoto(entry) {
         let uploadPhoto = "None"
-        for (const photoObject of this.state.listOfPhotos) {
+        for (const photoObject of this.props.listOfPhotos) {
             if (photoObject['journalEntryId'] === entry['journalEntryId']) {
                 uploadPhoto = [<img src={photoObject['photoUrl']} />]
                 return uploadPhoto
