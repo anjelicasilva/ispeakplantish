@@ -46,19 +46,17 @@ class Form extends React.Component {
             selectedLight: changeEvent.target.value
         });
     };
-  
-  
-    handleInput = changeEvent => {
-        const latinNameIndex = this.generateLatinName(changeEvent.target.value)
+
+    handleCommonNameSelection = (currentResult) => {
+        const latinNameIndex = this.generateLatinName(currentResult)
         this.setState({
-             selectedCommonName: changeEvent.target.value,
+             selectedCommonName: currentResult,
              selectedLatinName: this.state.listOfCommonHouseplants[latinNameIndex]['latinName'],
              selectedLight: this.state.listOfCommonHouseplants[latinNameIndex]['recommendedLightRequirements'],
              selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId']
         });
         
     };
-    
    
     handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
@@ -79,13 +77,12 @@ class Form extends React.Component {
  
          this.confirmationBox();
     };
-  
- 
+
     renderPlantOptions() {
-        const plantOptions = [<option value="noNewHouseplant">Select Common Name</option>];
+        const plantOptions = [];
  
         for (const plantObject of this.state.listOfCommonHouseplants) {
-            plantOptions.push(<option value={plantObject['commonName']} key={plantObject['commonHouseplantId']}>{plantObject['commonName']}</option>)
+            plantOptions.push(plantObject['commonName'])
         };
  
         return plantOptions
@@ -106,23 +103,22 @@ class Form extends React.Component {
         alert(`You have added ${this.state.selectedCommonName} to your plant collection!`)
  
     }
+
  
     render() {
         return (
         <form onSubmit={this.handleFormSubmit}> 
             <div>
-            <label>
-                Common Name:
-                <select
-                    value={this.selectedCommonName}
-                    onChange={this.handleInput}
-                    className="common-name"
-                    id="CommonName"
-                >
-                    { this.renderPlantOptions() }
-                    
-                </select>
-            </label>
+            <div className="App">
+                <div className="App-Component">
+                    <div className="App-Component">
+                        <AutoCompleteText 
+                            items={this.renderPlantOptions()} 
+                            handleCommonNameSelection={this.handleCommonNameSelection}
+                        />
+                    </div>
+                </div>
+            </div>
             </div>  
             <div>
             <label>
