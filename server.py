@@ -11,6 +11,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+# import emojis
+from twilio.rest import Client
+
 from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
 
@@ -154,19 +157,13 @@ def allowed_file(filename):
 def add_user_houseplant_images():
     "Add user's personal houseplant photos to database"
     
-    #Get number of journal entry records found without fetching and add 1 to get the 
-    # current journal entry id to be added next
     num_of_all_entries = Entry.query.count()
-
     file = request.files['file']
-   
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('File extension not allowed')
         
     file = request.files['file']
-    # if user does not select file, browser also
-    # submit an empty part without filename
     if file.filename == '':
         flash('No selected file')
         
@@ -176,13 +173,8 @@ def add_user_houseplant_images():
         upload_img_file = cloudinary.uploader.upload(file,
                                                     folder = 'ispeakplantish',
                                                     )
-                                                    #change public_id to plant photo id from database
         print('upload_img_file:')
         print(upload_img_file)
-
-        #request journal_entry_id from form or num of all entries + 1 
-        # after figuring out how to upload the image to cloudinary at the same time
-        # when the journal entry text is being added
         new_photo = Photo(journal_entry_id = (num_of_all_entries),
                         photo_url = upload_img_file['secure_url'],)
 
@@ -191,6 +183,36 @@ def add_user_houseplant_images():
         db.session.commit()
     
     return 'Added to cloudinary!'
+
+
+@app.route('/send_sms', methods=['POST'])
+def send_sms_reminder():
+    "Send user a sms reminder to water or fertilize their plant"
+
+    selectedSMSReminder = request.form.get('selectedSMSReminder')
+
+    if selectedSMSReminder == 'sendWaterSMS':
+        sms_body = "Friendly reminder to water your plant today."
+ 
+    elif selectedSMSReminder == 'sendFertilizerSMS':
+        sms_body = "Friendly reminder to fertilize your plant today."
+
+
+    phone = os.environ.get("PHONE_NUMBER")
+    twilio_phone = os.environ.get("TWILIO_PHONE_NUMBER")
+    account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+    auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+        to = phone,
+        from_ = twilio_phone,
+        body = sms_body,
+        )
+
+    return 'Sent user a SMS reminder'
+
 
 #############################################
 
@@ -202,4 +224,3 @@ if __name__ == '__main__':
 
     #Use the DebugToolbar
     DebugToolbarExtension(app)
-    
