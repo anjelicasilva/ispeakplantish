@@ -14,6 +14,8 @@ import cloudinary.api
 # import emojis
 from twilio.rest import Client
 
+from random import randint
+
 from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
 
@@ -212,6 +214,16 @@ def send_sms_reminder():
         )
 
     return 'Sent user a SMS reminder'
+
+
+@app.route('/plant_of_the_day')
+def plant_of_the_day():
+
+    random_common_houseplant_id = randint(1,92)
+    plant_of_the_day = CommonHouseplant.query.filter_by(common_houseplant_id=str(random_common_houseplant_id)).all()
+    
+    return jsonify({plant.common_houseplant_id: plant.to_dict() for plant in plant_of_the_day})
+
 
 
 #############################################

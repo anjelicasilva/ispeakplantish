@@ -6,6 +6,7 @@ class SmsReminder extends React.Component {
       };
     }
 
+
     handleEntryInput = changeEvent => {
         this.setState({
           selectedSMSReminder: changeEvent.target.value
@@ -23,7 +24,7 @@ class SmsReminder extends React.Component {
          $.post('/send_sms', smsData, (response) => console.log('Send SMS reminder:', response))
     };
 
-
+    
     render() {
         return (
             <div>

@@ -76,6 +76,19 @@ class Form extends React.Component {
          console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
  
          this.confirmationBox();
+        //  this.setState ({
+        //     selectedLight: null,
+        //     selectedCommonName: null,
+        //     selectedLatinName: null,
+        //     selectedCommonHouseplantId: null,
+        // });
+
+        // switch all alert boxes to use react Toast
+        // create a function in main parent that will have this function for all components
+        // so each component can call function to render react toast with specific message. 
+        // have this component be planted on all components and can have it on top right corner with css
+        // this.toast(`Plant ${addCommonName} was added`)
+        
     };
 
     renderPlantOptions() {
