@@ -19,6 +19,7 @@ class SmsReminder extends React.Component {
  
          let smsData = { 
              selectedSMSReminder: this.state.selectedSMSReminder,
+             selectedCommonName: this.props.selectedCommonName,
          }
  
          $.post('/send_sms', smsData, (response) => console.log('Send SMS reminder:', response))
@@ -63,7 +64,7 @@ class SmsReminder extends React.Component {
                     <button
                         type="submit"
                         className="btn btn-primary"
-                        disabled={this.selectedSMSReminder === null}>
+                        disabled={this.state.selectedSMSReminder === null}>
                         Send SMS
                     </button>
                     </div>

@@ -4,7 +4,7 @@ class App extends React.Component {
 
         this.state = { 
             currentPage: 0, 
-            pages: [<HomePage />, <AboutPage />, <Form />, <PlantCollection />, <SmsReminder />] 
+            pages: [<HomePage />, <AboutPage />, <Form />, <PlantCollection />,] 
         }; 
     }
     render() {
@@ -23,9 +23,9 @@ class App extends React.Component {
                     <button onClick={() => 
                     this.setState({currentPage: 3})}>View your plant collection
                     </button> 
-                    <button onClick={() => 
+                    {/* <button onClick={() => 
                     this.setState({currentPage: 4})}>Send an sms reminder
-                    </button> 
+                    </button>  */}
                 </div>
                 <div>
                 { this.state.pages[this.state.currentPage] }

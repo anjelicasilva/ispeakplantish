@@ -8,11 +8,10 @@ class PlantCollection extends React.Component {
             listOfCommonHouseplants: [],
             listOfEntries: [],
             listOfPhotos: [],
-            // view plant info
-            currentPlantPage: null, 
-
             selectedUserHouseplantId: null,
             selectedCommonHouseplantId: null,
+            selectedCommonName: null,
+            
         };
         this.fetchUsersPlantCollection = this.fetchUsersPlantCollection.bind(this);
         this.fetchCommonHouseplants = this.fetchCommonHouseplants.bind(this);
@@ -132,7 +131,6 @@ class PlantCollection extends React.Component {
                         key={usersPlant['userHouseplantId']}
                         onClick={() => 
                         this.setState({
-                            currentPlantPage: 0,
                             selectedUserHouseplantId: usersPlant['userHouseplantId'],
                             selectedCommonHouseplantId: usersPlant['commonHouseplantId'],
                             selectedCommonName: this.state.listOfCommonHouseplants[(usersPlant['commonHouseplantId'])-1]['commonName']})
@@ -160,6 +158,11 @@ class PlantCollection extends React.Component {
                         { this.renderUsersPlantCollection() }
                     </ol>
                 </div>
+                <div>
+                    <SmsReminder selectedCommonName={this.state.selectedCommonName} />
+                </div>
+                <br></br>
+                <br></br>
                 <div>
                     <AddEntries 
                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 

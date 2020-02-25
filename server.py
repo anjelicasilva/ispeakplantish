@@ -191,13 +191,16 @@ def add_user_houseplant_images():
 def send_sms_reminder():
     "Send user a sms reminder to water or fertilize their plant"
 
-    selectedSMSReminder = request.form.get('selectedSMSReminder')
+    selected_sms_reminder = request.form.get('selectedSMSReminder')
+    selected_common_name = request.form.get('selectedCommonName')
 
-    if selectedSMSReminder == 'sendWaterSMS':
-        sms_body = "Friendly reminder to water your plant today."
+    if selected_common_name == None:
+        selected_common_name = "plants"
+    if selected_sms_reminder == 'sendWaterSMS':
+        sms_body = f'Friendly reminder to water your {selected_common_name} today.'
  
-    elif selectedSMSReminder == 'sendFertilizerSMS':
-        sms_body = "Friendly reminder to fertilize your plant today."
+    elif selected_sms_reminder == 'sendFertilizerSMS':
+        sms_body = f'Friendly reminder to fertilize your {selected_common_name} today.'
 
 
     phone = os.environ.get("PHONE_NUMBER")
@@ -223,7 +226,6 @@ def plant_of_the_day():
     plant_of_the_day = CommonHouseplant.query.filter_by(common_houseplant_id=str(random_common_houseplant_id)).all()
     
     return jsonify({plant.common_houseplant_id: plant.to_dict() for plant in plant_of_the_day})
-
 
 
 #############################################
