@@ -68,14 +68,16 @@ class Form extends React.Component {
              addCommonHouseplantId: this.state.selectedCommonHouseplantId,
          }
  
-         $.post('/add_new_houseplant_to_user_profile', data, (response) => console.log('Add houseplant information:', response))
- 
+         $.post('/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`)})
          console.log("You have submited the common name: ", this.state.selectedCommonName);
          console.log("You have submited the latin name: ", this.state.selectedLatinName);
          console.log("You have submitted the general light requirement: ", this.state.selectedLight);
          console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
- 
-         this.confirmationBox();
+        };
+         
+         
+
+
         //  this.setState ({
         //     selectedLight: null,
         //     selectedCommonName: null,
@@ -88,8 +90,7 @@ class Form extends React.Component {
         // so each component can call function to render react toast with specific message. 
         // have this component be planted on all components and can have it on top right corner with css
         // this.toast(`Plant ${addCommonName} was added`)
-        
-    };
+    
 
     renderPlantOptions() {
         const plantOptions = [];
@@ -111,11 +112,6 @@ class Form extends React.Component {
          };
          return -1
     }
- 
-    confirmationBox() {
-        alert(`You have added ${this.state.selectedCommonName} to your plant collection!`)
- 
-    }
 
  
     render() {
@@ -128,6 +124,7 @@ class Form extends React.Component {
                         <AutoCompleteText 
                             items={this.renderPlantOptions()} 
                             handleCommonNameSelection={this.handleCommonNameSelection}
+                            notify={this.props.notify}
                         />
                     </div>
                 </div>
