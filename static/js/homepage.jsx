@@ -39,7 +39,7 @@ class HomePage extends React.Component {
     const plantOfTheDayInfo = []
                 
       plantOfTheDayInfo.push(
-          <div>
+          <div key={this.state.randomPlantOfTheDay['randomCommonName']}>
               <img src={this.state.randomPlantOfTheDay['randomHouseplantPhotoUrl']}></img>
               <h4>Common Name:</h4> 
               <p>{this.state.randomPlantOfTheDay['randomCommonName']}</p>
