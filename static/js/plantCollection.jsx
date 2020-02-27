@@ -158,6 +158,8 @@ class PlantCollection extends React.Component {
                         { this.renderUsersPlantCollection() }
                     </ol>
                 </div>
+                <br></br>
+                <br></br>
                 <div>
                     <SmsReminder selectedCommonName={this.state.selectedCommonName} />
                 </div>
