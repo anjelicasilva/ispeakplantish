@@ -4,6 +4,10 @@ from datetime import datetime
 # from pytz import timezone
 
 
+#LOGIN, LOGOUT, REGISTRATION
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -21,7 +25,7 @@ class User(db.Model):
     first_name = db.Column(db.String(100), nullable = False)
     last_name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), unique=True, nullable = False)
-    password = db.Column(db.String(10), nullable = False)
+    password = db.Column(db.String(10000), nullable = False)
     profile_photo_url = db.Column(db.String(500),
                                   nullable = True, 
                                   default = '/static/img/default-profile-photo.png')
@@ -47,6 +51,14 @@ class User(db.Model):
                 'phone_number': self.phone_number,
                 'reminders_enabled': self.reminders_enabled,
                 'created_at': self.created_at}
+    
+   #Functions to encrypt and hash passwords
+   #returns None
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password) 
 
 
 class Follower(db.Model):
