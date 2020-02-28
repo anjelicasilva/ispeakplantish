@@ -53,7 +53,8 @@ class Form extends React.Component {
              selectedCommonName: currentResult,
              selectedLatinName: this.state.listOfCommonHouseplants[latinNameIndex]['latinName'],
              selectedLight: this.state.listOfCommonHouseplants[latinNameIndex]['recommendedLightRequirements'],
-             selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId']
+             selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId'],
+             selectedCommonHouseplantPhotoUrl: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantPhotoUrl'],
         });
         
     };
@@ -68,28 +69,14 @@ class Form extends React.Component {
              addCommonHouseplantId: this.state.selectedCommonHouseplantId,
          }
  
-         $.post('/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`)})
+         $.post('/api/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`);
+                                                                        this.props.setCurrentPage(3);
+                                                                    })
          console.log("You have submited the common name: ", this.state.selectedCommonName);
          console.log("You have submited the latin name: ", this.state.selectedLatinName);
          console.log("You have submitted the general light requirement: ", this.state.selectedLight);
          console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
         };
-         
-         
-
-
-        //  this.setState ({
-        //     selectedLight: null,
-        //     selectedCommonName: null,
-        //     selectedLatinName: null,
-        //     selectedCommonHouseplantId: null,
-        // });
-
-        // switch all alert boxes to use react Toast
-        // create a function in main parent that will have this function for all components
-        // so each component can call function to render react toast with specific message. 
-        // have this component be planted on all components and can have it on top right corner with css
-        // this.toast(`Plant ${addCommonName} was added`)
     
 
     renderPlantOptions() {
@@ -115,55 +102,90 @@ class Form extends React.Component {
 
  
     render() {
+        if (this.state.selectedCommonName !== null) {
         return (
-        <form onSubmit={this.handleFormSubmit}> 
-            <div>
-            <div className="App">
-                <div className="App-Component">
-                    <div className="App-Component">
-                        <AutoCompleteText 
-                            items={this.renderPlantOptions()} 
-                            handleCommonNameSelection={this.handleCommonNameSelection}
-                            notify={this.props.notify}
-                        />
+            <form> 
+                <div>
+                    <div className="App">
+                        <div className="App-Component">
+                            <div className="App-Component">
+                                <label>
+                                    <h4>Search for a common houseplant:</h4>
+                                    <AutoCompleteText 
+                                        items={this.renderPlantOptions()} 
+                                        handleCommonNameSelection={this.handleCommonNameSelection}
+                                        notify={this.props.notify}
+                                    />
+                                </label>
+                            </div>
+                        </div>
                     </div>
+                <div>
+                    <label>
+                        <img
+                            id="PlantPhoto" 
+                            name="PlantPhoto"
+                            value={this.selectedCommonHouseplantPhotoUrl} 
+                            src={this.state.selectedCommonHouseplantPhotoUrl}
+                        >
+                        </img>
+                    </label>
+                </div> 
+                <div> 
+                    <label>
+                        Latin Name:
+                        <p
+                            id="LatinName" 
+                            name="LatinName" 
+                            value={this.selectedLatinName} 
+                            placeholder="Enter Latin Name">
+                            
+                            { this.state.selectedLatinName }
+                        </p>
+                    </label>
                 </div>
-            </div>
-            </div>  
-            <div>
-            <label>
-                Latin Name:
-                 <p
-                     id="LatinName" 
-                     name="LatinName" 
-                     value={this.selectedLatinName} 
-                     placeholder="Enter Latin Name">
-                     
-                     { this.state.selectedLatinName }
-                 </p>
-            </label>
-            </div>
-            <div className="light-requirement">
-            <label>
-             Light Requirement:
-                 <p
-                     id="lightRequirement" 
-                     name="lightRequirement" 
-                     value={this.selectedLight}> 
-                     
-                     { this.state.selectedLight }
-                 </p>
-            </label>
-            </div>    
-            <div>    
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={this.state.selectedCommonName === null}
-                >
-                    Add New Houseplant
-                </button>
+                <div className="light-requirement">
+                    <label>
+                    Light Requirement:
+                        <p
+                            id="lightRequirement" 
+                            name="lightRequirement" 
+                            value={this.selectedLight}> 
+                            
+                            { this.state.selectedLight }
+                        </p>
+                    </label>
+                </div>    
+                <div>    
+                    <button
+                        onClick={this.handleFormSubmit}
+                        disabled={this.state.selectedCommonName === null}
+                    >
+                        Add New Houseplant
+                    </button>
+                </div>
             </div>    
             </form>);
+        } else {
+            return (
+                <form>
+                    <div>
+                    <div className="App">
+                        <div className="App-Component">
+                            <div className="App-Component">
+                                <label>
+                                    <h4>Search for a common houseplant:</h4>
+                                    <AutoCompleteText 
+                                        items={this.renderPlantOptions()} 
+                                        handleCommonNameSelection={this.handleCommonNameSelection}
+                                        notify={this.props.notify}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>);
+        }
     }
  } 
