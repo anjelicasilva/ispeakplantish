@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ISpeakPlantish</title>
+
+    <!-- Import React-->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- Import Babel-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <meta charset="utf-8" />
+    <!-- Import jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+    <!-- Import CSS -->
+    <link href="/static/css/site.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    {% block head %} 
+    {% endblock %} 
+    
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script>
+        moment().format();
+        
+        const date = String(moment()['_d'])
+        console.log('check moment', typeof(date))
+    </script>
+
+    <script src="static/js/login.jsx" type="text/jsx"></script>
+    <script src="static/js/registration.jsx" type="text/jsx"></script>
+    <script src="static/js/smsReminder.jsx" type="text/jsx"></script>
+    <script src="static/js/autocompleteText.jsx" type="text/jsx"></script>
+    <script src="static/js/plantInfo.jsx" type="text/jsx"></script>
+    <script src="static/js/AddEntries.jsx" type="text/jsx"></script>
+    <script src="static/js/plantCollection.jsx" type="text/jsx"></script>
+    <script src="static/js/form.jsx" type="text/jsx"></script>
+    <script src="static/js/homepage.jsx" type="text/jsx"></script>
+    <script src="static/js/aboutPage.jsx" type="text/jsx"></script>
+    <script src="static/js/app.jsx" type="text/jsx"></script>
+
+    <!-- Import Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>
