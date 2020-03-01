@@ -150,6 +150,19 @@ class PlantCollection extends React.Component {
             )
         }
 
+        if (this.state.selectedUserHouseplantId === null) {
+            return (
+                <div>
+                    <h3>My Plant Collection:</h3>
+                    <div>
+                        <ol>
+                            { this.renderUsersPlantCollection() }
+                        </ol>
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <div>
                 <h3>My Plant Collection:</h3>
@@ -170,7 +183,8 @@ class PlantCollection extends React.Component {
                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
                         selectedCommonName={this.state.selectedCommonName} 
                         fetchAllEntries={this.fetchAllEntries} 
-                        fetchAllPhotos={this.fetchAllPhotos} />
+                        fetchAllPhotos={this.fetchAllPhotos}
+                        notify={this.props.notify} />
                     <PlantInfo 
                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
                         listOfEntries={this.state.listOfEntries} 

@@ -1,7 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-# from pytz import timezone
+from datetime import datetime, date
+import pytz
+
+from tzlocal import get_localzone
+
+tz = get_localzone()
+
+
+PST = pytz.timezone('America/Los_Angeles')
+UTC = pytz.timezone('UTC')
+
+# UTC.normalize(PST.normalize(
 
 
 #LOGIN, LOGOUT, REGISTRATION
@@ -9,12 +19,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 db = SQLAlchemy()
+# default=(datetime.today()).astimezone(pytz.timezone('US/Pacific')))
 
 class User(db.Model):
     """Stores information about each user on the iSpeakPlantish website."""
 
     # date = datetime.utcnow
     # date = date.astimezone(timezone('US/Pacific'))
+
+    # default=datetime.now().date()
 
     __tablename__ = "users"
 
@@ -31,7 +44,7 @@ class User(db.Model):
                                   default = '/static/img/default-profile-photo.png')
     phone_number = db.Column(db.String(11), unique=True, nullable = True)
     reminders_enabled = db.Column(db.Boolean, default = False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now().date())
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
     followers = db.relationship('Follower',
                                 primaryjoin="User.user_id==Follower.followed_id")
@@ -96,7 +109,7 @@ class Entry(db.Model):
     user_houseplant_id = db.Column(db.Integer, 
                                    db.ForeignKey('houseplants.user_houseplant_id'), 
                                    nullable=False)
-    date_time = db.Column(db.DateTime, default=datetime.utcnow)
+    date_time = db.Column(db.String, nullable = False, default=datetime.today())
     water_update = db.Column(db.Boolean, nullable=True, default=False)
     fertilizer_update = db.Column(db.Boolean, nullable=True, default=False)
 
@@ -124,8 +137,8 @@ class Photo(db.Model):
                         unique=True,
                         autoincrement=True)
     journal_entry_id = db.Column(db.Integer, db.ForeignKey('entries.journal_entry_id'))
-    photo_url = db.Column(db.String(500), nullable=False)
-    photo_update = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    photo_url = db.Column(db.String(10000), nullable=False)
+    photo_update = db.Column(db.DateTime, nullable=False, default=datetime.today())
 
     entries = db.relationship('Entry')
 

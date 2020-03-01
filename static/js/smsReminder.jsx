@@ -22,7 +22,7 @@ class SmsReminder extends React.Component {
              selectedCommonName: this.props.selectedCommonName,
          }
  
-         $.post('/send_sms', smsData, (response) => console.log('Send SMS reminder:', response))
+         $.post('/api/send_sms', smsData, (response) => console.log('Send SMS reminder:', response))
     };
 
     

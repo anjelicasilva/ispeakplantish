@@ -23,9 +23,7 @@ class Register extends React.Component {
              addPassword: this.state.password,
              addReEnter: this.state.reenter,
          }
-         console.log(this.state)
- 
-        $.post('/register', newUser,() => {console.log(this.state.fname)})
+         this.props.registerUser(newUser);
         };
 
     
@@ -39,7 +37,7 @@ class Register extends React.Component {
     render() {
         return (
             <div>
-            <form onSubmit={this.handleRegistrationFormSubmit}> 
+            <form> 
                 <div>    
                 <h3>Register Here </h3>
                     Please fill out the information below
@@ -62,8 +60,7 @@ class Register extends React.Component {
                 </div>
                 <div>    
                     <button
-                        type="submit"
-                        className="btn btn-primary"
+                        onClick={this.handleRegistrationFormSubmit}
                     >
                         Register
                     </button>

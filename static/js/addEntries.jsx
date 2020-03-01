@@ -9,8 +9,6 @@ class AddEntries extends React.Component {
       listofEntries: [],
       selectedImgFile: null,
     }
-    this.handleEntryInput = this.handleEntryInput.bind(this);
-    this.handleEntryFormSubmit = this.handleEntryFormSubmit.bind(this);
   }
 
 
@@ -19,6 +17,26 @@ class AddEntries extends React.Component {
         selectedImgFile: event.target.files[0],
     })
   } 
+
+  handleImageSubmit = (newEntryResponse) => {
+    const formData = new FormData();
+    formData.append('file', this.state.selectedImgFile);
+    formData.append('journalEntryId', newEntryResponse);
+
+    fetch('/api/add_image', {
+        method: 'POST',
+        body: formData
+    })
+    .then((newImageResponse)=> JSON.stringify(newImageResponse))
+    .then((result)=> {
+      this.props.fetchAllEntries();
+      this.props.fetchAllPhotos();
+      console.log('Success', result);
+    })
+    .catch((error)=> {
+        console.error('Error', error);
+    });
+  }
 
 
   handleEntryInput = changeEvent => {
@@ -36,38 +54,19 @@ class AddEntries extends React.Component {
       addJournalEntryText: this.state.newJournalEntry,
       addWaterUpdate: this.state.waterUpdateInput,
       addFertilizerUpdate: this.state.fertilizerUpdateInput,
+      addDateTime: moment()['_d'],
   }
 
-    $.post('/add_new_journal_entry_to_user_profile', newEntryData, (response) => console.log(response))
-  
-      console.log("You have submitted for user houseplant id number:", this.props.selectedUserHouseplantId)
-      console.log("You have submited the journal entry of: ", this.state.newJournalEntry);
-      console.log("You have submited the water update of: ", this.state.waterUpdateInput);
-      console.log("You have submited the fertilizer update of: ", this.state.fertilizerUpdateInput);
+    $.post('/api/add_new_journal_entry_to_user_profile', newEntryData, 
+          (response) => {this.props.notify(`Entry added for your ${this.props.selectedCommonName}`);
+                this.handleImageSubmit(response);
+                })
+  };
 
-    alert(`You have added a journal entry for your ${this.props.selectedCommonName}`)
-
-    const formData = new FormData();
-    formData.append('file', this.state.selectedImgFile);
-
-    fetch('/add_image', {
-        method: 'POST',
-        body: formData
-    })
-    .then((response)=> JSON.stringify(response))
-    .then((result)=> {
-      this.props.fetchAllEntries();
-      this.props.fetchAllPhotos();
-      console.log('Success', result);
-    })
-    .catch((error)=> {
-        console.error('Error', error);
-    });
-};
 
   render() {
     return(
-      <form onSubmit={this.handleEntryFormSubmit}>     
+      <form>     
         <div className="new-journal-entry">
         <div className="Image">
           <input type="file" onChange={this.imgFileSelectedHandler} />
@@ -133,8 +132,7 @@ class AddEntries extends React.Component {
         </div>
         <div>     
           <button
-          type="submit"
-          className="btn btn-primary"
+          onClick={this.handleEntryFormSubmit}
           disabled={this.props.selectedUserHouseplantId === null}>
           Add New Entry
           </button>

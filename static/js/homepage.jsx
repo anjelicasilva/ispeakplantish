@@ -14,8 +14,7 @@ class HomePage extends React.Component {
 
  
   async fetchHouseplantOfTheDay() {
-    // fetch list of information for random houseplant of the day
-    const randomHouseplantResponse = await fetch(`/plant_of_the_day`);
+    const randomHouseplantResponse = await fetch(`/api/plant_of_the_day`);
     const randomHouseplantJson = await randomHouseplantResponse.json();
 
     for (const randomPlant of Object.entries(randomHouseplantJson)) {

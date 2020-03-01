@@ -1,22 +1,19 @@
-from flask import Flask, render_template, redirect, request, jsonify, flash
+from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
+from flask import Flask, render_template, redirect, request, jsonify, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 import csv
 import time
+from datetime import datetime, date
 import json
-
 import os
+from random import randint
 from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
 # import emojis
 from twilio.rest import Client
-
-from random import randint
-
-from model import db, connect_to_db, User, Follower, Entry, Photo, Houseplant, CommonHouseplant
 
 
 app = Flask(__name__)
@@ -26,7 +23,6 @@ app.secret_key = 'ispeakplantish'
 
 # Rather than failing silently, undefined variables in Jinja2 raise an error.
 app.jinja_env.undefined = StrictUndefined
-
 
 #Set cloudinary configuration parameters globally
 cloudinary.config(
@@ -40,8 +36,12 @@ cloudinary.config(
 
 @app.route("/")
 def show_index():
-    """Show the iSpeakPlantish index."""
-    
+    """Show the iSpeakPlantish homepage."""
+    # google_api_key = os.environ.get('GOOGLE_API_KEY')
+
+    # return render_template("index.html", 
+    #                         google_api_key=google_api_key)
+    # return render_template("googleMapsIndex.html")
     return render_template("index.html")
 
 
@@ -77,7 +77,6 @@ def get_photos():
 def get_houseplants():
     # if request.is_json:
     #     my_stuff = request.json()
-
     houseplants = Houseplant.query.all()
     return jsonify({houseplant.user_houseplant_id: houseplant.to_dict() for houseplant in houseplants})
 
@@ -88,6 +87,7 @@ def get_common_houseplants():
     common_houseplants = CommonHouseplant.query.all()
     return jsonify({common_houseplant.common_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
+
 # Houseplants owned by User 1
 @app.route('/api/houseplants/user1')
 def get_user_specific_houseplants():
@@ -95,11 +95,127 @@ def get_user_specific_houseplants():
     return jsonify({users_houseplant.user_houseplant_id: users_houseplant.to_dict() for users_houseplant in users_houseplants})
 
 
-@app.route('/add_new_houseplant_to_user_profile', methods=['POST'])
-def add_new_houseplant_data():
+
+###############################################################################
+#                                                                             #
+#                      USER AUTHENTICATION ROUTES                             #
+#                                                                             #
+###############################################################################
+
+
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    """Register user and save user information to database"""
+   
+    fname = request.form.get('addFirstName')
+    lname = request.form.get('addLastName')
+    email = request.form.get('addEmail')
+    password = request.form.get('addPassword')
+    reenter = request.form.get('addReEnter')
+    phone = request.form.get('addPhone')
+
+    user = User.query.filter_by(email = email).first()
+
+    if user != None and user.email == email and user.check_password(password) == True:
+    #Already exists in the system
+        return 'Please try logging in'
+
+    elif user != None: 
+        return 'An account with this email already exists'
+
+    # if the password and re-entered password does not match
+    elif password != reenter:
+        return 'Password does not match, please try again'
+
+    # New user
+    else:
+        new_user = User(first_name = fname,
+                        last_name = lname,
+                        email = email,
+                        password = password, 
+                        phone_number = phone,
+                        created_at = datetime.today())
+
+        #set password
+        new_user.set_password(password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        #save user to session
+        newly_registered_user = User.query.filter_by(email = email).first()
+        session['current_user_id'] = newly_registered_user.user_id
+
+        return {'current_user_id': session['current_user_id'],
+                'first_name': newly_registered_user.first_name,
+                'last_name': newly_registered_user.last_name,
+                }
+
+
+@app.route("/api/login", methods=["POST"])
+def verify_user():
+    """Verify and log in user"""
     
-    # if request.is_json:
-    #     my_stuff = request.json()
+    email = request.form.get("loginEmail")
+    password = request.form.get("loginPassword")
+
+    verify_user = User.query.filter_by(email=email).first()
+    print('verify which user', verify_user)
+    if verify_user:
+        if verify_user.check_password(password) == True:
+            session['current_user_id'] = verify_user.user_id
+            return {'current_user_id': session['current_user_id'],
+                    'first_name': verify_user.first_name,
+                    'last_name': verify_user.last_name,}
+        else:
+            return 'Incorrect Password'
+    return 'Incorrect Login Information'
+
+
+@app.route("/api/profile", methods=["GET"])
+def show_user_profile():
+    """Return the current user's profile"""
+    
+    #default to none if it doesn't exist
+    current_user_id = session.get('current_user_id', None)
+    
+    if current_user_id != None:
+        current_user = User.query.filter_by(user_id=current_user_id).first()
+        print('check', current_user)
+        current_user_info = {
+                            'current_user_id': current_user_id,
+                            'first_name':current_user.first_name,
+                            'last_name':current_user.last_name,
+                            'is_user_logged_in': 'yes',
+                            }
+    else:
+        current_user_info = {'is_user_logged_in': 'no'}
+    return jsonify(current_user_info)
+
+
+@app.route("/api/logout", methods=["GET"])
+def user_logout():
+    """Log out user from session"""
+    
+    # If key is in the dictionary, remove it and return its value, else return default. 
+    # If default is not given and key is not in the dictionary, a KeyError is raised.
+    session.pop('current_user_id', None)
+
+    return 'User is logged out'
+
+
+
+###############################################################################
+#                                                                             #
+#                           ENTRIES ROUTES                                    #
+#                                                                             #
+###############################################################################
+
+
+
+@app.route('/api/add_new_houseplant_to_user_profile', methods=['POST'])
+def add_new_houseplant_data():
     common_houseplant_id = request.form.get('addCommonHouseplantId')
     
     add_users_new_houseplant = Houseplant(
@@ -114,7 +230,7 @@ def add_new_houseplant_data():
     return 'New houseplant added!'
 
 
-@app.route('/add_new_journal_entry_to_user_profile', methods=['POST'])
+@app.route('/api/add_new_journal_entry_to_user_profile', methods=['POST'])
 def add_new_journal_entry_data():
 
     user_houseplant_id = request.form.get('addUserHouseplantId')
@@ -122,6 +238,12 @@ def add_new_journal_entry_data():
     journal_entry_text = request.form.get('addJournalEntryText')
 
     water_update = request.form.get('addWaterUpdate')
+
+    date_time = request.form.get('addDateTime')
+
+    #testing pyramid
+    # create method needs_update(string) => boolean
+
     if water_update == "true":
         water_update = True
     else:
@@ -134,6 +256,7 @@ def add_new_journal_entry_data():
         fertilizer_update = False
     
     add_users_new_journal_entry = Entry(
+        date_time = date_time,
         journal_entry_text = journal_entry_text,
         water_update = water_update,
         fertilizer_update = fertilizer_update,
@@ -146,7 +269,11 @@ def add_new_journal_entry_data():
     db.session.add(add_users_new_journal_entry)
     db.session.commit()
 
-    return 'New journal entry added!'
+    print(add_users_new_journal_entry.journal_entry_id)
+
+    # add image endpoint
+
+    return str(add_users_new_journal_entry.journal_entry_id)  #return journal entry id
 
 
 ALLOWED_EXTENSIONS = {'gif', 'png', 'jpg', 'jpeg'}
@@ -155,12 +282,14 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/add_image', methods=['POST'])
+
+@app.route('/api/add_image', methods=['POST'])
 def add_user_houseplant_images():
     "Add user's personal houseplant photos to database"
     
-    num_of_all_entries = Entry.query.count()
+    # num_of_all_entries = Entry.query.count()
     file = request.files['file']
+    journal_id = request.form['journalEntryId']
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('File extension not allowed')
@@ -177,9 +306,9 @@ def add_user_houseplant_images():
                                                     )
         print('upload_img_file:')
         print(upload_img_file)
-        new_photo = Photo(journal_entry_id = (num_of_all_entries),
-                        photo_url = upload_img_file['secure_url'],)
-
+        new_photo = Photo(journal_entry_id = journal_id,
+                        photo_url = upload_img_file['secure_url'],
+                        )
 
         db.session.add(new_photo)
         db.session.commit()
@@ -187,7 +316,16 @@ def add_user_houseplant_images():
     return 'Added to cloudinary!'
 
 
-@app.route('/send_sms', methods=['POST'])
+
+###############################################################################
+#                                                                             #
+#                          NICE-TO-HAVES ROUTES                               #
+#                                                                             #
+###############################################################################
+
+
+
+@app.route('/api/send_sms', methods=['POST'])
 def send_sms_reminder():
     "Send user a sms reminder to water or fertilize their plant"
 
@@ -219,7 +357,7 @@ def send_sms_reminder():
     return 'Sent user a SMS reminder'
 
 
-@app.route('/plant_of_the_day')
+@app.route('/api/plant_of_the_day')
 def plant_of_the_day():
 
     random_common_houseplant_id = randint(1,92)

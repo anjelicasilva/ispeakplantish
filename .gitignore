@@ -6,3 +6,5 @@ secrets.py
 secrets.sh*
 *secret.*
 trie.jsx
+googleMaps.js
+googleMapsIndex.html
