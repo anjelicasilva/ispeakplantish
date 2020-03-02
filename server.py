@@ -12,8 +12,9 @@ from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-# import emojis
 from twilio.rest import Client
+from flask_socketio import SocketIO, emit
+# import emojis
 
 
 app = Flask(__name__)
@@ -364,13 +365,35 @@ def plant_of_the_day():
     return jsonify({plant.common_houseplant_id: plant.to_dict() for plant in plant_of_the_day})
 
 
+###############################################################################
+#                                                                             #
+#                          SOCKETIO                                           #
+#                                                                             #
+###############################################################################
+
+
+socketio = SocketIO(app)
+
+@app.route('/forum')
+def hello():
+  return render_template('forum.html')
+
+def messageReceived():
+  print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+  print('received my event: ' + str( json ))
+  socketio.emit('my response', json)
+
+
 #############################################
 
 if __name__ == '__main__':
     connect_to_db(app)
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.run(debug=True,  host='0.0.0.0')
-
+    # app.run(debug=True,  host='0.0.0.0')
+    socketio.run(app, debug = True, host='0.0.0.0')
     #Use the DebugToolbar
     DebugToolbarExtension(app)

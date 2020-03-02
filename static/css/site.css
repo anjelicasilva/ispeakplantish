@@ -3,24 +3,6 @@ img {
     width: 250px;
 }
 
-/* trie search bar test */
-.hide {
-    visibility : hidden;
-}
-
-.show {
-    visibility : visible;
-}
-
-.colorRedFont {
-    color : red;
-    display : none;
-}
-
-.colorBlueBackground {
-    background-color : blue;
-    display : block;
-}
 
 
 
@@ -90,3 +72,7 @@ body {
 .App {
     text-align: center;
 }
+
+
+
+

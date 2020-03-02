@@ -45,6 +45,7 @@ class App extends React.Component {
         this.setState({ currentUserId: newUserDataResponse.current_user_id,
                         firstName: newUserDataResponse.first_name,
                         lastName: newUserDataResponse.last_name,
+                        currentPage: 2,
                     }, () => {this.notify(`${this.state.firstName}, thank you for registering with ISpeakPlantish`)});
         this.checkUserLogIn();
         }
@@ -63,6 +64,7 @@ class App extends React.Component {
         this.setState({ currentUserId: userLoginDataResponse.current_user_id,
                         firstName: userLoginDataResponse.first_name,
                         lastName: userLoginDataResponse.last_name,
+                        currentPage: 3,
                     }, () => {this.notify(`Welcome ${this.state.firstName}`)});
         this.checkUserLogIn();
         }
@@ -86,7 +88,7 @@ class App extends React.Component {
                 this.setState({ currentUserId: currentUserResponse.current_user_id,
                                 firstName: currentUserResponse.first_name,
                                 lastName: currentUserResponse.last_name,
-                                currentPage: 3,
+                                
                                 });
                 
                 

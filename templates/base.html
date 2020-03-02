@@ -18,22 +18,20 @@
     <link href="/static/css/site.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+
+
+    <link rel="shortcut icon" type="image/png" href="static/logos/plant-original.png">
+
     {% block head %} 
     {% endblock %} 
     
 </head>
 <body>
+
     {% block body %}
     {% endblock %}
     
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script>
-        moment().format();
-        
-        const date = String(moment()['_d'])
-        console.log('check moment', typeof(date))
-    </script>
+    
 
     <script src="static/js/login.jsx" type="text/jsx"></script>
     <script src="static/js/registration.jsx" type="text/jsx"></script>
@@ -47,7 +45,27 @@
     <script src="static/js/aboutPage.jsx" type="text/jsx"></script>
     <script src="static/js/app.jsx" type="text/jsx"></script>
 
+
+
+
+    <!-- Import SocketIO -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script> -->
+
+
+
+    
+
     <!-- Import Toastify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Import moment js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script>
+        moment().format();
+        
+        const date = String(moment()['_d'])
+        console.log('check moment', typeof(date))
+    </script>
+
 </body>
 </html>
