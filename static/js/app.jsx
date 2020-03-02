@@ -11,8 +11,11 @@ class App extends React.Component {
             pages: [<HomePage />, 
                     <AboutPage />, 
                     <Form notify={this.notify}
-                          setCurrentPage={this.setCurrentPage} />, 
-                    <PlantCollection notify={this.notify} />,
+                          setCurrentPage={this.setCurrentPage}
+                          renderCurrentUserId={this.renderCurrentUserId}
+                           />, 
+                    <PlantCollection notify={this.notify} 
+                                     renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
                     ] 
@@ -78,19 +81,26 @@ class App extends React.Component {
     checkUserLogIn = () => {
         $.get('/api/profile', (currentUserResponse) => {
             if (currentUserResponse.is_user_logged_in == 'yes') {
-            const userId = currentUserResponse.current_user_id;
-            const firstName = currentUserResponse.first_name;
-            this.setState({ currentUserId: currentUserResponse.current_user_id,
-                            firstName: currentUserResponse.first_name,
-                            lastName: currentUserResponse.last_name,
-                            currentPage: 3,
-                            });
+            // const userId = currentUserResponse.current_user_id;
+            // const firstName = currentUserResponse.first_name;
+                this.setState({ currentUserId: currentUserResponse.current_user_id,
+                                firstName: currentUserResponse.first_name,
+                                lastName: currentUserResponse.last_name,
+                                currentPage: 3,
+                                });
+                
+                
             } else {
             this.setState({
                             currentUserId: null,
                         });
             }
         });
+    }
+
+    renderCurrentUserId = () => {
+        console.log('correct state?', this.state.currentUserId)
+        return this.state.currentUserId
     }
     
 

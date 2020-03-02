@@ -3,7 +3,8 @@ class PlantCollection extends React.Component {
         super(props);
         this.state = {
             // refactor after creating user sign up page
-            userId: 1,
+            // userId: 1,
+            // userId: this.props.currentUserid,
             usersPlantCollection: [],
             listOfCommonHouseplants: [],
             listOfEntries: [],
@@ -35,7 +36,8 @@ class PlantCollection extends React.Component {
          const newUsersPlantCollection = []
  
          for (const usersPlantObject of Object.entries(usersPlantCollectionJson)) {
-             if (this.state.userId === usersPlantObject[1]['user_id']) {
+            // if (this.state.userId === usersPlantObject[1]['user_id'])
+             if (this.props.renderCurrentUserId() === usersPlantObject[1]['user_id']) {
                  let usersPlant = {
                      commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
                      userHouseplantId: usersPlantObject[1]['user_houseplant_id'],
@@ -184,7 +186,8 @@ class PlantCollection extends React.Component {
                         selectedCommonName={this.state.selectedCommonName} 
                         fetchAllEntries={this.fetchAllEntries} 
                         fetchAllPhotos={this.fetchAllPhotos}
-                        notify={this.props.notify} />
+                        notify={this.props.notify}
+                        renderCurrentUserId={this.props.renderCurrentUserId} />
                     <PlantInfo 
                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
                         listOfEntries={this.state.listOfEntries} 

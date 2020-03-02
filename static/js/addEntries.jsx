@@ -50,6 +50,7 @@ class AddEntries extends React.Component {
     formSubmitEvent.preventDefault();
 
     let newEntryData = { 
+      currentUserId: this.props.renderCurrentUserId(),
       addUserHouseplantId: this.props.selectedUserHouseplantId,
       addJournalEntryText: this.state.newJournalEntry,
       addWaterUpdate: this.state.waterUpdateInput,

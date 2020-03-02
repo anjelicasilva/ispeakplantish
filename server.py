@@ -117,11 +117,11 @@ def register():
 
     user = User.query.filter_by(email = email).first()
 
-    if user != None and user.email == email and user.check_password(password) == True:
-    #Already exists in the system
-        return 'Please try logging in'
+    # if user != None and user.email == email and user.check_password(password) == True:
+    # #Already exists in the system
+    #     return 'Please try logging in'
 
-    elif user != None: 
+    if user != None: 
         return 'An account with this email already exists'
 
     # if the password and re-entered password does not match
@@ -217,11 +217,11 @@ def user_logout():
 @app.route('/api/add_new_houseplant_to_user_profile', methods=['POST'])
 def add_new_houseplant_data():
     common_houseplant_id = request.form.get('addCommonHouseplantId')
-    
+    current_user_id= request.form.get('currentUserId')
+
     add_users_new_houseplant = Houseplant(
         common_houseplant_id = common_houseplant_id,
-        # hardcode user for now until, user signup pages are created
-        user_id = 1
+        user_id = current_user_id,
     )
 
     db.session.add(add_users_new_houseplant)
@@ -233,12 +233,10 @@ def add_new_houseplant_data():
 @app.route('/api/add_new_journal_entry_to_user_profile', methods=['POST'])
 def add_new_journal_entry_data():
 
+    current_user_id= request.form.get('currentUserId')
     user_houseplant_id = request.form.get('addUserHouseplantId')
-
     journal_entry_text = request.form.get('addJournalEntryText')
-
     water_update = request.form.get('addWaterUpdate')
-
     date_time = request.form.get('addDateTime')
 
     #testing pyramid
@@ -261,7 +259,7 @@ def add_new_journal_entry_data():
         water_update = water_update,
         fertilizer_update = fertilizer_update,
         # hardcode user_id and user_houseplant_id for now until, user signup pages are created
-        user_id = 1,
+        user_id = current_user_id,
         # access this value from the frontend
         user_houseplant_id = user_houseplant_id
     )

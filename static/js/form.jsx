@@ -61,8 +61,11 @@ class Form extends React.Component {
    
     handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
- 
+        
+        // console.log('did this prop work?', this.props.renderCurrentUserId())
+
          let data = { 
+             currentUserId: this.props.renderCurrentUserId(),
              addLatinName: this.state.selectedLatinName,
              addCommonName: this.state.selectedCommonName,
              addLightRequirement: this.state.selectedLight,
@@ -72,10 +75,11 @@ class Form extends React.Component {
          $.post('/api/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`);
                                                                         this.props.setCurrentPage(3);
                                                                     })
-         console.log("You have submited the common name: ", this.state.selectedCommonName);
-         console.log("You have submited the latin name: ", this.state.selectedLatinName);
-         console.log("You have submitted the general light requirement: ", this.state.selectedLight);
-         console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
+        //  console.log("You have submited the common name: ", this.state.selectedCommonName);
+        //  console.log("You have submited the latin name: ", this.state.selectedLatinName);
+        //  console.log("You have submitted the general light requirement: ", this.state.selectedLight);
+        //  console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
+        //  console.log("user log in id:", data['currentUserId'])
         };
     
 
