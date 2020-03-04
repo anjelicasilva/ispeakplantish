@@ -11,7 +11,7 @@ cloudinary==1.20.0
 colorama==0.3.7
 configobj==5.0.6
 constantly==15.1.0
-cryptography==2.1.4
+cryptography==2.3
 decorator==4.4.1
 defusedxml==0.6.0
 distro-info===0.18ubuntu0.18.04.1
