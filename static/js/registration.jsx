@@ -39,20 +39,32 @@ class Register extends React.Component {
             <div>
             <form> 
                 <div>    
-                <h3>Register Here </h3>
+                <h3>Sign Up </h3>
                     Please fill out the information below
                 <br></br>
-                    First name:  <input id="fname" type="text" name="fname" onChange={this.handleRegistrationInput}></input>
+                    First name:
+                    <br></br>  
+                    <input id="fname" type="text" name="fname" placeholder ="First" onChange={this.handleRegistrationInput}></input>
                 <br></br>
-                    Last name:  <input id="lname" type="text" name="lname" onChange={this.handleRegistrationInput}></input>
+                    Last name:  
+                    <br></br>
+                    <input id="lname" type="text" name="lname" placeholder ="Last" onChange={this.handleRegistrationInput}></input>
                 <br></br>
-                    Cellphone number:  <input id="phone" type="text" name="phone" onChange={this.handleRegistrationInput}></input>
+                    Cellphone number: 
+                    <br></br> 
+                    <input id="phone" type="text" name="phone" placeholder ="Phone" onChange={this.handleRegistrationInput}></input>
                 <br></br>
-                    Email address:  <input id="email" type="text" name="email" onChange={this.handleRegistrationInput}></input>
+                    Email address:
+                    <br></br>  
+                    <input id="email" type="text" name="email" placeholder ="email@domain.com" onChange={this.handleRegistrationInput}></input>
                 <br></br>
-                    Password:  <input id="password" type="password" name="password" onChange={this.handleRegistrationInput}></input>
+                    Password:
+                    <br></br>  
+                    <input id="password" type="password" name="password" placeholder ="Should be at least 7 characters" onChange={this.handleRegistrationInput}></input>
                 <br></br>
-                    Re-enter Password:  <input id="reenter" type="password" name='reenter' onChange={this.handleRegistrationInput}></input> 
+                    Re-enter Password:
+                    <br></br>  
+                    <input id="reenter" type="password" name='reenter' placeholder ="Should be at least 7 characters" onChange={this.handleRegistrationInput}></input> 
                 <br></br>
                 <br></br>
                     Register Now! 
@@ -62,7 +74,7 @@ class Register extends React.Component {
                     <button
                         onClick={this.handleRegistrationFormSubmit}
                     >
-                        Register
+                        Sign Up
                     </button>
                 </div>    
             </form>

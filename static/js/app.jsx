@@ -18,22 +18,20 @@ class App extends React.Component {
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
+                    <ChatForum />,
                     ] 
         }; 
     }
-
 
     componentDidMount() {
         this.checkUserLogIn()  
       }
 
-    
     setCurrentPage = (page) => {
         this.setState({
             currentPage: page,
         })
     }
-
 
     registerUser = (newUserData) => {
     $.post('/api/register', newUserData, (newUserDataResponse) => {
@@ -51,8 +49,6 @@ class App extends React.Component {
         }
     });
     }
-
-
 
     userLogIn = (userLoginData) => {
     $.post('/api/login', userLoginData, (userLoginDataResponse) => {
@@ -79,7 +75,6 @@ class App extends React.Component {
     });
     }
 
-
     checkUserLogIn = () => {
         $.get('/api/profile', (currentUserResponse) => {
             if (currentUserResponse.is_user_logged_in == 'yes') {
@@ -90,8 +85,6 @@ class App extends React.Component {
                                 lastName: currentUserResponse.last_name,
                                 
                                 });
-                
-                
             } else {
             this.setState({
                             currentUserId: null,
@@ -101,11 +94,9 @@ class App extends React.Component {
     }
 
     renderCurrentUserId = () => {
-        console.log('correct state?', this.state.currentUserId)
         return this.state.currentUserId
     }
     
-
     notify = (notificationText) => {
         this.setState (
             {notificationText: notificationText},
@@ -121,28 +112,6 @@ class App extends React.Component {
               }).showToast())
         ); 
     }
-
-
-
-      
-    // notify = (notificationText) => {
-    //     this.setState ({
-    //         notificationText: notificationText
-    //     });
-    //     Toastify({
-    //         text: this.state.notificationText,
-    //         duration: 3000,
-    //         // destination: "<PlantCollection/>",
-    //         newWindow: true,
-    //         close: true,
-    //         gravity: "top", // `top` or `bottom`
-    //         position: 'right', // `left`, `center` or `right`
-    //         backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-    //         stopOnFocus: true, // Prevents dismissing of toast on hover
-    //         // onClick: function(){} // Callback after click
-    //       }).showToast();
-    // }
-
 
     render() {
         const userLoggedIn = this.state.currentUserId;
@@ -165,6 +134,9 @@ class App extends React.Component {
                         <button onClick={() => 
                         this.setState({currentPage: 3})}>View Plant Collection
                         </button>
+                        <button onClick={() => 
+                        this.setState({currentPage: 6})}>Chat Forum
+                        </button>
                         <button onClick={this.userLogOut}> Logout </button>
                     </div>
                     <div>
@@ -182,7 +154,7 @@ class App extends React.Component {
                     this.setState({currentPage: 1})}>About
                     </button> 
                     <button onClick={() => 
-                    this.setState({currentPage: 4})}>Register
+                    this.setState({currentPage: 4})}>Signup
                     </button> 
                     <button onClick={() => 
                     this.setState({currentPage: 5})}>Login

@@ -38,15 +38,18 @@ class PlantInfo extends React.Component {
                 listOfRenderedEntries.push(
                     //** */ possibly make Line 61 -65 a component and then map listOfRenderedEntries to a function that renders that component
                     // https://stackoverflow.com/questions/41374572/how-to-render-an-array-of-objects-in-react **
-                    <li>
-                        <h4>Date: {entry['dateTime']}</h4>
+                    <li key={entry['journalEntryId']}>
+                        <br></br>
+                        {/* <h4>Date: {entry['dateTime']}</h4> */}
+                        <h4>{entry['dateTime']}</h4>
 
-                        <h5>Plant Photo:</h5> 
+                        {/* <h5>Plant Photo:</h5>  */}
                         {this.renderPhoto(entry)}
 
                         <h5>Watered: {this.checkUpdates(entry['waterUpdate'])}</h5>
                         <h5>Fertilized: {this.checkUpdates(entry['fertilizerUpdate'])}</h5>
                         {entry['journalEntryText']}
+                        <br></br>
                     </li>
                 )
             }

@@ -174,20 +174,20 @@ class Form extends React.Component {
             return (
                 <form>
                     <div>
-                    <div className="App">
-                        <div className="App-Component">
+                        <div className="App">
                             <div className="App-Component">
-                                <label>
-                                    <h4>Search for a common houseplant:</h4>
-                                    <AutoCompleteText 
-                                        items={this.renderPlantOptions()} 
-                                        handleCommonNameSelection={this.handleCommonNameSelection}
-                                        notify={this.props.notify}
-                                    />
-                                </label>
+                                <div className="App-Component">
+                                    <label>
+                                        <h4>Search for a common houseplant:</h4>
+                                        <AutoCompleteText 
+                                            items={this.renderPlantOptions()} 
+                                            handleCommonNameSelection={this.handleCommonNameSelection}
+                                            notify={this.props.notify}
+                                        />
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </form>);
         }

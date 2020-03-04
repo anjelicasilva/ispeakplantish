@@ -25,7 +25,7 @@ class AutoCompleteText extends React.Component {
         this.setState({
             currentResult: value,
             suggestions: [],
-        }, () =>  console.log('current state', this.state) );
+        });
         this.props.handleCommonNameSelection(value);
     }
 

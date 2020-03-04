@@ -15,10 +15,13 @@
     integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
     <!-- Import CSS -->
+    <link href="/static/css/forum.css" rel="stylesheet">
     <link href="/static/css/site.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <link rel="shortcut icon" type="image/png" href="static/logos/plant-original.png">
 
@@ -31,8 +34,10 @@
     {% block body %}
     {% endblock %}
     
-    
+    <!-- Import SocketIO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 
+    <script src="static/js/chatForum.jsx" type="text/jsx"></script>
     <script src="static/js/login.jsx" type="text/jsx"></script>
     <script src="static/js/registration.jsx" type="text/jsx"></script>
     <script src="static/js/smsReminder.jsx" type="text/jsx"></script>
@@ -45,27 +50,12 @@
     <script src="static/js/aboutPage.jsx" type="text/jsx"></script>
     <script src="static/js/app.jsx" type="text/jsx"></script>
 
-
-
-
-    <!-- Import SocketIO -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script> -->
-
-
-
-    
-
     <!-- Import Toastify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- Import moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-    <script>
-        moment().format();
-        
-        const date = String(moment()['_d'])
-        console.log('check moment', typeof(date))
-    </script>
+  
 
 </body>
 </html>

@@ -6,7 +6,7 @@ secrets.py
 secrets.sh*
 *secret.*
 
-forum.html
+chatForum.jsx
 
 googleMaps.js
 googleMapsIndex.html

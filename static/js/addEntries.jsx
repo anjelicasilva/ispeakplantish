@@ -11,7 +11,6 @@ class AddEntries extends React.Component {
     }
   }
 
-
   imgFileSelectedHandler = event => {
     this.setState({
         selectedImgFile: event.target.files[0],
@@ -31,7 +30,7 @@ class AddEntries extends React.Component {
     .then((result)=> {
       this.props.fetchAllEntries();
       this.props.fetchAllPhotos();
-      console.log('Success', result);
+      // console.log('Success', result);
     })
     .catch((error)=> {
         console.error('Error', error);
@@ -55,7 +54,7 @@ class AddEntries extends React.Component {
       addJournalEntryText: this.state.newJournalEntry,
       addWaterUpdate: this.state.waterUpdateInput,
       addFertilizerUpdate: this.state.fertilizerUpdateInput,
-      addDateTime: moment()['_d'],
+      addDateTime: String(moment().format('dddd MMMM Do YYYY, h:mm a')),
   }
 
     $.post('/api/add_new_journal_entry_to_user_profile', newEntryData, 

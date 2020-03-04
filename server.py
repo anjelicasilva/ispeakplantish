@@ -374,16 +374,13 @@ def plant_of_the_day():
 
 socketio = SocketIO(app)
 
-@app.route('/forum')
-def hello():
-  return render_template('forum.html')
-
 def messageReceived():
   print('message was received!!!')
 
-@socketio.on('my event')
+@socketio.on('message')
 def handle_my_custom_event(json):
   print('received my event: ' + str( json ))
+
   socketio.emit('my response', json)
 
 
