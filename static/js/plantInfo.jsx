@@ -20,7 +20,7 @@ class PlantInfo extends React.Component {
         let uploadPhoto = "None"
         for (const photoObject of this.props.listOfPhotos) {
             if (photoObject['journalEntryId'] === entry['journalEntryId']) {
-                uploadPhoto = [<img src={photoObject['photoUrl']} />]
+                uploadPhoto = [<img key={photoObject['photoUrl']} src={photoObject['photoUrl']} />]
                 return uploadPhoto
             } 
         }
