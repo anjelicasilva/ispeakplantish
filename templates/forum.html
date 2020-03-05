@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Test Chat</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+
+    </nav>
+
+    <div id="main-section">
+
+        <!-- Room selection -->
+        <nav id="sidebar">
+            <h4>ROOMS</h4>
+            {% for room in rooms %}
+                <p class="select-room">{{ room }}</p>
+
+            {% endfor %}
+        </nav>
+
+        <!-- Message Area -->
+        <div id="rightside-panel">
+
+            <!-- Display message -->
+            <div id="display-message-section">
+
+            </div>
+
+            <!-- Input message -->
+            <div id="input-area">
+                <input type="text" id="user_message" placeholder="Type Here..." autocomplete="off">
+                <button type="button" id="send_message">SEND</button>
+                </input>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Get user id -->
+    <!-- <p id="some_id">{{ current_user_name }}</p> -->
+
+    <script type="text/javascript">
+        const currentUserName = `{{ current_user_name }}`;
+    </script>
+    
+
+
+    <!-- Custom chat js -->
+    <script src="static/js/chatPage.js" type="text/javascript"></script>
+
+    <!-- Import SocketIO JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+
+    <!-- Custom SocketIO JS -->
+    <script src="{{ url_for('static', filename='js/socketio.js')}}"></script>
+</body>
+</html>

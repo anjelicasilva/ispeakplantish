@@ -13,8 +13,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from twilio.rest import Client
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, send, join_room, leave_room
 # import emojis
+from time import localtime, strftime
 
 
 app = Flask(__name__)
@@ -147,6 +148,7 @@ def register():
         #save user to session
         newly_registered_user = User.query.filter_by(email = email).first()
         session['current_user_id'] = newly_registered_user.user_id
+        session['first_name'] = newly_registered_user.first_name
 
         return {'current_user_id': session['current_user_id'],
                 'first_name': newly_registered_user.first_name,
@@ -166,6 +168,7 @@ def verify_user():
     if verify_user:
         if verify_user.check_password(password) == True:
             session['current_user_id'] = verify_user.user_id
+            session['first_name'] = verify_user.first_name
             return {'current_user_id': session['current_user_id'],
                     'first_name': verify_user.first_name,
                     'last_name': verify_user.last_name,}
@@ -202,6 +205,7 @@ def user_logout():
     # If key is in the dictionary, remove it and return its value, else return default. 
     # If default is not given and key is not in the dictionary, a KeyError is raised.
     session.pop('current_user_id', None)
+    session.pop('first_name', None)
 
     return 'User is logged out'
 
@@ -372,16 +376,56 @@ def plant_of_the_day():
 ###############################################################################
 
 
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 
-def messageReceived():
-  print('message was received!!!')
+# def messageReceived():
+#   print('message was received!!!')
+
+# @socketio.on('message')
+# def handle_my_custom_event(json):
+#   print('received my event: ' + str( json ))
+
+#   socketio.emit('my response', json)
+
+
+
+################
+
+
+
+socketio = SocketIO(app)
+ROOMS = ["General Discussion", "Plant Diagnosis", "Trading", "Free Cuttings"]
+
+@app.route('/forum')
+def test():
+    return  render_template('forum.html', 
+                            current_user_name = session.get('first_name', None),
+                            rooms=ROOMS)
 
 @socketio.on('message')
-def handle_my_custom_event(json):
-  print('received my event: ' + str( json ))
+def message(data):
 
-  socketio.emit('my response', json)
+  print(f"\n\n{data}\n\n")
+  
+  send({'msg': data['msg'],
+        'current_user_name': data['currentUserName'],
+        'time_stamp': strftime('%b-%d %I:%M%p', localtime())},
+        room=data['room'])
+
+
+@socketio.on('join')
+def join(data):
+    join_room(data['room'])
+    send({'msg': data['currentUserName'] + " has joined the " + data['room'] + " room."}, 
+          room=data['room'])
+
+
+@socketio.on('leave')
+def leave(data):
+
+    leave_room(data['room'])
+    send({'msg': data['currentUserName'] + " has left the " + data['room'] + " room."}, 
+          room=data['room'])
 
 
 #############################################
