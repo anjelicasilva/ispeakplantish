@@ -402,6 +402,15 @@ def test():
                             current_user_name = session.get('first_name', None),
                             rooms=ROOMS)
 
+
+@app.route('/api/forum')
+def forum_info():
+    return {'current_user_name': session['first_name'],
+            'rooms': ROOMS,
+           }
+
+
+
 @socketio.on('message')
 def message(data):
 

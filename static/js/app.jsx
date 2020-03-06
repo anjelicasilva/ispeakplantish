@@ -19,6 +19,8 @@ class App extends React.Component {
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
                     <ChatForum />,
+                    <Chat renderCurrentUserId={this.renderCurrentUserId}
+                          renderCurrentUserFirstName={this.renderCurrentUserFirstName}/>,
                     ] 
         }; 
     }
@@ -96,6 +98,10 @@ class App extends React.Component {
     renderCurrentUserId = () => {
         return this.state.currentUserId
     }
+
+    renderCurrentUserFirstName = () => {
+        return this.state.firstName
+    }
     
     notify = (notificationText) => {
         this.setState (
@@ -136,6 +142,9 @@ class App extends React.Component {
                         </button>
                         <button onClick={() => 
                         this.setState({currentPage: 6})}>Chat Forum
+                        </button>
+                        <button onClick={() => 
+                        this.setState({currentPage: 7})}>TEST FORUMMM 
                         </button>
                         <button onClick={this.userLogOut}> Logout </button>
                     </div>
