@@ -18,9 +18,9 @@ class App extends React.Component {
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
-                    <ChatForum />,
-                    <Chat renderCurrentUserId={this.renderCurrentUserId}
-                          renderCurrentUserFirstName={this.renderCurrentUserFirstName}/>,
+                    // <ChatForum />,
+                    // <Chat renderCurrentUserId={this.renderCurrentUserId}
+                    //       renderCurrentUserFirstName={this.renderCurrentUserFirstName}/>,
                     ] 
         }; 
     }
@@ -119,6 +119,12 @@ class App extends React.Component {
         ); 
     }
 
+    
+    onClick = () => {
+        window.location.href="http://localhost:5000/forum";
+    }
+    
+
     render() {
         const userLoggedIn = this.state.currentUserId;
         if (userLoggedIn) {
@@ -140,12 +146,13 @@ class App extends React.Component {
                         <button onClick={() => 
                         this.setState({currentPage: 3})}>View Plant Collection
                         </button>
-                        <button onClick={() => 
+                        {/* <button onClick={() => 
                         this.setState({currentPage: 6})}>Chat Forum
                         </button>
                         <button onClick={() => 
                         this.setState({currentPage: 7})}>TEST FORUMMM 
-                        </button>
+                        </button> */}
+                        <button onClick={this.onClick}> Forum </button>
                         <button onClick={this.userLogOut}> Logout </button>
                     </div>
                     <div>

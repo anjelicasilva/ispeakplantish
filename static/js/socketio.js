@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let room = "General Discussion";
     joinRoom("General Discussion");
-
-
+    
     // Display incoming messages
     socket.on('message', data => {
         const p = document.createElement('p');
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
     });
-
 
     // Send message
     document.querySelector('#send_message').onclick = () => {
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
 
     // Leave room
     function leaveRoom(room) {
