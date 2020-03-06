@@ -121,7 +121,7 @@ class App extends React.Component {
 
     
     onClick = () => {
-        window.location.href="http://localhost:5000/forum";
+        window.location.href="/forum";
     }
     
 
@@ -152,7 +152,8 @@ class App extends React.Component {
                         <button onClick={() => 
                         this.setState({currentPage: 7})}>TEST FORUMMM 
                         </button> */}
-                        <button onClick={this.onClick}> Forum </button>
+                        <a href="/forum">Forum</a>
+                        {/* <button onClick={this.onClick}> Forum </button> */}
                         <button onClick={this.userLogOut}> Logout </button>
                     </div>
                     <div>
@@ -185,7 +186,11 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
- );
+// console.log('rendering stuff now !!!!!')
+// const root = document.getElementById("root")
+// if (root) {
+    ReactDOM.render(
+        <App />,
+        document.getElementById("root")
+    );
+// }

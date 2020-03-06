@@ -1,3 +1,7 @@
+// The DOMContentLoaded event fires when the initial HTML document has 
+// been completely loaded and parsed, without waiting for stylesheets, images, 
+// and subframes to finish loading.
+
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io.connect('http://' + document.domain + ':' + location.port)
 
@@ -7,15 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Display incoming messages
     socket.on('message', data => {
         const p = document.createElement('p');
-        const span_username = document.createElement('span');
-        const span_timestamp = document.createElement('span');
+        const spanUsername = document.createElement('span');
+        const spanTimestamp = document.createElement('span');
         const br = document.createElement('br');
 
         if (data.current_user_name) {
-            span_username.innerHTML = data.current_user_name;
-            span_timestamp.innerHTML = data.time_stamp;
-            p.innerHTML = span_username.outerHTML + br.outerHTML + data.msg 
-                        + br.outerHTML + span_timestamp.outerHTML;
+            spanUsername.innerHTML = data.current_user_name;
+            spanTimestamp.innerHTML = data.time_stamp;
+            p.innerHTML = spanUsername.outerHTML + br.outerHTML + data.msg 
+                        + br.outerHTML + spanTimestamp.outerHTML;
             document.querySelector('#display-message-section').append(p);
         } else {
             printSysMsg(data.msg)
@@ -46,6 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+
+
+    //Exit Forum
+    document.querySelector('#exit_forum').onclick = () => {
+            leaveRoom(room);
+            window.location.href = 'http://localhost:5000'
+            }
+    
+
 
     // Leave room
     function leaveRoom(room) {

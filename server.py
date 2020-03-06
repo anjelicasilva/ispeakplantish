@@ -410,7 +410,6 @@ def forum_info():
            }
 
 
-
 @socketio.on('message')
 def message(data):
 
