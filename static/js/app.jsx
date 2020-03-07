@@ -18,9 +18,6 @@ class App extends React.Component {
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
-                    // <ChatForum />,
-                    // <Chat renderCurrentUserId={this.renderCurrentUserId}
-                    //       renderCurrentUserFirstName={this.renderCurrentUserFirstName}/>,
                     ] 
         }; 
     }
@@ -41,7 +38,7 @@ class App extends React.Component {
         if (type == 'string') {
         this.notify(newUserDataResponse);
         } else {
-        // console.log('check',type)
+        
         this.setState({ currentUserId: newUserDataResponse.current_user_id,
                         firstName: newUserDataResponse.first_name,
                         lastName: newUserDataResponse.last_name,
@@ -55,7 +52,7 @@ class App extends React.Component {
     userLogIn = (userLoginData) => {
     $.post('/api/login', userLoginData, (userLoginDataResponse) => {
         let type = typeof(userLoginDataResponse);
-        // console.log('check',type)
+       
         if (type == 'string') {
         this.notify(userLoginDataResponse);
         } else {
@@ -129,56 +126,87 @@ class App extends React.Component {
         const userLoggedIn = this.state.currentUserId;
         if (userLoggedIn) {
             return (
+            <div> 
                 <div>
-                     <div>
-                        Happy planting, {this.state.firstName}
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand" href="#">ISpeakPlantish</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 0})}>Homepage <span className="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 1})}>About</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 2})}>Add Plant</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link"
+                            onClick={() => 
+                                this.setState({currentPage: 3})}>View Plant Collection</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link"
+                            onClick={this.userLogOut}>Logout</a>
+                        </li>
+                    </ul>
                     </div>
-                    <div>
-                        <button onClick={() => 
-                        this.setState({currentPage: 0})}>Homepage
-                        </button> 
-                        <button onClick={() => 
-                        this.setState({currentPage: 1})}>About
-                        </button> 
-                        <button onClick={() => 
-                        this.setState({currentPage: 2})}>Add Plant
-                        </button> 
-                        <button onClick={() => 
-                        this.setState({currentPage: 3})}>View Plant Collection
-                        </button>
-                        {/* <button onClick={() => 
-                        this.setState({currentPage: 6})}>Chat Forum
-                        </button>
-                        <button onClick={() => 
-                        this.setState({currentPage: 7})}>TEST FORUMMM 
-                        </button> */}
-                        <a href="/forum">Forum</a>
-                        {/* <button onClick={this.onClick}> Forum </button> */}
-                        <button onClick={this.userLogOut}> Logout </button>
-                    </div>
-                    <div>
-                    { this.state.pages[this.state.currentPage] }
-                    </div>
-                </div>);
-        } else {
-            return (
+                </nav>
                 <div>
-                <div>
-                    <button onClick={() => 
-                    this.setState({currentPage: 0})}>Homepage
-                    </button> 
-                    <button onClick={() => 
-                    this.setState({currentPage: 1})}>About
-                    </button> 
-                    <button onClick={() => 
-                    this.setState({currentPage: 4})}>Signup
-                    </button> 
-                    <button onClick={() => 
-                    this.setState({currentPage: 5})}>Login
-                    </button> 
+                    Happy planting, {this.state.firstName}
                 </div>
                 <div>
-                { this.state.pages[this.state.currentPage] }
+                    { this.state.pages[this.state.currentPage] }
+                </div>
+                </div>
+            </div>);
+        } else {
+            return (
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <a className="navbar-brand"
+                            onClick={() => 
+                                this.setState({currentPage: 0})}>ISpeakPlantish</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 0})}>Homepage <span className="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 1})}>About</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" 
+                            onClick={() => 
+                                this.setState({currentPage: 4})}>Signup</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link"
+                            onClick={() => 
+                                this.setState({currentPage: 5})}>Login</a>
+                        </li>
+                    </ul>
+                    </div>
+                </nav>
+                <div>
+                    { this.state.pages[this.state.currentPage] }
                 </div>
             </div>
             );
@@ -194,3 +222,4 @@ class App extends React.Component {
         document.getElementById("root")
     );
 // }
+
