@@ -7,9 +7,8 @@ class App extends React.Component {
             lastName: null,
 
             notificationText: null,
-            currentPage: 0, 
+            currentPage: 3, 
             pages: [<HomePage />, 
-                    <AboutPage />, 
                     <Form notify={this.notify}
                           setCurrentPage={this.setCurrentPage}
                           renderCurrentUserId={this.renderCurrentUserId}
@@ -18,6 +17,7 @@ class App extends React.Component {
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
+                    <LandingPage />,
                     ] 
         }; 
     }
@@ -42,7 +42,7 @@ class App extends React.Component {
         this.setState({ currentUserId: newUserDataResponse.current_user_id,
                         firstName: newUserDataResponse.first_name,
                         lastName: newUserDataResponse.last_name,
-                        currentPage: 2,
+                        currentPage: 1,
                     }, () => {this.notify(`${this.state.firstName}, thank you for registering with ISpeakPlantish`)});
         this.checkUserLogIn();
         }
@@ -59,7 +59,7 @@ class App extends React.Component {
         this.setState({ currentUserId: userLoginDataResponse.current_user_id,
                         firstName: userLoginDataResponse.first_name,
                         lastName: userLoginDataResponse.last_name,
-                        currentPage: 3,
+                        currentPage: 2,
                     }, () => {this.notify(`Welcome ${this.state.firstName}`)});
         this.checkUserLogIn();
         }
@@ -128,8 +128,10 @@ class App extends React.Component {
             return (
             <div> 
                 <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">ISpeakPlantish</a>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                    <a className="navbar-brand" 
+                            onClick={() => 
+                                this.setState({currentPage: 5})}>ISpeakPlantish</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
@@ -138,22 +140,17 @@ class App extends React.Component {
                         <li className="nav-item active">
                         <a className="nav-link" 
                             onClick={() => 
-                                this.setState({currentPage: 0})}>Homepage <span className="sr-only">(current)</span></a>
+                                this.setState({currentPage: 5})}>Homepage <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" 
                             onClick={() => 
-                                this.setState({currentPage: 1})}>About</a>
-                        </li>
-                        <li className="nav-item">
-                        <a className="nav-link" 
-                            onClick={() => 
-                                this.setState({currentPage: 2})}>Add Plant</a>
+                                this.setState({currentPage: 1})}>Add Plant</a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"
                             onClick={() => 
-                                this.setState({currentPage: 3})}>View Plant Collection</a>
+                                this.setState({currentPage: 2})}>View Plant Collection</a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"
@@ -173,34 +170,29 @@ class App extends React.Component {
         } else {
             return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                     <a className="navbar-brand"
                             onClick={() => 
-                                this.setState({currentPage: 0})}>ISpeakPlantish</a>
+                                this.setState({currentPage: 5})}>ISpeakPlantish</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
+                        {/* <li className="nav-item active">
                         <a className="nav-link" 
                             onClick={() => 
                                 this.setState({currentPage: 0})}>Homepage <span className="sr-only">(current)</span></a>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                         <a className="nav-link" 
                             onClick={() => 
-                                this.setState({currentPage: 1})}>About</a>
-                        </li>
-                        <li className="nav-item">
-                        <a className="nav-link" 
-                            onClick={() => 
-                                this.setState({currentPage: 4})}>Signup</a>
+                                this.setState({currentPage: 3})}>Signup</a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"
                             onClick={() => 
-                                this.setState({currentPage: 5})}>Login</a>
+                                this.setState({currentPage: 4})}>Login</a>
                         </li>
                     </ul>
                     </div>

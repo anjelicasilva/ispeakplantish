@@ -40,13 +40,13 @@ class HomePage extends React.Component {
       plantOfTheDayInfo.push(
           <div key={this.state.randomPlantOfTheDay['randomCommonName']}>
               <img src={this.state.randomPlantOfTheDay['randomHouseplantPhotoUrl']}></img>
-              <h4>Common Name:</h4> 
+              <h5>Common Name:</h5> 
               <p>{this.state.randomPlantOfTheDay['randomCommonName']}</p>
-              <h4>Latin Name:</h4>
+              <h5>Latin Name:</h5>
               <p>{this.state.randomPlantOfTheDay['randomLatinName']}</p>
-              <h4>Light Requirement:</h4>
+              <h5>Light Requirement:</h5>
               <p>{this.state.randomPlantOfTheDay['randomRecommendedLightRequirements']}</p>
-              <h4>General Description:</h4>
+              <h5>General Description:</h5>
               <p>{this.state.randomPlantOfTheDay['randomGeneralDescription']}</p>
           </div>
     )
@@ -64,9 +64,12 @@ class HomePage extends React.Component {
     render() {
     return (
       <div>
-        <div> Welcome to the homepage</div>
+      <div id="homepage" className="homepage">
         <h3>Plant of the Moment</h3>
         {this.getRandomHouseplant()}
+        <div className="container">my container</div>
+      </div>
+      <div className="container">my second container</div>
       </div>
     );
     }
