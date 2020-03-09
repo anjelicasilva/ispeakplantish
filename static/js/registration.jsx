@@ -90,7 +90,7 @@ class Register extends React.Component {
 <div id="signup-bg">
 <div className="modal-dialog text-center">
     <div className="col-sm-8 main-section">
-        <div className="signup-modal-content">
+        <div className="modal-content">
 
             <div className="col-12 signup-user-img">
                 <img src="static/img/default-profile-photo.png"></img>
