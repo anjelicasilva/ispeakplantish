@@ -1,0 +1,85 @@
+class LandingPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+    return (
+    <div> 
+        <div id="header" className="header">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-6 col-md-6">
+                        <h1>ISpeakPlantish</h1>
+                        <p>A green thumb is not about luck, 
+                        but about being observant and 
+                        knowing how Mother Nature takes care of her house plants!</p>
+                        <button className="btn btn-lg btn-primary">Sign Up</button>
+                        <button className="btn btn-lg btn-success">Login</button>
+                    </div>
+                    <div className="col-lg-6 col-md-6">
+                        {/* <img src="static/img/journal.jpg" alt=""></img> */}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="services" className="services">
+            <div className="container">
+                <h2>Join Today</h2>
+                <p>
+                    ISpeakPlantish is an indoor gardening notebook-style web application 
+                    that offers tracker journal logs to grow, nurture, and care for your 
+                    small-space greenery.
+                </p>
+                <div className="row">
+                    <div className="col-lg-3 col-md-3">
+                        <i className="fas fa-book fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
+                        <h4>Keep Track</h4>
+                        <p>Search common houseplants you own and add it to your plant collection.</p>
+                    </div>
+                    <div className="col-lg-3 col-md-3">
+                        <i className="far fa-comments fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
+                        <h4>Reminders</h4>
+                        <p>Text water and fertilizer reminders to yourself, no more forgetting to take care of your plants!</p>
+                    </div>
+                    <div className="col-lg-3 col-md-3">
+                        <i className="fas fa-users fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
+                        <h4>Community</h4>
+                        <p>Join forum group chats to discuss plant diagnosis, trade cuttings, or give freebies!</p>
+                    </div>
+                    <div className="col-lg-3 col-md-3">
+                        <i className="fab fa-pagelines fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
+                        <h4>Discover</h4>
+                        <p>Learn about hundreds of common houseplants in our Plant of the Moment section! 
+                        <br></br>CAUTION: Your plant collection may grow unexpectedly!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {/* <div id="team" className="team">
+            <div className="container">
+                <div className="row">
+                    <h2>Meet our developer</h2>
+                    <p>Contact information below</p>
+                    <div className="col-lg-3 col-md-3">
+                    <img src="static/img/developer.png" id="developer-img"  alt=""></img>
+                    <h4>Anjelica Silva</h4>
+                    <b>Software Engineer</b>
+                    <p>Hackbright Grad</p>
+                    <i className="fab fa-github"></i>
+                    <i className="fab fa-linkedin"></i>
+                    <i className="fab fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+        </div> */}
+
+
+    </div>
+    );
+    }
+}
