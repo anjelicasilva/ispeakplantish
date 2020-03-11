@@ -22,23 +22,28 @@ class SmsReminder extends React.Component {
              selectedCommonName: this.props.selectedCommonName,
          }
  
-         $.post('/api/send_sms', smsData, (response) => console.log('Send SMS reminder:', response))
+         $.post('/api/send_sms', smsData, (response) => {this.props.notify(`SMS reminder sent to your phone`)})
     };
+
+
+
+
+
 
     
     render() {
         return (
             <div>
-                <div>Text yourself a reminder so you don't forget!</div>
+                <div className="entry-title">Text yourself a reminder so you don't forget!</div>
                 <br></br>
                 <form onSubmit={this.sendSMS}> 
                 <div className="fertilizer-update">
-                    <label>
+                    <label className="entry-title">
                     What type of reminder would you like to receive?
                     </label>
-                    <br></br>
-                    <label>
-                        <input 
+        
+                    <label className="radio-btn">
+                        <input
                             type="radio" 
                             name="sendWaterSMS"
                             value="sendWaterSMS"
@@ -46,9 +51,9 @@ class SmsReminder extends React.Component {
                             onChange={this.handleEntryInput}
                             className="sendWaterSMS"
                         />
-                        Water Reminder
+                        Water Reminder  
                     </label>
-                    <label>
+                    <label className="radio-btn">
                         <input 
                             type="radio" 
                             name="sendFertilizerSMS"
@@ -60,10 +65,10 @@ class SmsReminder extends React.Component {
                         Fertilizer Reminder
                     </label>
                     </div>
-                    <div>     
-                    <button
+                    <div className="text-center">     
+                    <button id="sms-btn" className="my-collection-button"
                         type="submit"
-                        className="btn btn-primary"
+                        // className="btn btn-primary"
                         disabled={this.state.selectedSMSReminder === null}>
                         Send SMS
                     </button>
