@@ -7,7 +7,7 @@ class App extends React.Component {
             lastName: null,
 
             notificationText: null,
-            currentPage: 3, 
+            currentPage: 5, 
             pages: [<HomePage />, 
                     <Form notify={this.notify}
                           setCurrentPage={this.setCurrentPage}
@@ -17,7 +17,7 @@ class App extends React.Component {
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
                     <Register registerUser={this.registerUser} />,
                     <Login userLogIn={this.userLogIn} />,
-                    <LandingPage />,
+                    <LandingPage setCurrentPage={this.setCurrentPage}/>,
                     ] 
         }; 
     }
@@ -70,7 +70,7 @@ class App extends React.Component {
     $.get('/api/logout', () => {
         this.setState(
             {currentUserId: null,
-            currentPage: 0,}, () => {this.notify(`Goodbye ${this.state.firstName}`)});
+            currentPage: 5,}, () => {this.notify(`Goodbye ${this.state.firstName}`)});
     });
     }
 
@@ -117,7 +117,7 @@ class App extends React.Component {
     }
 
     
-    onClick = () => {
+    redirectChatForum = () => {
         window.location.href="/forum";
     }
     
@@ -131,7 +131,9 @@ class App extends React.Component {
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                     <a className="navbar-brand" 
                             onClick={() => 
-                                this.setState({currentPage: 5})}>ISpeakPlantish</a>
+                                this.setState({currentPage: 5})}>
+                                    <img id="navbar-img" src="/static/logos/plant-original.png" className="d-inline-block align-top" alt=""/>
+                                     ISpeakPlantish</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
@@ -140,7 +142,7 @@ class App extends React.Component {
                         <li className="nav-item active">
                         <a className="nav-link" 
                             onClick={() => 
-                                this.setState({currentPage: 5})}>Homepage <span className="sr-only">(current)</span></a>
+                                this.setState({currentPage: 0})}>Homepage <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" 
@@ -154,14 +156,18 @@ class App extends React.Component {
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"
+                            onClick={this.redirectChatForum}>Forum</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link"
                             onClick={this.userLogOut}>Logout</a>
                         </li>
                     </ul>
                     </div>
                 </nav>
-                <div>
+                {/* <div>
                     Happy planting, {this.state.firstName}
-                </div>
+                </div> */}
                 <div>
                     { this.state.pages[this.state.currentPage] }
                 </div>
@@ -169,11 +175,14 @@ class App extends React.Component {
             </div>);
         } else {
             return (
+
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                    <a className="navbar-brand"
+                    <a className="navbar-brand" 
                             onClick={() => 
-                                this.setState({currentPage: 5})}>ISpeakPlantish</a>
+                                this.setState({currentPage: 5})}>
+                                    <img id="navbar-img" src="/static/logos/plant-original.png" className="d-inline-block align-top" alt=""/>
+                                     ISpeakPlantish</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
@@ -201,17 +210,15 @@ class App extends React.Component {
                     { this.state.pages[this.state.currentPage] }
                 </div>
             </div>
+
             );
         }
     }
 }
 
-// console.log('rendering stuff now !!!!!')
-// const root = document.getElementById("root")
-// if (root) {
+ 
     ReactDOM.render(
         <App />,
         document.getElementById("root")
     );
-// }
 
