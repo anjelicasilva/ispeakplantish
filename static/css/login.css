@@ -19,8 +19,9 @@
 
 .modal-content {
     background-color: #6B7E6B;
-    opacity: .7;
-    padding: 0 18px;
+    opacity: .9;
+    /* padding: 0 18px; */
+    padding: 20px 20px;
     box-shadow: 0px 0px 3px #848484;
     z-index: 2;
 }
@@ -42,7 +43,7 @@
     border-radius: 5px;
     border: 0;
     font-size: 18px;
-    padding-left: 5px;
+    /* padding-left: 10px; */
     /* padding-left: 54px; */
 }
 
@@ -75,8 +76,8 @@
 }
 
 .login-btn:hover, .login-btn:focus {
-    background-color: #25a890 !important;
-    border-bottom: 4px solid #25a890;
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
 }
 
 .svg-inline--fa {
