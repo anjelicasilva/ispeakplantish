@@ -2,6 +2,17 @@ class LandingPage extends React.Component {
     constructor(props) {
         super(props);
     }
+
+
+    redirectSignUp = () => {
+        this.props.setCurrentPage(3);
+    }
+
+    redirectLogin = () => {
+        this.props.setCurrentPage(4);
+    }
+
+
     render() {
     return (
     <div> 
@@ -13,8 +24,8 @@ class LandingPage extends React.Component {
                         <p>A green thumb is not about luck, 
                         but about being observant and 
                         knowing how Mother Nature takes care of her house plants!</p>
-                        <button className="btn btn-lg btn-primary">Sign Up</button>
-                        <button className="btn btn-lg btn-success">Login</button>
+                        <button id="landing-page-signup" className="btn btn-lg btn-primary" onClick={this.redirectSignUp}>Sign Up</button>
+                        <button id="landing-page-login" className="btn btn-lg btn-success" onClick={this.redirectLogin}>Login</button>
                     </div>
                     <div className="col-lg-6 col-md-6">
                         {/* <img src="static/img/journal.jpg" alt=""></img> */}

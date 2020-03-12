@@ -156,7 +156,7 @@ class App extends React.Component {
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"
-                            onClick={this.redirectChatForum}>Forum</a>
+                            onClick={this.redirectChatForum}>Chat</a>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link"

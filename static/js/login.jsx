@@ -36,16 +36,16 @@ class Login extends React.Component {
         <div className="modal-content">
 
             <div className="col-12 user-img">
-                <img src="static/img/default-profile-photo.png"></img>
+                <img src="static/img/plantgif2.gif"></img>
             </div>
 
             <form className="col-12">
                 <div className="form-group">
                     <label>
-                        <input type="text" name="email" className="form-control" placeholder="Enter Email" onChange={this.handleLoginInput}/>
+                        <input type="text" name="email" className="form-control" placeholder="Email@domain.com" onChange={this.handleLoginInput}/>
                     </label>
                     <label>
-                        <input type="password" name="password" className="form-control" placeholder="Enter Password" onChange={this.handleLoginInput}/>
+                        <input type="password" name="password" className="form-control" placeholder="Password" onChange={this.handleLoginInput}/>
                     </label>
                 <button className="login-btn" onClick={this.handleLoginSubmit}> <i className="fas fa-sign-in-alt"></i>Login </button>
                 </div>

@@ -1,0 +1,93 @@
+#signup-bg {
+    position: fixed; 
+    bottom: 0; 
+    right: 0; 
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 1;
+    background-image: url(../img/plant4.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.signup-main-section {
+    margin: 0 auto;
+    margin-top: 130px;
+    padding: 0;
+}
+
+/* .signup-modal-content {
+    background-color: #6B7E6B;
+    opacity: .8;
+    padding: 0 18px;
+    box-shadow: 0px 0px 3px #848484;
+    z-index: 2;
+} */
+
+.signup-user-img {
+    margin-top: -50px;
+    margin-bottom: 35px;
+}
+
+.signup-user-img img {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px #3b4652;
+}
+
+.signup-form-group input {
+    height: 42px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 18px;
+    padding-left: 10px;
+    /* padding-left: 54px; */
+}
+
+/* adding FA icons for email and password */
+/* .form-group::before {
+    font-weight: 900;
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f007";
+    position: absolute;
+    font-size: 22px;
+    color: #555e60;
+    left: 28px;
+    padding-top: 4px;
+}
+
+.form-group:last-of-type::before {
+    content: "\f023";
+} */
+
+
+.signup-btn {
+    background-color: #566F2D;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom:  4px solid #435722;
+    border-color: #435722;
+    width: 50%;
+    margin: 20px 0 20px;
+}
+
+.signup-btn:hover, .login-btn:focus {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+}
+
+.svg-inline--fa {
+    font-size: 20px;
+    margin-right: 7px;
+}
+
+.redirect-login {
+    padding: 5px 0 25px;
+}
+
+.redirect-login a {
+    color: #fff;
+}

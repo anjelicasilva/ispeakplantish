@@ -5,22 +5,56 @@
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io.connect('http://' + document.domain + ':' + location.port)
 
+
+    // Retrieve username
+    const currentUserName = document.querySelector('#get-username').innerHTML;
+    console.log('what is this?', currentUserName)
+
+
     let room = "General Discussion";
     joinRoom("General Discussion");
     
     // Display incoming messages
     socket.on('message', data => {
         const p = document.createElement('p');
+        // p.classList.add("speech-bubble")
         const spanUsername = document.createElement('span');
+        // spanUsername.classList.add("my-username")
         const spanTimestamp = document.createElement('span');
+        spanTimestamp.classList.add("timestamp")
         const br = document.createElement('br');
 
-        if (data.current_user_name) {
+        // console.log('check1', data.current_user_name)
+        // console.log('check2', currentUserName)
+
+
+        // if (data.current_user_name == currentUserName) {
+
+        if (data.current_user_name == 'undefined') {
+            // console.log('who is the current user?', data.current_user_name)
+            p.classList.add("my-msg");
+            spanUsername.classList.add("my-username");
+            // spanUsername.setAttribute("class", "my-username");
             spanUsername.innerHTML = data.current_user_name;
             spanTimestamp.innerHTML = data.time_stamp;
             p.innerHTML = spanUsername.outerHTML + br.outerHTML + data.msg 
                         + br.outerHTML + spanTimestamp.outerHTML;
             document.querySelector('#display-message-section').append(p);
+        
+        } 
+        
+        else if (typeof data.current_user_name !== 'undefined') {
+            // console.log('who is the guest?', data.current_user_name)
+            p.setAttribute("class", "others-msg");
+            spanUsername.setAttribute("class", "other-username");
+            spanUsername.innerHTML = data.current_user_name;
+            spanTimestamp.innerHTML = data.time_stamp;
+            p.innerHTML = spanUsername.outerHTML + br.outerHTML + data.msg 
+                        + br.outerHTML + spanTimestamp.outerHTML;
+            document.querySelector('#display-message-section').append(p);
+
+        
+        
         } else {
             printSysMsg(data.msg)
         }
@@ -54,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     //Exit Forum
-    document.querySelector('#exit_forum').onclick = () => {
+    document.querySelector('#exit-chat-btn').onclick = () => {
             leaveRoom(room);
             window.location.href = 'http://localhost:5000'
             }

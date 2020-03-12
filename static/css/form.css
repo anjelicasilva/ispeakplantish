@@ -1,0 +1,62 @@
+#form-bg {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+   min-width: 100%;
+    min-height: 100%;
+    /* min-height: 650px; */
+    z-index: 1;
+    background-image: url(../img/wood3.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .App-Component h4 {
+    /* margin-top: 300px; */
+    text-shadow: 2px 2px #575e66;
+    color: #fff;
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.75rem;
+  }
+
+
+  .form-btn {
+    background-color: #566F2D;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom:  4px solid #435722;
+    border-color: #435722;
+    width: 63%;
+    margin: 20px 0 20px;
+}
+
+.form-btn:hover, .login-btn:focus {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+}
+
+#plant-photo {
+    margin: -100px 0 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px #3b4652;
+}
+
+.latin-name,
+.light-requirement {
+
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+
+}
+
+/* .lower {
+    margin-top: 300px;
+    margin-bottom: 300px;
+} */
+

@@ -156,7 +156,7 @@ class PlantCollection extends React.Component {
                 
                 <div>
                     <div className="text-center my-plant-collection-bg">
-                        <h3 className="my-collection-header">My Plant Collection T</h3>
+                        <h3 className="my-collection-header">My Plant Collection</h3>
                         <div>
                             <ol>
                                 { this.renderUsersPlantCollection() }
@@ -181,7 +181,7 @@ class PlantCollection extends React.Component {
             
 
         <div className="center-plant-collection">
-            <h3 className="text-center my-collection-header">My Plant Collection T</h3>
+            <h3 className="text-center my-collection-header">My Plant Collection</h3>
                         <div>
                             <ol className="text-center">
                                 { this.renderUsersPlantCollection() }

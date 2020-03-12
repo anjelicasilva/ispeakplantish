@@ -3,26 +3,33 @@ img {
     width: 250px;
 }
 
+#navbar-img {
+    height: 30px;
+    width: 30px;
+}
+
 
 
 
 
 .AutoCompleteText {
-    width: 50%;
+    width: 100%;
     border: 1px solid grey;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.1) 0 2px 4px 1px rgba(0,0,0,.18);
-    font-family: sans-serif, Arial, Helvetica;
+    box-shadow: 0 0 0 1px #6B7E6B 0 2px 4px 1px #6B7E6B;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica;
     font-size: 14px;
-    color: rgba(0,0,0,0.73);
-    margin: 150px auto 0 auto;
+    /* color: #6B7E6B; */
+    color: 4c4c4c;
+    margin: 70px auto 0 auto;
 }
 
 .AutoCompleteText input {
     width: 100%;
     border: none;
-    font-family: sans-serif, Arial, Helvetica;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica;
     font-size: 14px;
-    color: rgba(0,0,0,0.73);
+    /* color: #6B7E6B; */
+    color: 4c4c4c;
     padding: 10px 5px;
     box-sizing: border-box;
     outline: none;
@@ -45,13 +52,15 @@ img {
 .AutoCompleteText li {
     padding: 10px 5px;
     cursor: pointer;
+    opacity: .5;
+    background-color: #fff;
 }
-
 
 /* hover pseduo selector on the li selector */
 .AutoCompleteText li:hover {
     text-decoration: underline;
-    background-color: rgba(128, 128, 128, 0.20);
+    background-color: rgba(128, 128, 128);
+    
 }
 
 .App-Component {

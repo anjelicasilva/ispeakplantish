@@ -38,16 +38,16 @@ class HomePage extends React.Component {
     const plantOfTheDayInfo = []
                 
       plantOfTheDayInfo.push(
-          <div key={this.state.randomPlantOfTheDay['randomCommonName']}>
-              <img src={this.state.randomPlantOfTheDay['randomHouseplantPhotoUrl']}></img>
-              <h5>Common Name:</h5> 
-              <p>{this.state.randomPlantOfTheDay['randomCommonName']}</p>
-              <h5>Latin Name:</h5>
-              <p>{this.state.randomPlantOfTheDay['randomLatinName']}</p>
-              <h5>Light Requirement:</h5>
-              <p>{this.state.randomPlantOfTheDay['randomRecommendedLightRequirements']}</p>
-              <h5>General Description:</h5>
-              <p>{this.state.randomPlantOfTheDay['randomGeneralDescription']}</p>
+          <div className="plant-moment-text" key={this.state.randomPlantOfTheDay['randomCommonName']}>
+              <img id="plant-moment-img" src={this.state.randomPlantOfTheDay['randomHouseplantPhotoUrl']}></img>
+              <h4>Common Name:</h4> 
+              <p className="plant-moment-p">{this.state.randomPlantOfTheDay['randomCommonName']}</p>
+              <h4>Latin Name:</h4>
+              <p className="plant-moment-p">{this.state.randomPlantOfTheDay['randomLatinName']}</p>
+              <h4>Light Requirement:</h4>
+              <p className="plant-moment-p">{this.state.randomPlantOfTheDay['randomRecommendedLightRequirements']}</p>
+              <h4>General Description:</h4>
+              <p className="plant-moment-p">{this.state.randomPlantOfTheDay['randomGeneralDescription']}</p>
           </div>
     )
     return plantOfTheDayInfo     
@@ -64,13 +64,52 @@ class HomePage extends React.Component {
     render() {
     return (
       <div>
-      <div id="homepage" className="homepage">
-        <h3>Plant of the Moment</h3>
-        {this.getRandomHouseplant()}
-        <div className="container">my container</div>
+      <div className="sticky">
+        <div className="my-homepage-bg"></div>
       </div>
-      <div className="container">my second container</div>
+
+      <div className="modal-dialog text-center">
+      <div className="col-sm-8 main-section">
+          <div className="modal-content">
+              <form className="col-12">
+                  <div className="form-group">
+                    <div id="homepage" className="homepage">
+                      <h3 id="plant-moment">Plant of the Moment</h3>
+                      {this.getRandomHouseplant()}
+                    </div>
+                  </div>
+              </form>
+          </div> 
       </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     );
     }
   } 
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+

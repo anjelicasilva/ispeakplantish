@@ -1,0 +1,139 @@
+.my-plant-collection-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* min-height: 650px; */
+    /* z-index: -1; */
+    background-image: url(../img/wood3.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.my-collection-header {
+    padding-top: 100px;
+    text-shadow: 2px 2px #575e66;
+    color: #fff;
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.75rem;
+  }
+
+
+
+.my-collection-button {
+    background-color: #566F2D;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom:  4px solid #435722;
+    border-color: #435722;
+    width: 20%;
+    margin: 20px 0 20px;
+}
+
+.my-collection-button:hover {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+}
+
+/* .sms, .entries-plant-info {
+    text-align: left;
+} */
+
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: -1;
+}
+
+ul, li {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-content.plant-info {
+    width: 500px;
+}
+
+
+.entries-plant-info, .sms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #sms-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+/* .center-plant-collection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+ol {
+    padding: 0;
+}
+
+/* #sms-btn {
+    background-color: #566F2D;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom:  4px solid #435722;
+    border-color: #435722;
+    width: 50%;
+    margin: 20px 0 20px;
+} */
+
+/* #sms-btn:hover, .login-btn:focus {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+    opacity: 1;
+} */
+
+#sms-btn {
+    width: 30%;
+}
+
+#new-entry-btn {
+    width: 40%;
+}
+
+/* .sendFertilizerSMS {
+    height: 1px;
+} */
+
+.entry-text {
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    color: black;
+}
+
+.entry-title {
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    color: #fff;
+}
+
+.waterUpdateInput, 
+.fertilizerUpdateInput,
+.sendFertilizerSMS,
+.sendWaterSMS {
+    vertical-align: middle; 
+    margin: 0px;
+}
+
+.radio-btn {
+    padding-left: 20px;
+}
+
+#journal-entry-box {
+    margin-left: 20px;
+}

@@ -1,3 +1,15 @@
+#landing-page-login {
+    color: #fff;
+    background-color: #80AD41;
+    border-color: #566F2D;
+}
+
+#landing-page-signup {
+    color: #fff;
+    background-color: #AD877B;
+    border-color: #AD877B;
+}
+
 h1,
 h2,
 h4 {
@@ -47,10 +59,11 @@ p {
     /* opacity: 0.8; */
 }
 
-/* .navbar a:hover {
-    opacity: 1;
-    background-color: #80AD41 !important;
-} */
+.navbar a:hover {
+    cursor: pointer;
+    /* opacity: 1;
+    background-color: #80AD41 !important; */
+}
 
 
 /* HEADER */

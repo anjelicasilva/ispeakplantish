@@ -71,16 +71,18 @@ class AddEntries extends React.Component {
         <div className="Image">
           <input type="file" onChange={this.imgFileSelectedHandler} />
         </div> 
-          <label>
+          <label className="entry-title">
           Journal Entry:
-          <input type="text" name="newJournalEntry" placeholder="Write an entry" onChange={this.handleEntryInput}></input>
           </label>
+          <input id="journal-entry-box" type="text" name="newJournalEntry" placeholder="Write an entry" onChange={this.handleEntryInput}></input>
+          
         </div> 
         <div className="water-update">
-          <label>
+          <label className="entry-title">
           Watered Today?
           </label>
-          <label>
+
+          <label className="radio-btn">
             <input 
                 type="radio" 
                 name="waterUpdateInput"
@@ -88,10 +90,11 @@ class AddEntries extends React.Component {
                 checked={this.state.waterUpdateInput==="true"}
                 onChange={this.handleEntryInput}
                 className="waterUpdateInput"
+                id="waterUpdateInput-yes"
             />
             Yes
           </label>
-          <label>
+          <label className="radio-btn">
             <input 
                 type="radio" 
                 name="waterUpdateInput"
@@ -99,15 +102,17 @@ class AddEntries extends React.Component {
                 checked={this.state.waterUpdateInput==="false"}
                 onChange={this.handleEntryInput}
                 className="waterUpdateInput"
+                id="waterUpdateInput-no"
             />
             No
           </label>           
         </div>
         <div className="fertilizer-update">
-          <label>
+          <label className="entry-title">
           Fertilized Today?
           </label>
-          <label>
+     
+          <label className="radio-btn">
             <input 
                 type="radio" 
                 name="fertilizerUpdateInput"
@@ -118,7 +123,7 @@ class AddEntries extends React.Component {
             />
             Yes
           </label>
-          <label>
+          <label className="radio-btn">
             <input 
                 type="radio" 
                 name="fertilizerUpdateInput"
@@ -130,8 +135,8 @@ class AddEntries extends React.Component {
             No
           </label>
         </div>
-        <div>     
-          <button
+        <div className="text-center">     
+          <button id="new-entry-btn" className="my-collection-button"
           onClick={this.handleEntryFormSubmit}
           disabled={this.props.selectedUserHouseplantId === null}>
           Add New Entry

@@ -73,7 +73,7 @@ class Form extends React.Component {
          }
  
          $.post('/api/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`);
-                                                                        this.props.setCurrentPage(3);
+                                                                        this.props.setCurrentPage(2);
                                                                     })
         //  console.log("You have submited the common name: ", this.state.selectedCommonName);
         //  console.log("You have submited the latin name: ", this.state.selectedLatinName);
@@ -108,6 +108,7 @@ class Form extends React.Component {
     render() {
         if (this.state.selectedCommonName !== null) {
         return (
+            <div id="form-bg">
             <form> 
                 <div>
                     <div className="App">
@@ -124,22 +125,28 @@ class Form extends React.Component {
                             </div>
                         </div>
                     </div>
-                <div>
+
+
+                    
+                <div className="modal-dialog text-center">
+                <div className="col-sm-8 main-section">
+                <div className="modal-content">
+                <div className="signup-form-group" >
+
                     <label>
                         <img
-                            id="PlantPhoto" 
+                            id="plant-photo" 
                             name="PlantPhoto"
                             value={this.selectedCommonHouseplantPhotoUrl} 
-                            src={this.state.selectedCommonHouseplantPhotoUrl}
-                        >
+                            src={this.state.selectedCommonHouseplantPhotoUrl}>
                         </img>
                     </label>
                 </div> 
-                <div> 
+                <div className="latin-name"> 
                     <label>
                         Latin Name:
                         <p
-                            id="LatinName" 
+                            id="latin-name" 
                             name="LatinName" 
                             value={this.selectedLatinName} 
                             placeholder="Enter Latin Name">
@@ -152,7 +159,7 @@ class Form extends React.Component {
                     <label>
                     Light Requirement:
                         <p
-                            id="lightRequirement" 
+                            id="light-requirement" 
                             name="lightRequirement" 
                             value={this.selectedLight}> 
                             
@@ -164,14 +171,26 @@ class Form extends React.Component {
                     <button
                         onClick={this.handleFormSubmit}
                         disabled={this.state.selectedCommonName === null}
+                        className="form-btn"
                     >
                         Add New Houseplant
                     </button>
                 </div>
-            </div>    
-            </form>);
+            </div>
+            
+            </div>
+            </div>
+            </div>
+            
+            </form>
+            </div>
+            
+            
+
+            );
         } else {
             return (
+                <div id="form-bg">
                 <form>
                     <div>
                         <div className="App">
@@ -189,7 +208,23 @@ class Form extends React.Component {
                             </div>
                         </div>
                     </div>
-                </form>);
+                </form>
+                </div>);
         }
     }
  } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

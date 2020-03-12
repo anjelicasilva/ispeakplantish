@@ -1,0 +1,238 @@
+p {
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    font-size: x-large;
+
+}
+
+.my-chat-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* min-height: 650px; */
+    z-index: -1;
+    background-image: url(../img/wood3.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* .wrapper {
+    display: flex;
+} */
+
+#chat-main-section {
+    overflow: hidden; /* Make this div contain its floated children */
+    width: 100%;
+}
+
+#chat-sidebar {
+    margin-top: 2em;
+    float: left; /* Make this div as wide as its contents */
+    min-height: 96vh;
+    padding-left: 1em;
+    padding-top: 3em;
+    padding-right:1em;
+    border-right: 5px solid #898c91;
+}
+
+#chat-sidebar p {
+    padding-left: 2em;
+    padding-right:2em;
+}
+
+#chat-sidebar p:hover {
+    background-color: #80AD41;
+    opacity: .5;
+}
+
+#chat-sidebar h4 {padding-left: 0.5em;}
+
+
+#chat-sidebar.view-sidebar {display: none;}
+
+#show-sidebar-button {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+    color: #335177;
+}
+
+@media (max-width: 567px) {
+    #chat-sidebar {
+        display: none;
+    }
+
+    #chat-sidebar.view-sidebar {
+        display: block;
+    }
+
+    #show-sidebar-button {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#rightside-pannel {
+    overflow: hidden; /* Make this div take up the rest of the horizontal space, and no more */
+}
+
+#display-message-section {
+    margin-top: 5em;
+    min-height: 82vh;
+    max-height: 82vh;
+    overflow-y: auto; /*Make  this section scrolable */
+}
+
+#input-area {
+    padding-left: 1em;
+    padding-right: 1em;
+    bottom: 0;
+}
+
+input[type=text]:focus{
+    border-color: #AEC7BA;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 10px #566F2D;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.others-msg {
+    margin-right:7em;
+    margin-left: 1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    border-radius: 5px;
+    border-color: grey;
+    border-width: 0.5px;
+    border-style: solid;
+    background-color: #C2DBFB;
+    /* animation */
+    animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+
+}
+
+/* #my-msg {
+    margin-left:7em;
+    margin-right:1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    border-radius: 5px;
+    border-color: #206ED2;
+    border-width: 1px;
+    border-style: solid; */
+    /* animation */
+    /* animation-name: fadeIn;
+    animation-duration: 0.75s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+} */
+
+.system-msg {
+    margin-right:7em;
+    margin-left: 1em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    color: #656d78;
+    font-size:0.9em;
+}
+
+.timestamp {
+    color: #656d78;
+    font-size:0.7em;
+}
+
+.other-username {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #206ED2;
+}
+
+.my-username {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #566F2D;
+}
+
+#msg-input {
+    border-color: #566F2D;
+    border-width: 5px;
+}
+
+#get-username {
+    display: none !important;
+}
+
+.btn-warning {
+    color: #212529;
+    background-color: #80AD41;
+    border-color: #80AD41;
+}
+
+
+
+
+
+#exit-chat-btn {
+    background-color: #80AD41;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom:  4px solid #435722;
+    border-color: #435722;
+    width: 70%;
+    margin: 20px 0 20px;
+    z-index: -1;
+}
+
+#exit-chat-btn:hover, #exit-chat-btn:focus {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+}
+
+
+#send_message:hover {
+    background-color: #1b4b43 !important;
+    border-bottom: 4px solid #143832;
+}
+
+
+
+/* .speech-bubble {
+    background: #efefef;
+    -webkit-border-radius: 4px;
+            border-radius: 4px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin: 0 auto 40px;
+    max-width: 400px;
+    padding: 15px;
+    position: relative;
+}
+
+.speech-bubble p {
+    margin: 0 0 10px;
+}
+.speech-bubble p:last-of-type {
+    margin-bottom: 0;
+}
+
+.speech-bubble::after {
+    border-left: 20px solid transparent;
+    border-top: 20px solid #efefef;
+    bottom: -20px;
+    content: "";
+    position: absolute;
+    right: 20px;
+} */

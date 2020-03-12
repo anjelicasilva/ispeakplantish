@@ -93,7 +93,7 @@ class Register extends React.Component {
         <div className="modal-content">
 
             <div className="col-12 signup-user-img">
-                <img src="static/img/default-profile-photo.png"></img>
+                <img src="static/img/plantgif.gif"></img>
             </div>
 
             <form className="col-12">
@@ -118,7 +118,7 @@ class Register extends React.Component {
                     <br></br>
 
                     <label>
-                    <input id="password" type="password" name="password" className="form-control" placeholder ="Password" onChange={this.handleRegistrationInput}></input>
+                    <input id="password" type="password" name="password" className="form-control" placeholder ="Password" minLength={5} onChange={this.handleRegistrationInput} required></input>
                     </label>
                     <br></br>
 
