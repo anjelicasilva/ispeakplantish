@@ -21,7 +21,7 @@ class LandingPage extends React.Component {
                 <div className="row">
                     <div className="col-lg-6 col-md-6">
                         <h1>ISpeakPlantish</h1>
-                        <p>A green thumb is not about luck, 
+                        <p id="landing-page-description">A green thumb is not about luck, 
                         but about being observant and 
                         knowing how Mother Nature takes care of her house plants!</p>
                         <button id="landing-page-signup" className="btn btn-lg btn-primary" onClick={this.redirectSignUp}>Sign Up</button>
@@ -58,12 +58,12 @@ class LandingPage extends React.Component {
                     <div className="col-lg-3 col-md-3">
                         <i className="fas fa-users fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
                         <h4>Community</h4>
-                        <p>Join forum group chats to discuss plant diagnosis, trade cuttings, or give freebies!</p>
+                        <p>Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!</p>
                     </div>
                     <div className="col-lg-3 col-md-3">
                         <i className="fab fa-pagelines fa-lg" style={{color: "#80AD41"}} aria-hidden="true"></i>
                         <h4>Discover</h4>
-                        <p>Learn about hundreds of common houseplants in our Plant of the Moment section! 
+                        <p>Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section! 
                         <br></br>CAUTION: Your plant collection may grow unexpectedly!</p>
                     </div>
                 </div>
