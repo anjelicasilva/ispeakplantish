@@ -16,6 +16,7 @@ decorator==4.4.1
 defusedxml==0.6.0
 distro-info===0.18ubuntu0.18.04.1
 dnspython==1.16.0
+emoji==0.5.4
 entrypoints==0.3
 eventlet==0.25.1
 Faker==4.0.0

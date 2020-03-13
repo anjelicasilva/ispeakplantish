@@ -14,7 +14,7 @@ import cloudinary.uploader
 import cloudinary.api
 from twilio.rest import Client
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
-# import emojis
+import emoji
 from time import localtime, strftime
 
 
@@ -338,10 +338,10 @@ def send_sms_reminder():
     if selected_common_name == None:
         selected_common_name = "plants"
     if selected_sms_reminder == 'sendWaterSMS':
-        sms_body = f'Friendly reminder to water your {selected_common_name} today.'
+        sms_body = f'Friendly reminder to water your {selected_common_name} today. 🌱'
  
     elif selected_sms_reminder == 'sendFertilizerSMS':
-        sms_body = f'Friendly reminder to fertilize your {selected_common_name} today.'
+        sms_body = f'Friendly reminder to fertilize your {selected_common_name} today. 🌱'
 
 
     phone = os.environ.get("PHONE_NUMBER")
