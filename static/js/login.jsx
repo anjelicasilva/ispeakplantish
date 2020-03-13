@@ -51,9 +51,9 @@ class Login extends React.Component {
                 </div>
             </form>
 
-            <div className="col-12 forgot">
+            {/* <div className="col-12 forgot">
                 <a href="#">Forgot Password?</a>
-            </div>
+            </div> */}
         </div> 
     </div>
 </div>

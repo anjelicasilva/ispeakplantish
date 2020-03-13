@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Retrieve username
     const currentUserName = document.querySelector('#get-username').innerHTML;
-    console.log('what is this?', currentUserName)
+    // console.log('what is this?', currentUserName)
 
 
     let room = "General Discussion";

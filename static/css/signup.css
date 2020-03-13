@@ -90,4 +90,5 @@
 
 .redirect-login a {
     color: #fff;
+    cursor: pointer;
 }

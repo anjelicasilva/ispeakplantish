@@ -137,3 +137,13 @@ ol {
 #journal-entry-box {
     margin-left: 20px;
 }
+
+.my-plant-header {
+    padding-top: 20px;
+    text-shadow: 2px 2px #575e66;
+    color: #fff;
+    font-family: 'Raleway', 'PT Sans Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.5rem;
+  }

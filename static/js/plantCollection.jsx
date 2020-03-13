@@ -205,7 +205,7 @@ class PlantCollection extends React.Component {
 <div className="modal-dialog text-left">
                         <div className="col-lg-12 main-section">
     <div className="modal-content plant-info">
-        <form className="col-12">
+        <div className="col-12">
             <div className="form-group">
             <div className="col-lg-12">
                     <div>
@@ -223,7 +223,7 @@ class PlantCollection extends React.Component {
 
 
             </div>
-        </form>
+        </div>
     </div> 
 </div>
 </div>
@@ -237,7 +237,7 @@ class PlantCollection extends React.Component {
 <div className="modal-dialog text-left">
                         <div className="col-lg-12 main-section">
     <div className="modal-content plant-info">
-        <form className="col-12">
+        <div className="col-12">
             <div className="form-group">
             <div className="col-lg-12">
                     <div>
@@ -256,7 +256,7 @@ class PlantCollection extends React.Component {
 
 
             </div>
-        </form>
+        </div>
     </div> 
 </div>
 </div>
@@ -271,6 +271,7 @@ class PlantCollection extends React.Component {
             <div className="form-group">
             <div className="col-lg-12">
                     <div>
+                    <div className="text-center my-plant-header">{this.state.selectedCommonName}</div>
                         <div className="entries-plant-info">
                             <PlantInfo 
                                 selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
