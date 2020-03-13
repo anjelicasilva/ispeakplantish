@@ -19,11 +19,11 @@ class LandingPage extends React.Component {
         <div id="header" className="header">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-6 col-md-6">
+                    <div className="col-lg-5 col-md-6">
                         <h1>ISpeakPlantish</h1>
                         <p id="landing-page-description">A green thumb is not about luck, 
                         but about being observant and 
-                        knowing how Mother Nature takes care of her house plants!</p>
+                        knowing how Mother Nature takes care of her houseplants!</p>
                         <button id="landing-page-signup" className="btn btn-lg btn-primary" onClick={this.redirectSignUp}>Sign Up</button>
                         <button id="landing-page-login" className="btn btn-lg btn-success" onClick={this.redirectLogin}>Login</button>
                     </div>

@@ -33,6 +33,10 @@ class Register extends React.Component {
         });
     }
 
+    redirectLogin = () => {
+        this.props.setCurrentPage(4);
+    }
+
 
     render() {
         return (
@@ -134,7 +138,7 @@ class Register extends React.Component {
             </form>
 
             <div className="col-12 redirect-login">
-                <a href="#">Already have an account?</a>
+                <a onClick={this.redirectLogin}>Already have an account?</a>
             </div>
         </div> 
     </div>

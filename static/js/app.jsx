@@ -15,7 +15,8 @@ class App extends React.Component {
                            />, 
                     <PlantCollection notify={this.notify} 
                                      renderCurrentUserId={this.renderCurrentUserId}/>,
-                    <Register registerUser={this.registerUser} />,
+                    <Register registerUser={this.registerUser}
+                              setCurrentPage={this.setCurrentPage} />,
                     <Login userLogIn={this.userLogIn} />,
                     <LandingPage setCurrentPage={this.setCurrentPage}/>,
                     ] 
@@ -118,7 +119,7 @@ class App extends React.Component {
 
     
     redirectChatForum = () => {
-        window.location.href="/forum";
+        window.location.href="/chat";
     }
     
 

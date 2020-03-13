@@ -396,7 +396,7 @@ def plant_of_the_day():
 socketio = SocketIO(app)
 ROOMS = ["General Discussion", "Plant Diagnosis", "Trading", "Free Cuttings"]
 
-@app.route('/forum')
+@app.route('/chat')
 def test():
     return  render_template('forum.html', 
                             current_user_name = session.get('first_name', None),
