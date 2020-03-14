@@ -12,7 +12,8 @@ Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
 Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
 
 
-Technologies and stack
+Technologies and Stack
+
 Backend:
 Python, Flask, Flask-SQLAlchemy
 
