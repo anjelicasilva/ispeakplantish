@@ -5,6 +5,7 @@ ISpeakPlantish is a full-stack web application that acts as a houseplant journal
 * [Features](#features)
 * [Technologies & Stack](#techstack)
 * [Set-up & Installation](#installation)
+* [About the Developer](#aboutme)
 
 ## <a name="features"></a>Features
 * User registration, log-in, & log-out
@@ -63,3 +64,9 @@ Run the app from the command line:
 ```
 $ python3 server.py
 ```
+
+
+## <a name="aboutme"></a>About the Developer
+
+ISpeakPlantish creator Anjelica Silva graduated from the University of CA, Los Angeles with a degree in Communication Studies and worked in property management shortly after. While volunteering and shadowing physicians in her free time, she made the decision to relocate to Hawaii to pursue further education in the health sciences. Turn of events, she relocated to San Francisco and while studying for the MCAT, found interest in programming. In due time, she fell in love with problem solving and realized her passion in technology and communication-related functions are what she finds most rewarding. She looks forward to building her skills and embarking her journey as a full-stack engineer post Hackbright. This is her first full-stack project. She can be found on [LinkedIn](https://www.linkedin.com/in/anjelicasilva/) and on [Github](https://github.com/anjelicasilva).
+
