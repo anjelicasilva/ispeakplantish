@@ -1,4 +1,5 @@
 # ISpeakPlantish
+![ISpeakPlantish](static/logos/ispeakplantish.png)
 ISpeakPlantish is a full-stack web application that acts as a houseplant journal for plant lovers. It offers tracker journal logs to grow, nurture, and care for your small-space greenery. <br/>
 
 ## Contents
@@ -48,7 +49,7 @@ $ pip3 install -r requirements.txt
 Make an account with [Cloudinary](https://cloudinary.com/documentation) & get an [API key](https://cloudinary.com/users/register/free).<br/>
 Make an account with [Twilio](https://www.twilio.com/docs) & get an [API key](https://www.twilio.com/docs/usage/api).<br/>
 
-Store these keys in a file named 'secrets.sh' <br/> IMPORTANT REMINDER: Do NOT check this file in using Git
+Store these keys in a file named 'secrets.sh' <br/> 
 ```
 $ source secrets.sh
 ```
