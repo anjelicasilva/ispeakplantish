@@ -14,7 +14,7 @@ ISpeakPlantish is a full-stack web application that acts as a houseplant journal
 * Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
 
 
-## <a name="techstack"></a>The Stack
+## <a name="techstack"></a>Technologies and Stack
 **Backend:**
 Python, Flask, SQLAlchemy, PostgreSQL, FlaskSocketIO <br/>
 **Frontend:**
