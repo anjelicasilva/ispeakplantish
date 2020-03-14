@@ -25,10 +25,11 @@ Cloudinary, Twilio
 
 
 ## <a name="installation"></a>Set-up & Installation
-Install a code editor like [VS code](https://code.visualstudio.com/download).<br/>
-Install [postgreSQL](https://www.postgresql.org/) for the relational database.<br/>
-Install [python3](https://www.python.org/downloads/mac-osx/)<br/>
+Install a code editor such as [VS code](https://code.visualstudio.com/download) or [Sublime Text](https://www.sublimetext.com/).<br/>
+Install [Python3](https://www.python.org/downloads/mac-osx/)<br/>
 Install the package installer for Python [pip](https://pip.pypa.io/en/stable/installing/)<br/>
+Install [postgreSQL](https://www.postgresql.org/) for the relational database.<br/>
+
 
 Clone or fork repository:
 ```
