@@ -43,6 +43,8 @@ Text water and fertilizer reminders to yourself
 Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
 <br>
 <br>
+![](static/gifs/chat.gif)
+<br>
 
 Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
 <br>
