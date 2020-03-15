@@ -147,3 +147,11 @@ ol {
     font-weight: 800;
     font-size: 1.5rem;
   }
+
+#spinner-gif {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
