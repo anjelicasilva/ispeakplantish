@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Exit Forum
     document.querySelector('#exit-chat-btn').onclick = () => {
             leaveRoom(room);
-            window.location.href = 'http://localhost:5000'
+            window.location.href = 'http://' + document.domain + ':' + location.port
             }
     
 
