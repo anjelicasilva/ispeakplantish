@@ -9,24 +9,36 @@ ISpeakPlantish is a full-stack web application that acts as a houseplant journal
 * [About the Developer](#aboutme)
 
 ## <a name="features"></a>Features
-* User-friendly landing page
-<br/>
+
+User-friendly landing page
+<br>
+<br>
 ![](static/gifs/landing-page.gif)
-<br/>
-* User registration, log-in, & log-out
-<br/>
+<br>
+
+User registration, log-in, & log-out
+<br>
+<br>
 ![](static/gifs/signup.gif)
-<br/>
-* Search common houseplants and add it to your plant collection
-<br/>
+<br>
+
+Search common houseplants and add it to your plant collection
+<br>
+<br>
 ![](static/gifs/add-plant.gif)
 <br/>
-* Text water and fertilizer reminders to yourself
-<br/>
-* Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
-<br/>
-* Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
-<br/>
+
+Text water and fertilizer reminders to yourself
+<br>
+<br>
+
+Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
+<br>
+<br>
+
+Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
+<br>
+<br>
 
 
 ## <a name="techstack"></a>Technologies and Stack
