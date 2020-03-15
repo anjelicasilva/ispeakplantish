@@ -1,4 +1,4 @@
-# ISpeakPlantish
+# ISpeakPlantish 🌱 
 ![](file:///Users/victorsi/Desktop/Screen%20Shot%202020-03-14%20at%2012.44.09%20AM.png)
 ISpeakPlantish is a full-stack web application that acts as a houseplant journal for plant lovers. It offers tracker journal logs to grow, nurture, and care for your small-space greenery. <br/>
 
@@ -8,7 +8,7 @@ ISpeakPlantish is a full-stack web application that acts as a houseplant journal
 * [Set-up & Installation](#installation)
 * [About the Developer](#aboutme)
 
-## <a name="features"></a>Features
+## <a name="features"></a> 🌱 Features
 
 User-friendly landing page
 <br>
@@ -53,7 +53,7 @@ Learn about hundreds of common houseplants in our Homepage's Plant of the Moment
 <br>
 
 
-## <a name="techstack"></a>Technologies and Stack
+## <a name="techstack"></a>🌱 Technologies and Stack
 **Backend:**
 Python, Flask, SQLAlchemy, PostgreSQL, FlaskSocketIO <br/>
 **Frontend:**
@@ -63,7 +63,7 @@ Cloudinary, Twilio
 
 
 
-## <a name="installation"></a>Set-up & Installation
+## <a name="installation"></a>🌱 Set-up & Installation
 Install a code editor such as [VS code](https://code.visualstudio.com/download) or [Sublime Text](https://www.sublimetext.com/).<br/>
 Install [Python3](https://www.python.org/downloads/mac-osx/)<br/>
 Install [pip](https://pip.pypa.io/en/stable/installing/), the package installer for Python <br/>
@@ -96,7 +96,7 @@ $ createdb ispeakplantish_db
 ```
 Create all tables and relations in the database and seed all data:
 ```
-$ python3 -seed.py
+$ python3 seed.py
 ```
 Run the app from the command line:
 ```
@@ -104,7 +104,7 @@ $ python3 server.py
 ```
 
 
-## <a name="aboutme"></a>About the Developer
+## <a name="aboutme"></a>🌱 About the Developer
 
 ISpeakPlantish creator Anjelica Silva graduated from the University of CA, Los Angeles with a degree in Communication Studies and worked in property management shortly after. While volunteering and shadowing physicians in her free time, she made the decision to relocate to Hawaii to pursue further education in the health sciences. Turn of events, she relocated to San Francisco and while studying for the MCAT, found interest in programming. In due time, she fell in love with problem solving and realized her passion in technology and communication-related functions are what she finds most rewarding. She looks forward to building her skills and embarking her journey as a full-stack engineer post Hackbright. This is her first full-stack project. She can be found on [LinkedIn](https://www.linkedin.com/in/anjelicasilva/) and on [Github](https://github.com/anjelicasilva).
 
