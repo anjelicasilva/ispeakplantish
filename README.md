@@ -37,6 +37,8 @@ Log journal entries to keep track of your plant's progress
 Text water and fertilizer reminders to yourself
 <br>
 <br>
+![](static/gifs/twilio.gif)
+<br>
 
 Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
 <br>
