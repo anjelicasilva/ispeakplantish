@@ -28,6 +28,12 @@ Search common houseplants and add it to your plant collection
 ![](static/gifs/add-plant.gif)
 <br/>
 
+Log journal entries to keep track of your plant's progress
+<br>
+<br>
+![](static/gifs/entries.gif)
+<br/>
+
 Text water and fertilizer reminders to yourself
 <br>
 <br>
