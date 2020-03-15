@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Exit Forum
     document.querySelector('#exit-chat-btn').onclick = () => {
             leaveRoom(room);
-            window.location.href = 'ispeakplantish.com'
+            window.location.href = 'http://ispeakplantish.com'
             }
     
 
