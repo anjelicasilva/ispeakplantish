@@ -49,6 +49,8 @@ Join group chats to discuss plant diagnosis, trade cuttings, or give freebies!
 Learn about hundreds of common houseplants in our Homepage's Plant of the Moment section!
 <br>
 <br>
+![](static/gifs/plant-of-the-moment.gif)
+<br>
 
 
 ## <a name="techstack"></a>Technologies and Stack
