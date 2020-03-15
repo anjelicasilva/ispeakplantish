@@ -147,7 +147,8 @@ class PlantCollection extends React.Component {
     render() {
         if (this.state.listOfCommonHouseplants.length === 0) {
             return (
-                <div>Loading...</div>
+                // <div>Loading...</div>
+                <img src="static/gifs/Spinner-1s-200px.gif"></img>
             )
         }
 
