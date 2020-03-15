@@ -2,7 +2,7 @@
 ![](file:///Users/victorsi/Desktop/Screen%20Shot%202020-03-14%20at%2012.44.09%20AM.png)
 ISpeakPlantish is a full-stack web application that acts as a houseplant journal for plant lovers. It offers tracker journal logs to grow, nurture, and care for your small-space greenery. <br>
 
-![Deployment Link](http://ispeakplantish.com): http://ispeakplantish.com
+💻 Deployment Link: http://ispeakplantish.com
 
 ## Contents
 * [Features](#features)
