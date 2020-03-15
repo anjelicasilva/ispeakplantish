@@ -1,6 +1,8 @@
 # ISpeakPlantish 🌱 
 ![](file:///Users/victorsi/Desktop/Screen%20Shot%202020-03-14%20at%2012.44.09%20AM.png)
-ISpeakPlantish is a full-stack web application that acts as a houseplant journal for plant lovers. It offers tracker journal logs to grow, nurture, and care for your small-space greenery. <br/>
+ISpeakPlantish is a full-stack web application that acts as a houseplant journal for plant lovers. It offers tracker journal logs to grow, nurture, and care for your small-space greenery. <br>
+
+![Deployment Link](http://ispeakplantish.com): http://ispeakplantish.com
 
 ## Contents
 * [Features](#features)
@@ -55,19 +57,19 @@ Learn about hundreds of common houseplants in our Homepage's Plant of the Moment
 
 ## <a name="techstack"></a>🌱 Technologies and Stack
 **Backend:**
-Python, Flask, SQLAlchemy, PostgreSQL, FlaskSocketIO <br/>
+Python, Flask, SQLAlchemy, PostgreSQL, FlaskSocketIO <br>
 **Frontend:**
-React, Javascript, jQuery, Babel, Bootstrap, Google Fonts, HTML5, CSS3 <br/>
+React, Javascript, jQuery, Babel, Bootstrap, Google Fonts, HTML5, CSS3 <br>
 **APIs:**
 Cloudinary, Twilio
 
 
 
 ## <a name="installation"></a>🌱 Set-up & Installation
-Install a code editor such as [VS code](https://code.visualstudio.com/download) or [Sublime Text](https://www.sublimetext.com/).<br/>
-Install [Python3](https://www.python.org/downloads/mac-osx/)<br/>
-Install [pip](https://pip.pypa.io/en/stable/installing/), the package installer for Python <br/>
-Install [postgreSQL](https://www.postgresql.org/) for the relational database.<br/>
+Install a code editor such as [VS code](https://code.visualstudio.com/download) or [Sublime Text](https://www.sublimetext.com/).<br>
+Install [Python3](https://www.python.org/downloads/mac-osx/)<br>
+Install [pip](https://pip.pypa.io/en/stable/installing/), the package installer for Python <br>
+Install [postgreSQL](https://www.postgresql.org/) for the relational database.<br>
 
 
 Clone or fork repository:
@@ -83,10 +85,10 @@ Install dependencies:
 ```
 $ pip3 install -r requirements.txt
 ```
-Make an account with [Cloudinary](https://cloudinary.com/documentation) & get an [API key](https://cloudinary.com/users/register/free).<br/>
-Make an account with [Twilio](https://www.twilio.com/docs) & get an [API key](https://www.twilio.com/docs/usage/api).<br/>
+Make an account with [Cloudinary](https://cloudinary.com/documentation) & get an [API key](https://cloudinary.com/users/register/free).<br>
+Make an account with [Twilio](https://www.twilio.com/docs) & get an [API key](https://www.twilio.com/docs/usage/api).<br>
 
-Store these keys in a file named 'secrets.sh' <br/> 
+Store these keys in a file named 'secrets.sh' <br> 
 ```
 $ source secrets.sh
 ```
