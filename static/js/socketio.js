@@ -3,7 +3,8 @@
 // and subframes to finish loading.
 
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = io.connect(('https://' + document.domain + ':' + location.port), {transports: ['websocket']});
+    const socket = io.connect(('https://ispeakplantish.com/chat'), {transports: ['websocket']});
+    // const socket = io.connect(('https://' + document.domain + ':' + location.port), {transports: ['websocket']});
 
 
     // Retrieve username
