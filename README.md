@@ -5,6 +5,7 @@ ISpeakPlantish is a full-stack web application that acts as a houseplant journal
 💻 Deployment Link: https://ispeakplantish.com
 <br>
 (Issued by: Let's Encrypt Authority X3)
+Currently running with the free Twilio API trial so all SMS reminders are being sent to developer's phone. Currently working on setting up websockets to work with deployed IP address.
 
 ## Contents
 * [Features](#features)
