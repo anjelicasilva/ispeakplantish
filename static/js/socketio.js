@@ -3,7 +3,7 @@
 // and subframes to finish loading.
 
 document.addEventListener('DOMContentLoaded', () => {
-    const socket = io.connect(('http://' + document.domain + ':' + location.port), {transports: ['websocket']});
+    const socket = io.connect(('https://' + document.domain + ':' + location.port), {transports: ['websocket']});
 
 
     // Retrieve username
