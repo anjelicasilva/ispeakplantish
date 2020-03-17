@@ -444,8 +444,6 @@ if __name__ == '__main__':
     # that we invoke the DebugToolbarExtension
     # app.run(debug=True,  host='0.0.0.0')
     socketio.run(app, debug = False, host='0.0.0.0')
-    # socketio.run(app, debug = False, host='44.230.48.4')
-
     
     #Use the DebugToolbar
-    # DebugToolbarExtension(app)
+    DebugToolbarExtension(app)
