@@ -68,7 +68,6 @@ class Form extends React.Component {
              addLightRequirement: this.state.selectedLight,
              addCommonHouseplantId: this.state.selectedCommonHouseplantId,
          }
- 
          $.post('/api/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`);
                                                                         this.props.setCurrentPage(2);
                                                                     })
@@ -77,11 +76,9 @@ class Form extends React.Component {
 
     renderPlantOptions() {
         const plantOptions = [];
- 
         for (const plantObject of this.state.listOfCommonHouseplants) {
             plantOptions.push(plantObject['commonName'])
         };
- 
         return plantOptions
     }
  

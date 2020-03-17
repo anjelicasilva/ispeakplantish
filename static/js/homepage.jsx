@@ -16,9 +16,7 @@ class HomePage extends React.Component {
   async fetchHouseplantOfTheDay() {
     const randomHouseplantResponse = await fetch(`/api/plant_of_the_day`);
     const randomHouseplantJson = await randomHouseplantResponse.json();
-
     for (const randomPlant of Object.entries(randomHouseplantJson)) {
-
         const plantOfTheDay = {
             randomHouseplantId: randomPlant[1]['common_houseplant_id'],
             randomHouseplantPhotoUrl: randomPlant[1]['common_houseplant_photo_url'],
@@ -36,7 +34,6 @@ class HomePage extends React.Component {
 
   renderPlantOfTheDay() {
     const plantOfTheDayInfo = []
-                
       plantOfTheDayInfo.push(
           <div className="plant-moment-text" key={this.state.randomPlantOfTheDay['randomCommonName']}>
               <img id="plant-moment-img" src={this.state.randomPlantOfTheDay['randomHouseplantPhotoUrl']}></img>
@@ -62,41 +59,27 @@ class HomePage extends React.Component {
 
 
     render() {
-    return (
-      <div>
-      <div className="sticky">
-        <div className="my-homepage-bg"></div>
-      </div>
-
-      <div className="modal-dialog text-center">
-      <div className="col-sm-8 main-section">
-          <div className="modal-content">
-              <form className="col-12">
-                  <div className="form-group">
-                    <div id="homepage" className="homepage">
-                      <h3 id="plant-moment">Plant of the Moment</h3>
-                      {this.getRandomHouseplant()}
-                    </div>
-                  </div>
-              </form>
-          </div> 
-      </div>
-  </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    );
+      return (
+        <div>
+          <div className="sticky">
+            <div className="my-homepage-bg"></div>
+          </div>
+          <div className="modal-dialog text-center">
+            <div className="col-sm-8 main-section">
+                <div className="modal-content">
+                    <form className="col-12">
+                        <div className="form-group">
+                          <div id="homepage" className="homepage">
+                            <h3 id="plant-moment">Plant of the Moment</h3>
+                            {this.getRandomHouseplant()}
+                          </div>
+                        </div>
+                    </form>
+                </div> 
+            </div>
+          </div>
+        </div>
+      );
     }
   } 
 
