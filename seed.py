@@ -125,5 +125,3 @@ if __name__ == "__main__":
     load_houseplants()
     load_entries()
     load_photos()
-    
-   
