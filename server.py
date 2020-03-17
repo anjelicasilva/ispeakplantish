@@ -443,8 +443,8 @@ if __name__ == '__main__':
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
     # app.run(debug=True,  host='0.0.0.0')
-    # socketio.run(app, debug = False, host='0.0.0.0')
-    socketio.run(app, debug = False, host='44.230.48.4')
+    socketio.run(app, debug = False, host='0.0.0.0')
+    # socketio.run(app, debug = False, host='44.230.48.4')
 
     
     #Use the DebugToolbar
