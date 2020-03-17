@@ -40,7 +40,6 @@ cloudinary.config(
 def show_index():
     """Show the iSpeakPlantish homepage."""
     # google_api_key = os.environ.get('GOOGLE_API_KEY')
-
     # return render_template("index.html", 
     #                         google_api_key=google_api_key)
     # return render_template("googleMapsIndex.html")
@@ -49,6 +48,7 @@ def show_index():
 
 @app.route('/api/users')
 def get_users():
+    """Returns a all users from database."""
 
     users = User.query.all()
     return jsonify({user.user_id: user.to_dict() for user in users})
@@ -56,6 +56,7 @@ def get_users():
 
 @app.route('/api/followers')
 def get_followers():
+    """Returns all followers from database."""
 
     followers = Follower.query.all()
     return jsonify({follower.id: follower.to_dict() for follower in followers})
@@ -63,6 +64,7 @@ def get_followers():
 
 @app.route('/api/entries')
 def get_entries():
+    """Returns all entries from database."""
 
     entries = Entry.query.all()
     return jsonify({entry.journal_entry_id: entry.to_dict() for entry in entries})
@@ -70,6 +72,7 @@ def get_entries():
 
 @app.route('/api/photos')
 def get_photos():
+    """Returns all photos from database."""
 
     photos = Photo.query.all()
     return jsonify({photo.photo_id: photo.to_dict() for photo in photos})
@@ -77,6 +80,8 @@ def get_photos():
 
 @app.route('/api/houseplants')
 def get_houseplants():
+    """Returns all user owned houseplants from database."""
+
     # if request.is_json:
     #     my_stuff = request.json()
     houseplants = Houseplant.query.all()
@@ -85,14 +90,17 @@ def get_houseplants():
 
 @app.route('/api/common_houseplants')
 def get_common_houseplants():
+    """Returns all common houseplants from database."""
+
     # time.sleep(7)
     common_houseplants = CommonHouseplant.query.all()
     return jsonify({common_houseplant.common_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
 
 
-# Houseplants owned by User 1
 @app.route('/api/houseplants/user1')
 def get_user_specific_houseplants():
+    """Returns all houseplants owned by user 1."""
+
     users_houseplants = Houseplant.query.filter_by(user_id="1").all()
     return jsonify({users_houseplant.user_houseplant_id: users_houseplant.to_dict() for users_houseplant in users_houseplants})
 
@@ -118,11 +126,9 @@ def register():
     phone = request.form.get('addPhone')
 
     user = User.query.filter_by(email = email).first()
-
     # if user != None and user.email == email and user.check_password(password) == True:
     # #Already exists in the system
     #     return 'Please try logging in'
-
     if user != None: 
         return 'An account with this email already exists'
 
@@ -221,6 +227,8 @@ def user_logout():
 
 @app.route('/api/add_new_houseplant_to_user_profile', methods=['POST'])
 def add_new_houseplant_data():
+    """Add new houseplant to current user's plant collection."""
+
     common_houseplant_id = request.form.get('addCommonHouseplantId')
     current_user_id= request.form.get('currentUserId')
 
@@ -237,6 +245,7 @@ def add_new_houseplant_data():
 
 @app.route('/api/add_new_journal_entry_to_user_profile', methods=['POST'])
 def add_new_journal_entry_data():
+    """Add new journal entry to current user's specified plant."""
 
     current_user_id= request.form.get('currentUserId')
     user_houseplant_id = request.form.get('addUserHouseplantId')
@@ -282,6 +291,7 @@ def add_new_journal_entry_data():
 ALLOWED_EXTENSIONS = {'gif', 'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
+    """Return only allowed files from allowed extensions."""
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -343,7 +353,6 @@ def send_sms_reminder():
     elif selected_sms_reminder == 'sendFertilizerSMS':
         sms_body = f'Friendly reminder to fertilize your {selected_common_name} today. 🌱'
 
-
     phone = os.environ.get("PHONE_NUMBER")
     twilio_phone = os.environ.get("TWILIO_PHONE_NUMBER")
     account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
@@ -362,11 +371,13 @@ def send_sms_reminder():
 
 @app.route('/api/plant_of_the_day')
 def plant_of_the_day():
+    """Return randomly selected plant of the moment."""
 
     random_common_houseplant_id = randint(1,92)
     plant_of_the_day = CommonHouseplant.query.filter_by(common_houseplant_id=str(random_common_houseplant_id)).all()
     
     return jsonify({plant.common_houseplant_id: plant.to_dict() for plant in plant_of_the_day})
+
 
 
 ###############################################################################
@@ -387,17 +398,13 @@ def plant_of_the_day():
 
 #   socketio.emit('my response', json)
 
-
-
 ################
-
-
-
 socketio = SocketIO(app)
 ROOMS = ["General Discussion", "Plant Diagnosis", "Trading", "Free Cuttings"]
 
 @app.route('/chat')
-def test():
+def chat():
+    """Render chat/forum with current user."""
     return  render_template('forum.html', 
                             current_user_name = session.get('first_name', None),
                             rooms=ROOMS)
@@ -405,6 +412,8 @@ def test():
 
 @app.route('/api/forum')
 def forum_info():
+    """Return chat rooms with current user logged in."""
+
     return {'current_user_name': session['first_name'],
             'rooms': ROOMS,
            }
@@ -412,6 +421,7 @@ def forum_info():
 
 @socketio.on('message')
 def message(data):
+    """Send and print messages sent in chat rooms."""
 
   print(f"\n\n{data}\n\n")
   
@@ -423,6 +433,8 @@ def message(data):
 
 @socketio.on('join')
 def join(data):
+    """Allow current user to join a room."""
+
     join_room(data['room'])
     send({'msg': data['currentUserName'] + " has joined the " + data['room'] + " room."}, 
           room=data['room'])
@@ -430,6 +442,7 @@ def join(data):
 
 @socketio.on('leave')
 def leave(data):
+    """Allow current user to leave a room."""
 
     leave_room(data['room'])
     send({'msg': data['currentUserName'] + " has left the " + data['room'] + " room."}, 

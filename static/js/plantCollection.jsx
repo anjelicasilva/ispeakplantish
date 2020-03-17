@@ -2,9 +2,6 @@ class PlantCollection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // refactor after creating user sign up page
-            // userId: 1,
-            // userId: this.props.currentUserid,
             usersPlantCollection: [],
             listOfCommonHouseplants: [],
             listOfEntries: [],
@@ -12,7 +9,6 @@ class PlantCollection extends React.Component {
             selectedUserHouseplantId: null,
             selectedCommonHouseplantId: null,
             selectedCommonName: null,
-            
         };
         this.fetchUsersPlantCollection = this.fetchUsersPlantCollection.bind(this);
         this.fetchCommonHouseplants = this.fetchCommonHouseplants.bind(this);
@@ -30,13 +26,10 @@ class PlantCollection extends React.Component {
         
 
     async fetchUsersPlantCollection() {
-         // fetch list of plants the user owns
          const usersPlantCollectionResponse = await fetch('/api/houseplants');
          const usersPlantCollectionJson = await usersPlantCollectionResponse.json();
          const newUsersPlantCollection = []
- 
          for (const usersPlantObject of Object.entries(usersPlantCollectionJson)) {
-            // if (this.state.userId === usersPlantObject[1]['user_id'])
              if (this.props.renderCurrentUserId() === usersPlantObject[1]['user_id']) {
                  let usersPlant = {
                      commonHouseplantId: usersPlantObject[1]['common_houseplant_id'],
@@ -53,13 +46,10 @@ class PlantCollection extends React.Component {
 
 
     async fetchCommonHouseplants() {
-        // fetch list of information for all common houseplants
         const commonHouseplantsResponse = await fetch(`/api/common_houseplants`);
         const commonHouseplantsJson = await commonHouseplantsResponse.json();
         const commonHouseplants =[]
-
         for (const plantObject of Object.entries(commonHouseplantsJson)) {
-
             let plant = {
                 commonHouseplantId: plantObject[1]['common_houseplant_id'],
                 commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
@@ -77,13 +67,10 @@ class PlantCollection extends React.Component {
     }
 
     async fetchAllEntries() {
-
-        // ** possibly fetch asynchronously and then have a loading animation until it finishes **
         const entriesResponse = await fetch('/api/entries');
         const entriesJson = await entriesResponse.json();
         const newListOfEntries = []
         for (const entriesObject of Object.entries(entriesJson)) {
-    
             let entry = {
                 journalEntryId: entriesObject[1]['journal_entry_id'],
                 journalEntryText: entriesObject[1]['journal_entry_text'],
@@ -95,20 +82,18 @@ class PlantCollection extends React.Component {
             }
             newListOfEntries.push(entry);
         };
-
         this.setState({
             listOfEntries: newListOfEntries,
         });
     }
 
-    async fetchAllPhotos() {
 
+    async fetchAllPhotos() {
         // ** possibly fetch asynchronously and then have a loading animation until it finishes **
         const photosResponse = await fetch('/api/photos');
         const photosJson = await photosResponse.json();
         const newListOfPhotos = []
         for (const photosObject of Object.entries(photosJson)) {
-    
             let photo = {
                 journalEntryId: photosObject[1]['journal_entry_id'],
                 photoId: photosObject[1]['photo_id'],
@@ -117,7 +102,6 @@ class PlantCollection extends React.Component {
             }
             newListOfPhotos.push(photo);
         };
-
         this.setState({
             listOfPhotos: newListOfPhotos,
         });
@@ -144,6 +128,7 @@ class PlantCollection extends React.Component {
         return listOfUsersPlants
     }
 
+
     render() {
         if (this.state.listOfCommonHouseplants.length === 0) {
             return (
@@ -152,13 +137,11 @@ class PlantCollection extends React.Component {
                     <div className="text-center my-plant-collection-bg"></div>
                     <img id="spinner-gif" src="static/gifs/Spinner-1s-200px.gif"></img>
                 </div>
-                
             )
         }
 
         if (this.state.selectedUserHouseplantId === null) {
             return (
-                
                 <div>
                     <div className="text-center my-plant-collection-bg">
                         <h3 className="my-collection-header">My Plant Collection</h3>
@@ -169,198 +152,86 @@ class PlantCollection extends React.Component {
                         </div>
                     </div>
                 </div>
-               
             )
         }
-
         return (
             <div>
                 <div className="sticky">
                     <div className="text-center my-plant-collection-bg"></div>
                 </div>
-                
-
-
-
-
-            
-
-        <div className="center-plant-collection">
-            <h3 className="text-center my-collection-header">My Plant Collection</h3>
+                <div className="center-plant-collection">
+                    <h3 className="text-center my-collection-header">My Plant Collection</h3>
                         <div>
                             <ol className="text-center">
                                 { this.renderUsersPlantCollection() }
                             </ol>
                         </div>
-
-                        
-
-                        {/* <div className="entries-plant-info">
-                            <AddEntries 
-                                selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
-                                selectedCommonName={this.state.selectedCommonName} 
-                                fetchAllEntries={this.fetchAllEntries} 
-                                fetchAllPhotos={this.fetchAllPhotos}
-                                notify={this.props.notify}
-                                renderCurrentUserId={this.props.renderCurrentUserId} />
-                        </div> */}
-
-
-
-<div className="modal-dialog text-left">
+                    <div className="modal-dialog text-left">
                         <div className="col-lg-12 main-section">
-    <div className="modal-content plant-info">
-        <div className="col-12">
-            <div className="form-group">
-            <div className="col-lg-12">
-                    <div>
-                        
-                    <div className="sms">
-                            <SmsReminder 
-                                notify={this.props.notify}
-                                selectedCommonName={this.state.selectedCommonName} />
+                            <div className="modal-content plant-info">
+                                <div className="col-12">
+                                    <div className="form-group">
+                                    <div className="col-lg-12">
+                                            <div>
+                                            <div className="sms">
+                                                    <SmsReminder 
+                                                        notify={this.props.notify}
+                                                        selectedCommonName={this.state.selectedCommonName} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                         </div>
-
-
                     </div>
-                </div>
-
-
-
-            </div>
-        </div>
-    </div> 
-</div>
-</div>
-         
-
-
-
-
-
-
-<div className="modal-dialog text-left">
+                    <div className="modal-dialog text-left">
                         <div className="col-lg-12 main-section">
-    <div className="modal-content plant-info">
-        <div className="col-12">
-            <div className="form-group">
-            <div className="col-lg-12">
-                    <div>
-                    <div className="entries-plant-info">
-                            <AddEntries 
-                                selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
-                                selectedCommonName={this.state.selectedCommonName} 
-                                fetchAllEntries={this.fetchAllEntries} 
-                                fetchAllPhotos={this.fetchAllPhotos}
-                                notify={this.props.notify}
-                                renderCurrentUserId={this.props.renderCurrentUserId} />
+                            <div className="modal-content plant-info">
+                                <div className="col-12">
+                                    <div className="form-group">
+                                        <div className="col-lg-12">
+                                            <div>
+                                                <div className="entries-plant-info">
+                                                    <AddEntries 
+                                                        selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
+                                                        selectedCommonName={this.state.selectedCommonName} 
+                                                        fetchAllEntries={this.fetchAllEntries} 
+                                                        fetchAllPhotos={this.fetchAllPhotos}
+                                                        notify={this.props.notify}
+                                                        renderCurrentUserId={this.props.renderCurrentUserId} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div className="modal-dialog text-center">
+                        <div className="col-lg-12 main-section">
+                            <div className="modal-content plant-info">
+                                <form className="col-12">
+                                    <div className="form-group">
+                                        <div className="col-lg-12">
+                                            <div>
+                                                <div className="text-center my-plant-header">{this.state.selectedCommonName}</div>
+                                                <div className="entries-plant-info">
+                                                    <PlantInfo 
+                                                        selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
+                                                        listOfEntries={this.state.listOfEntries} 
+                                                        fetchAllEntries={this.state.fetchAllEntries} 
+                                                        listOfPhotos={this.state.listOfPhotos} /> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> 
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-        </div>
-    </div> 
-</div>
-</div>
-                        
-
-
-
-                        <div className="modal-dialog text-center">
-<div className="col-lg-12 main-section">
-    <div className="modal-content plant-info">
-        <form className="col-12">
-            <div className="form-group">
-            <div className="col-lg-12">
-                    <div>
-                    <div className="text-center my-plant-header">{this.state.selectedCommonName}</div>
-                        <div className="entries-plant-info">
-                            <PlantInfo 
-                                selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
-                                listOfEntries={this.state.listOfEntries} 
-                                fetchAllEntries={this.state.fetchAllEntries} 
-                                listOfPhotos={this.state.listOfPhotos} /> 
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </form>
-    </div> 
-</div>
-</div>
-</div>
-</div>
-
-
-
-
         )
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// return (
-//     <div>
-//         <div className="sticky">
-//             <div className="my-plant-collection-bg"></div>
-//         </div>
-//         <div className="col-lg-6 offset-lg-4">
-//             <div>
-//                 <h3 className="my-collection-header">My Plant Collection</h3>
-//                 <div>
-//                     <ol>
-//                         { this.renderUsersPlantCollection() }
-//                     </ol>
-//                 </div>
-//                 <br></br>
-//                 <br></br>
-//                 <div className="sms">
-//                     <SmsReminder selectedCommonName={this.state.selectedCommonName} />
-//                 </div>
-//                 <br></br>
-//                 <br></br>
-//                 <div className="entries-plant-info">
-//                     <AddEntries 
-//                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
-//                         selectedCommonName={this.state.selectedCommonName} 
-//                         fetchAllEntries={this.fetchAllEntries} 
-//                         fetchAllPhotos={this.fetchAllPhotos}
-//                         notify={this.props.notify}
-//                         renderCurrentUserId={this.props.renderCurrentUserId} />
-//                     <PlantInfo 
-//                         selectedUserHouseplantId={this.state.selectedUserHouseplantId} 
-//                         listOfEntries={this.state.listOfEntries} 
-//                         fetchAllEntries={this.state.fetchAllEntries} 
-//                         listOfPhotos={this.state.listOfPhotos} /> 
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// )
-// }
-// }
