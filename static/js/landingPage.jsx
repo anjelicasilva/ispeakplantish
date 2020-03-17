@@ -67,9 +67,54 @@ class LandingPage extends React.Component {
                         <br></br>CAUTION: Your plant collection may grow unexpectedly!</p>
                     </div>
                 </div>
+
+
+
+
+
+
+
+                <footer id="my-footer" className="text-center page-footer font-small cyan darken-3">
+  <div className="container">
+    <div className="row">
+      <div className="col-md-12 py-5">
+        <div className="mb-5 flex-center">
+          <a href="mailto:anjelicacsilva@gmail.com" className="gplus-ic">
+            <i style={{color: "#80AD41"}} className="fab fa-google fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <a href="https://www.linkedin.com/in/anjelicasilva/" className="li-ic">
+            <i style={{color: "#80AD41"}} className="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <a href="https://instagram.com/ispeakplantish" className="ins-ic">
+            <i style={{color: "#80AD41"}} className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+          </a>
+          <a href="https://github.com/anjelicasilva/ISpeakPlantish" className="git-ic">
+            <i style={{color: "#80AD41"}} className="fab fa-github fa-lg white-text fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {/* <div className="footer-copyright text-center py-3">Made by Anjelica Silva 
+    <a href="https://ispeakplantish.com/"> ISpeakPlantish.com</a>
+  </div> */}
+
+
+</footer>
+
+
+
+
+
+
+
             </div>
         </div>
 
+        
 
         {/* <div id="team" className="team">
             <div className="container">
