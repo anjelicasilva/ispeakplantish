@@ -98,9 +98,9 @@ class LandingPage extends React.Component {
 
 
 
-  {/* <div className="footer-copyright text-center py-3">Made by Anjelica Silva 
-    <a href="https://ispeakplantish.com/"> ISpeakPlantish.com</a>
-  </div> */}
+  <div style={{color: "#80AD41"}} className="footer-copyright text-center py-3">Made by Anjelica Silva 
+    {/* <a href="https://ispeakplantish.com/"> ISpeakPlantish.com</a> */}
+  </div>
 
 
 </footer>
