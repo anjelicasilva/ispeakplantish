@@ -2,10 +2,18 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 import pytz
+
 from tzlocal import get_localzone
+
 tz = get_localzone()
+
+
 PST = pytz.timezone('America/Los_Angeles')
 UTC = pytz.timezone('UTC')
+
+# UTC.normalize(PST.normalize(
+
+
 #LOGIN, LOGOUT, REGISTRATION
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -15,6 +23,11 @@ db = SQLAlchemy()
 
 class User(db.Model):
     """Stores information about each user on the iSpeakPlantish website."""
+
+    # date = datetime.utcnow
+    # date = date.astimezone(timezone('US/Pacific'))
+
+    # default=datetime.now().date()
 
     __tablename__ = "users"
 
@@ -158,7 +171,6 @@ class Houseplant(db.Model):
         return {'user_houseplant_id': self.user_houseplant_id,
                 'common_houseplant_id': self.common_houseplant_id,
                 'user_id': self.user_id}
-
 
 class CommonHouseplant(db.Model):
     """Stores information about the most common houseplants."""

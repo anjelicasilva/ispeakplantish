@@ -5,10 +5,10 @@ class AutoCompleteText extends React.Component {
             suggestions: [],
             currentResult: '',
         };
+
         this.renderSuggestions = this.renderSuggestions.bind(this);
         this.suggestionSelected = this.suggestionSelected.bind(this);
     }
-
 
     onTextChanged = (event) => {
         const { items } = this.props;
@@ -21,7 +21,6 @@ class AutoCompleteText extends React.Component {
         this.setState(() => ({ suggestions, currentResult: value }));
     }
 
-
     suggestionSelected (value) {
         this.setState({
             currentResult: value,
@@ -29,7 +28,6 @@ class AutoCompleteText extends React.Component {
         });
         this.props.handleCommonNameSelection(value);
     }
-
 
     renderSuggestions () {
         const { suggestions } = this.state;
@@ -43,7 +41,6 @@ class AutoCompleteText extends React.Component {
         );
     }
 
-    
     render() {
         return(
             <div className="AutoCompleteText">

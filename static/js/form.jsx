@@ -11,17 +11,19 @@ class Form extends React.Component {
         this.generateLatinName = this.generateLatinName.bind(this);
     }
  
-
     componentDidMount() {
         this.fetchCommonHouseplants();
     }
 
 
     async fetchCommonHouseplants() {
+        // fetch list of information for all common houseplants
         const commonHouseplantsResponse = await fetch(`/api/common_houseplants`);
         const commonHouseplantsJson = await commonHouseplantsResponse.json();
         const commonHouseplants =[]
+
         for (const plantObject of Object.entries(commonHouseplantsJson)) {
+
             let plant = {
                 commonHouseplantId: plantObject[1]['common_houseplant_id'],
                 commonHouseplantPhotoUrl: plantObject[1]['common_houseplant_photo_url'],
@@ -32,6 +34,7 @@ class Form extends React.Component {
             }
             commonHouseplants.push(plant);
         };
+
         this.setState({
             listOfCommonHouseplants: commonHouseplants,
         });
@@ -44,7 +47,6 @@ class Form extends React.Component {
         });
     };
 
-
     handleCommonNameSelection = (currentResult) => {
         const latinNameIndex = this.generateLatinName(currentResult)
         this.setState({
@@ -54,11 +56,14 @@ class Form extends React.Component {
              selectedCommonHouseplantId: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantId'],
              selectedCommonHouseplantPhotoUrl: this.state.listOfCommonHouseplants[latinNameIndex]['commonHouseplantPhotoUrl'],
         });
+        
     };
    
-
     handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
+        
+        // console.log('did this prop work?', this.props.renderCurrentUserId())
+
          let data = { 
              currentUserId: this.props.renderCurrentUserId(),
              addLatinName: this.state.selectedLatinName,
@@ -66,17 +71,25 @@ class Form extends React.Component {
              addLightRequirement: this.state.selectedLight,
              addCommonHouseplantId: this.state.selectedCommonHouseplantId,
          }
+ 
          $.post('/api/add_new_houseplant_to_user_profile', data,() => { this.props.notify(`${this.state.selectedCommonName} added to your plant collection!`);
                                                                         this.props.setCurrentPage(2);
                                                                     })
+        //  console.log("You have submited the common name: ", this.state.selectedCommonName);
+        //  console.log("You have submited the latin name: ", this.state.selectedLatinName);
+        //  console.log("You have submitted the general light requirement: ", this.state.selectedLight);
+        //  console.log("Common Houseplant Id:", this.state.selectedCommonHouseplantId)
+        //  console.log("user log in id:", data['currentUserId'])
         };
     
 
     renderPlantOptions() {
         const plantOptions = [];
+ 
         for (const plantObject of this.state.listOfCommonHouseplants) {
             plantOptions.push(plantObject['commonName'])
         };
+ 
         return plantOptions
     }
  
@@ -94,96 +107,108 @@ class Form extends React.Component {
  
     render() {
         if (this.state.selectedCommonName !== null) {
-            return (
-                <div id="form-bg">
-                    <form> 
-                        <div>
-                            <div className="App">
-                                <div className="App-Component">
-                                    <div className="App-Component">
-                                        <label>
-                                            <h4>Search for a common houseplant:</h4>
-                                            <AutoCompleteText 
-                                                items={this.renderPlantOptions()} 
-                                                handleCommonNameSelection={this.handleCommonNameSelection}
-                                                notify={this.props.notify}
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
+        return (
+            <div id="form-bg">
+            <form> 
+                <div>
+                    <div className="App">
+                        <div className="App-Component">
+                            <div className="App-Component">
+                                <label>
+                                    <h4>Search for a common houseplant:</h4>
+                                    <AutoCompleteText 
+                                        items={this.renderPlantOptions()} 
+                                        handleCommonNameSelection={this.handleCommonNameSelection}
+                                        notify={this.props.notify}
+                                    />
+                                </label>
                             </div>
-                                <div className="modal-dialog text-center">
-                                    <div className="col-sm-8 main-section">
-                                        <div className="modal-content">
-                                            <div className="signup-form-group" >
-                                                <label>
-                                                    <img
-                                                        id="plant-photo" 
-                                                        name="PlantPhoto"
-                                                        value={this.selectedCommonHouseplantPhotoUrl} 
-                                                        src={this.state.selectedCommonHouseplantPhotoUrl}>
-                                                    </img>
-                                                </label>
-                                            </div> 
-                                            <div className="latin-name"> 
-                                                <label>
-                                                    Latin Name:
-                                                    <p
-                                                        id="latin-name" 
-                                                        name="LatinName" 
-                                                        value={this.selectedLatinName} 
-                                                        placeholder="Enter Latin Name">
-                                                        
-                                                        { this.state.selectedLatinName }
-                                                    </p>
-                                                </label>
-                                            </div>
-                                            <div className="light-requirement">
-                                                <label>
-                                                Light Requirement:
-                                                    <p
-                                                        id="light-requirement" 
-                                                        name="lightRequirement" 
-                                                        value={this.selectedLight}> 
-                                                        
-                                                        { this.state.selectedLight }
-                                                    </p>
-                                                </label>
-                                            </div>    
-                                            <div>    
-                                            <button
-                                                onClick={this.handleFormSubmit}
-                                                disabled={this.state.selectedCommonName === null}
-                                                className="form-btn">
-                                                    Add New Houseplant
-                                            </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </form>
-                </div>);
+                        </div>
+                    </div>
+
+
+                    
+                <div className="modal-dialog text-center">
+                <div className="col-sm-8 main-section">
+                <div className="modal-content">
+                <div className="signup-form-group" >
+
+                    <label>
+                        <img
+                            id="plant-photo" 
+                            name="PlantPhoto"
+                            value={this.selectedCommonHouseplantPhotoUrl} 
+                            src={this.state.selectedCommonHouseplantPhotoUrl}>
+                        </img>
+                    </label>
+                </div> 
+                <div className="latin-name"> 
+                    <label>
+                        Latin Name:
+                        <p
+                            id="latin-name" 
+                            name="LatinName" 
+                            value={this.selectedLatinName} 
+                            placeholder="Enter Latin Name">
+                            
+                            { this.state.selectedLatinName }
+                        </p>
+                    </label>
+                </div>
+                <div className="light-requirement">
+                    <label>
+                    Light Requirement:
+                        <p
+                            id="light-requirement" 
+                            name="lightRequirement" 
+                            value={this.selectedLight}> 
+                            
+                            { this.state.selectedLight }
+                        </p>
+                    </label>
+                </div>    
+                <div>    
+                    <button
+                        onClick={this.handleFormSubmit}
+                        disabled={this.state.selectedCommonName === null}
+                        className="form-btn"
+                    >
+                        Add New Houseplant
+                    </button>
+                </div>
+            </div>
+            
+            </div>
+            </div>
+            </div>
+            
+            </form>
+            </div>
+            
+            
+
+            );
         } else {
             return (
                 <div id="form-bg">
-                    <form>
-                        <div>
-                            <div className="App">
+                <form>
+                    <div>
+                        <div className="App">
+                            <div className="App-Component">
                                 <div className="App-Component">
-                                    <div className="App-Component">
-                                        <label>
-                                            <h4>Search for a common houseplant:</h4>
-                                            <AutoCompleteText 
-                                                items={this.renderPlantOptions()} 
-                                                handleCommonNameSelection={this.handleCommonNameSelection}
-                                                notify={this.props.notify}/>
-                                        </label>
-                                    </div>
+                                    <label>
+                                        <h4>Search for a common houseplant:</h4>
+                                        <AutoCompleteText 
+                                            items={this.renderPlantOptions()} 
+                                            handleCommonNameSelection={this.handleCommonNameSelection}
+                                            notify={this.props.notify}
+                                        />
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
                 </div>);
         }
     }

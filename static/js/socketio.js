@@ -6,9 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // const socket = io.connect(('https://' + document.domain + ':' + location.port));
     const socket = io.connect(('https://' + document.domain + ':' + location.port), {secure: true}, {transports: ['websocket']});
 
+
     // Retrieve username
     const currentUserName = document.querySelector('#get-username').innerHTML;
     // console.log('what is this?', currentUserName)
+
 
     let room = "General Discussion";
     joinRoom("General Discussion");
@@ -23,8 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         spanTimestamp.classList.add("timestamp")
         const br = document.createElement('br');
 
+        // console.log('check1', data.current_user_name)
+        // console.log('check2', currentUserName)
+
+
         // if (data.current_user_name == currentUserName) {
+
         if (data.current_user_name == 'undefined') {
+            // console.log('who is the current user?', data.current_user_name)
             p.classList.add("my-msg");
             spanUsername.classList.add("my-username");
             // spanUsername.setAttribute("class", "my-username");
@@ -33,8 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
             p.innerHTML = spanUsername.outerHTML + br.outerHTML + data.msg 
                         + br.outerHTML + spanTimestamp.outerHTML;
             document.querySelector('#display-message-section').append(p);
+        
         } 
+        
         else if (typeof data.current_user_name !== 'undefined') {
+            // console.log('who is the guest?', data.current_user_name)
             p.setAttribute("class", "others-msg");
             spanUsername.setAttribute("class", "other-username");
             spanUsername.innerHTML = data.current_user_name;
@@ -42,9 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
             p.innerHTML = spanUsername.outerHTML + br.outerHTML + data.msg 
                         + br.outerHTML + spanTimestamp.outerHTML;
             document.querySelector('#display-message-section').append(p);
+
+        
+        
         } else {
             printSysMsg(data.msg)
         }
+        
     });
 
     // Send message
@@ -71,12 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+
     //Exit Forum
     document.querySelector('#exit-chat-btn').onclick = () => {
             leaveRoom(room);
             window.location.href = 'https://ispeakplantish.com'
             }
     
+
+
     // Leave room
     function leaveRoom(room) {
         socket.emit('leave', 
