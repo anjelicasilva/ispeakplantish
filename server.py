@@ -102,7 +102,7 @@ def get_common_houseplants():
 @app.route('/api/houseplants/user1')
 def get_user_specific_houseplants():
     """Return all houseplants owned by user 1 from database."""
-    
+
     users_houseplants = Houseplant.query.filter_by(user_id="1").all()
     return jsonify({users_houseplant.user_houseplant_id: users_houseplant.to_dict() for users_houseplant in users_houseplants})
 
@@ -231,6 +231,8 @@ def user_logout():
 
 @app.route('/api/add_new_houseplant_to_user_profile', methods=['POST'])
 def add_new_houseplant_data():
+    """Add new houseplant to current user's plant collection."""
+
     common_houseplant_id = request.form.get('addCommonHouseplantId')
     current_user_id= request.form.get('currentUserId')
 
@@ -247,6 +249,7 @@ def add_new_houseplant_data():
 
 @app.route('/api/add_new_journal_entry_to_user_profile', methods=['POST'])
 def add_new_journal_entry_data():
+    """Add new journal entries to current user's selected plant."""
 
     current_user_id= request.form.get('currentUserId')
     user_houseplant_id = request.form.get('addUserHouseplantId')
@@ -292,6 +295,8 @@ def add_new_journal_entry_data():
 ALLOWED_EXTENSIONS = {'gif', 'png', 'jpg', 'jpeg'}
 
 def allowed_file(filename):
+    """Return file with allowed extensions."""
+
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -372,6 +377,7 @@ def send_sms_reminder():
 
 @app.route('/api/plant_of_the_day')
 def plant_of_the_day():
+    """Return randomly generated common houseplant."""
 
     random_common_houseplant_id = randint(1,92)
     plant_of_the_day = CommonHouseplant.query.filter_by(common_houseplant_id=str(random_common_houseplant_id)).all()
