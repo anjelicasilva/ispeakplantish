@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // const socket = io.connect(('https://' + document.domain + ':' + location.port));
-    const socket = io.connect(('https://' + document.domain + ':' + location.port), {transports: ['websocket']});
+    const socket = io.connect(('https://' + document.domain + ':' + location.port), {secure: true}, {transports: ['websocket']});
 
 
     // Retrieve username
