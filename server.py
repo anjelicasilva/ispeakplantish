@@ -49,6 +49,7 @@ def show_index():
 
 @app.route('/api/users')
 def get_users():
+    """Return all users from database."""
 
     users = User.query.all()
     return jsonify({user.user_id: user.to_dict() for user in users})
@@ -56,6 +57,7 @@ def get_users():
 
 @app.route('/api/followers')
 def get_followers():
+    """Return all followers from database."""
 
     followers = Follower.query.all()
     return jsonify({follower.id: follower.to_dict() for follower in followers})
@@ -63,6 +65,7 @@ def get_followers():
 
 @app.route('/api/entries')
 def get_entries():
+    """Return all entries from database."""
 
     entries = Entry.query.all()
     return jsonify({entry.journal_entry_id: entry.to_dict() for entry in entries})
@@ -70,6 +73,7 @@ def get_entries():
 
 @app.route('/api/photos')
 def get_photos():
+    """Return all photos from database."""
 
     photos = Photo.query.all()
     return jsonify({photo.photo_id: photo.to_dict() for photo in photos})
@@ -77,6 +81,8 @@ def get_photos():
 
 @app.route('/api/houseplants')
 def get_houseplants():
+    """Return all user owned houseplants from database."""
+
     # if request.is_json:
     #     my_stuff = request.json()
     houseplants = Houseplant.query.all()
@@ -85,6 +91,8 @@ def get_houseplants():
 
 @app.route('/api/common_houseplants')
 def get_common_houseplants():
+    """Return all common houseplants from database."""
+
     # time.sleep(7)
     common_houseplants = CommonHouseplant.query.all()
     return jsonify({common_houseplant.common_name: common_houseplant.to_dict() for common_houseplant in common_houseplants})
@@ -93,6 +101,8 @@ def get_common_houseplants():
 # Houseplants owned by User 1
 @app.route('/api/houseplants/user1')
 def get_user_specific_houseplants():
+    """Return all houseplants owned by user 1 from database."""
+    
     users_houseplants = Houseplant.query.filter_by(user_id="1").all()
     return jsonify({users_houseplant.user_houseplant_id: users_houseplant.to_dict() for users_houseplant in users_houseplants})
 
