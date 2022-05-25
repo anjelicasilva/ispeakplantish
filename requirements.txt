@@ -64,7 +64,7 @@ pyasn1-modules==0.2.1
 pycrypto==2.6.1
 Pygments==2.6.1
 pygobject==3.26.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pyOpenSSL==17.5.0
 pyrsistent==0.15.7
 pyserial==3.4
